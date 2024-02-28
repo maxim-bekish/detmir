@@ -1,0 +1,12 @@
+@import "./../../style/scss/allStyle.scss";
+.header {
+  width: 100%;
+  max-width: 1920px;
+  height: 48px;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  padding: 12px 32px 0px 32px;
+  border: 0px 0px 1px 0px;
+  gap: 32px;
+}
