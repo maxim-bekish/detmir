@@ -1,7 +1,11 @@
 import logo from "./../../assets/SVG/Logo.svg";
 import cart from "./../../assets/SVG/Cart.svg";
 import st from "./header.module.scss";
+import { useAddBasket } from "../../hooks/useAddBasket";
 export const Header: React.FC = () => {
+const { inBasket } = useAddBasket();
+
+
   return (
     <header className={st.header}>
       <div className={st.container}>
@@ -20,7 +24,7 @@ export const Header: React.FC = () => {
         </nav>
         <div className={st.header__cart}>
           <img src={cart} alt="Cart" />
-          <p>Корзина</p>
+          <p>Корзина({inBasket.length})</p>
         </div>
       </div>
     </header>
