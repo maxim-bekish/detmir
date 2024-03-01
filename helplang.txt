@@ -1,0 +1,4 @@
+product - товары
+orders - заказы
+basket - корзина
+Rating -рейтинг(звезды)
