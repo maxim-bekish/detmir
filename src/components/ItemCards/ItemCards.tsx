@@ -3,6 +3,7 @@ import st from "./ItemCards.module.scss";
 
 import { ICard } from "./../../types/card.types";
 import Rating from "../Rating/Rating";
+import { Link } from "react-router-dom";
 interface IItemCardsProps {
   cards: ICard[];
 }
@@ -10,7 +11,7 @@ interface IItemCardsProps {
 export const ItemCards: React.FC<IItemCardsProps> = ({ cards }) => {
   // const { toggleBasket } = useActions(); // add in basket
 
-
+ 
 
   // если первая цифра 4 отобразить отобразить 4 картинки
   // если вторая цифра меньше нет или меньше 6 оторазить половинку если больше 5 отобразить целую
@@ -19,19 +20,21 @@ export const ItemCards: React.FC<IItemCardsProps> = ({ cards }) => {
     <section className={st.cards}>
       {cards.map((el) => (
         <div key={`key-${el.id}`} className={st.card}>
-          <div className={st.preview}>
-            <img src={el.picture} alt="img" />
-          </div>
-          <div className={st.info}>
-            <div className={st.title}>
-              <p className={st.name}>{el.title}</p>
-              {/* <div className={st.rating}>{el.rating}</div> */}
-              <Rating stars={el.rating} />
+          <Link to='cardProduct' >
+            <div className={st.preview}>
+              <img src={el.picture} alt="img" />
             </div>
-            <div>
-              <p className={st.price}>{el.price} ₽</p>
+            <div className={st.info}>
+              <div className={st.title}>
+                <p className={st.name}>{el.title}</p>
+                {/* <div className={st.rating}>{el.rating}</div> */}
+                <Rating stars={el.rating} />
+              </div>
+              <div>
+                <p className={st.price}>{el.price} ₽</p>
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
       ))}
     </section>

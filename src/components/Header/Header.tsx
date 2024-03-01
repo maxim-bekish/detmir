@@ -2,6 +2,7 @@ import logo from "./../../assets/SVG/Logo.svg";
 import cart from "./../../assets/SVG/Cart.svg";
 import st from "./header.module.scss";
 import { useAddBasket } from "../../hooks/useAddBasket";
+import { Link } from "react-router-dom";
 export const Header: React.FC = () => {
 const { basket } = useAddBasket();
 
@@ -15,10 +16,10 @@ const { basket } = useAddBasket();
         <nav className={st.header__navigating}>
           <ul>
             <li>
-              <a href="#">Товары</a>
+              <Link to="">Товары</Link>
             </li>
             <li>
-              <a href="#">Заказы</a>
+              <Link to="orders">Заказы</Link>
             </li>
           </ul>
         </nav>

@@ -10,3 +10,4 @@ export const basketApi = api.injectEndpoints({
     }),
   }),
 });
+export const { usePostCardBasketMutation } = basketApi;
