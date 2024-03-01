@@ -1,1 +1,76 @@
 @import "./../../style/scss/allStyle.scss";
+
+.cards {
+  margin: 24px auto;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1346px;
+  gap: 24px;
+  justify-content: center;
+  .card {
+    border-radius: 16px 16px 0 0;
+    overflow: hidden;
+    width: 250px;
+    height: 358px;
+    background-color: $White;
+    .preview {
+      width: 250px;
+      height: 250px;
+      img {
+        box-sizing: border-box;
+        width: 250px;
+        height: 250px;
+        border: 2px solid $White;
+      }
+    }
+    .info {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      width: 250px;
+      height: 108px;
+      padding: 12px 16px 16px 16px;
+      gap: 4px;
+      .title {
+
+        display: flex;
+        flex-direction: column;
+        width: 218px;
+        height: 52px;
+        padding: 0px 0px 12px 0px;
+        gap: 4px;
+        .name {
+          box-sizing: border-box;
+          font-family: "Nunito";
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 20px;
+          color: $Black;
+          text-align: left;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .rating {
+          display: flex;
+          width: 76px;
+          height: 16px;
+          flex-direction: column;
+          gap: 4px;
+          img {
+            width: 12px;
+            height: 12px;
+          }
+        }
+      }
+      .price {
+        color: $Black;
+        font-family: "Nunito";
+        font-size: 22px;
+        font-weight: 800;
+        line-height: 24px;
+        text-align: left;
+      }
+    }
+  }
+}

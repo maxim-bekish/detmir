@@ -1,12 +1,14 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { reducer as inBasketReducer } from "./inBasket/inBasket.slice";
+import { reducer as BasketReducer } from "./basket/basket.slice";
+import {api} from './api/api'
 
-const reducers = combineReducers({ inBasket: inBasketReducer }); //all reducers
+const reducers = combineReducers({ basket: BasketReducer,
+[api.reducerPath]: api.reducer }); //all reducers
 
 export const store = configureStore({
   reducer: reducers,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(api.middleware),
 });
-// Infer the `RootState` and `AppDispatch` types from the store itself
+
 export type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-// export type AppDispatch = typeof store.dispatch;

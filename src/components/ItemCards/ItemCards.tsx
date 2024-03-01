@@ -1,37 +1,39 @@
 import st from "./ItemCards.module.scss";
+// import { useActions } from "../../hooks/useActions";
 
-import { useActions } from "../../hooks/useActions";
-import { useAddBasket } from "../../hooks/useAddBasket";
 import { ICard } from "./../../types/card.types";
-interface wwwType {
-  www: ICard;
+import Rating from "../Rating/Rating";
+interface IItemCardsProps {
+  cards: ICard[];
 }
 
-export const ItemCards: React.FC<wwwType> = ({ www }: wwwType) => {
-  const { inBasket } = useAddBasket();
+export const ItemCards: React.FC<IItemCardsProps> = ({ cards }) => {
+  // const { toggleBasket } = useActions(); // add in basket
 
-  const { toggleInBasket } = useActions();
 
-  // www карточка товара
-  const isExists = inBasket.some((r) => r.id === www.id); //для отображения в браузере в корзине или нет. yj;yj ,eltn
+
+  // если первая цифра 4 отобразить отобразить 4 картинки
+  // если вторая цифра меньше нет или меньше 6 оторазить половинку если больше 5 отобразить целую
 
   return (
-    <>
-      <div className={st.card}>
-        <div className={st.preview}>
-          <img src="#" alt="img" />
-        </div>
-        <div className={st.info}>
-          <div>
-            <p className={st.name}> {www.name} </p>
-            <div className={st.rating}></div>
+    <section className={st.cards}>
+      {cards.map((el) => (
+        <div key={`key-${el.id}`} className={st.card}>
+          <div className={st.preview}>
+            <img src={el.picture} alt="img" />
           </div>
-          <div>
-            <p className={st.price}> </p>
+          <div className={st.info}>
+            <div className={st.title}>
+              <p className={st.name}>{el.title}</p>
+              {/* <div className={st.rating}>{el.rating}</div> */}
+              <Rating stars={el.rating} />
+            </div>
+            <div>
+              <p className={st.price}>{el.price} ₽</p>
+            </div>
           </div>
-          <button onClick={() => toggleInBasket(www)}></button>
         </div>
-      </div>
-    </>
+      ))}
+    </section>
   );
 };

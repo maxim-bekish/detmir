@@ -2,11 +2,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ICard } from "../../types/card.types";
 
 const initialState: ICard[] = [];
-export const inBasketSlice = createSlice({
-  name: "inBasket",
+export const basketSlice = createSlice({
+  name: "basket",
   initialState,
   reducers: {
-    toggleInBasket: (state, { payload: www }: PayloadAction<ICard>) => {
+    toggleBasket: (state, { payload: www }: PayloadAction<ICard>) => {
       // const isExists = state.some((e) => e.id === www.id);
       // if (isExists) {
       //   const index = state.findIndex((item) => item.id === www.id);
@@ -20,4 +20,4 @@ export const inBasketSlice = createSlice({
   },
 });
 
-export const { actions, reducer } = inBasketSlice;
+export const { actions, reducer } = basketSlice;
