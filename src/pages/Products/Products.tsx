@@ -1,20 +1,45 @@
+import { useEffect, useRef, useState } from "react";
 import { ItemCards } from "./../../components/ItemCards/ItemCards";
 import { useGetCardsQuery } from "./../../store/api/api";
 import { ICard } from "./../../types/card.types";
-import st from "./products.module.scss";
+// import st from "./products.module.scss";
+// import { useCallback } from "react";
+import { useInView } from "react-intersection-observer";
+
 export const Product: React.FC = () => {
-  const { data, isLoading } = useGetCardsQuery(null);
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-  if (data) {
-    const cards: ICard[] = data.data; // Определение переменной cards после загрузки данных
+  const [cards, setCards] = useState<ICard[]>([]);
+  const [step, setStep] = useState(1);
+
+  const { data, isLoading } = useGetCardsQuery(step);
+  // const footer = useRef<HTMLDivElement>(null);
+
+  const { ref, inView } = useInView({
+    threshold: 0,
+  });
+  useEffect(() => {
+    if (inView && !isLoading && data && data.data.length > 0) {
+      setStep((prevStep) => prevStep + 1);
+    }
+  }, [inView, isLoading]);
+
+  useEffect(() => {
+    if (data && data.data.length > 0) {
+      // Добавляем новые карточки к текущему состоянию
+      setCards((prevCards) => [...prevCards, ...data.data]);
+    }
+  }, [data]);
+
+  if (cards.length > 0) {
     return (
-      <div className={st.main}>
+      <>
         <ItemCards cards={cards} />
-      </div>
+        <div ref={ref}>123</div>
+      </>
     );
   }
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return <div>No data available</div>;
 };

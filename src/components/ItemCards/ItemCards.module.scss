@@ -1,13 +1,14 @@
 @import "./../../style/scss/allStyle.scss";
 
 .cards {
-  margin: 24px auto;
+  margin: 0px auto;
   display: flex;
   flex-wrap: wrap;
   max-width: 1346px;
   gap: 24px;
   justify-content: center;
   .card {
+    text-decoration: none;
     border-radius: 16px 16px 0 0;
     overflow: hidden;
     width: 250px;

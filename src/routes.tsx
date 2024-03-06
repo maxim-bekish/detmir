@@ -7,6 +7,6 @@ export default () => (
   <Routes>
     <Route path="/" element={<Product />} />
     <Route path="/orders" element={<Orders />} />
-    <Route path="/cardProduct" element={<CardProduct />} />
+    <Route path="/cardProduct/:id" element={<CardProduct />} />
   </Routes>
 );
