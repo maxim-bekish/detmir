@@ -1,0 +1,54 @@
+@import "./../../style/scss/allStyle.scss";
+
+.addBasket {
+  .inputWrap {
+    display: none;
+    gap: 8px;
+
+    .input {
+      border-radius: 12px;
+      display: flex;
+      flex-direction: row;
+      background-color: $BrandLight2;
+      input {
+        font-family: "Nunito";
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 20px;
+        width: 100%;
+        border: 0;
+        outline: none;
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0);
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+      }
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 0, 0, 0);
+        width: 100%;
+        border: 0;
+        outline: none;
+      }
+    }
+  }
+  .handleBasket {
+    width: 100%;
+    border-radius: 12px;
+    padding: 16px;
+    background-color: $Brand;
+    outline: none;
+    border: 0;
+    font-family: "Nunito";
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 20px;
+    color: $White;
+    justify-content: center;
+  }
+}

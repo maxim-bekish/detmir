@@ -11,7 +11,8 @@ export const Product: React.FC = () => {
   const [step, setStep] = useState(1);
 
   const { data, isLoading } = useGetCardsQuery(step);
-  // const footer = useRef<HTMLDivElement>(null);
+
+
 
   const { ref, inView } = useInView({
     threshold: 0,
@@ -19,6 +20,7 @@ export const Product: React.FC = () => {
   useEffect(() => {
     if (inView && !isLoading && data && data.data.length > 0) {
       setStep((prevStep) => prevStep + 1);
+  
     }
   }, [inView, isLoading]);
 
