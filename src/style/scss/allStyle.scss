@@ -9,5 +9,5 @@ button {
 }
 .active {
   border-bottom: 2px solid $Brand;
-  color: $Brand;
+  color: $Brand !important;
 }

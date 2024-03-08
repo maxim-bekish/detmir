@@ -2,19 +2,30 @@ import st from "./checkout.module.scss";
 import minus from "./../../assets/SVG/minus.svg";
 import plus from "./../../assets/SVG/plus.svg";
 import { useRef, useState } from "react";
-export const Checkout = () => {
+import { usePostCardBasketMutation } from "../../store/api/basket.api";
+type ComponentProps = {
+  id?: string;
+};
+export const Checkout: React.FC<ComponentProps> = ({ id }) => {
   const [count, setCount] = useState(1);
   const divinest = useRef<HTMLDivElement>(null);
   const inBasket = useRef<HTMLButtonElement>(null);
-    console.log(count);
+
   const addInBasket = (e: any) => {
     setCount(1);
     if (divinest.current) divinest.current.style.display = "flex";
     e.target.style.display = "none";
-
   };
+  const [xxx] = usePostCardBasketMutation();
   const placeOrder = () => {
-
+    xxx({
+      data: [
+        {
+          id: id,
+          quantity: count,
+        },
+      ],
+    });
   };
   if (1 > count) if (divinest.current) divinest.current.style.display = "none";
   if (1 > count) if (inBasket.current) inBasket.current.style.display = "flex";

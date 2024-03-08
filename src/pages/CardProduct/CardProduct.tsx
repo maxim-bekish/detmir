@@ -23,7 +23,7 @@ export const CardProduct: React.FC = () => {
             </div>
             <div className={st.miniWrap}>
               <p className={st.price}> {data.price}₽</p>
-              <Checkout />
+              <Checkout id={id} />
             </div>
             <div className={`${st.return} ${st.miniWrap}`}>
               <p>
