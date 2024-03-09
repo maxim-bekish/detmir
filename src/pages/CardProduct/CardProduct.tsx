@@ -7,7 +7,7 @@ import Rating from "../../components/Rating/Rating";
 import { Checkout } from "../../components/Checkout/Checkout";
 
 export const CardProduct: React.FC = () => {
-  const { id } = useParams();
+  const { id } = useParams<string>();
   const { data, isLoading } = useGetCardQuery(Number(id));
   if (data) {
     return (

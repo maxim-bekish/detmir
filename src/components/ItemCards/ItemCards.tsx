@@ -10,7 +10,7 @@ interface IItemCardsProps {
 }
 
 export const ItemCards: React.FC<IItemCardsProps> = ({ cards }) => {
-  // const { toggleBasket } = useActions(); // add in basket
+
 
   // если первая цифра 4 отобразить отобразить 4 картинки
   // если вторая цифра меньше нет или меньше 6 оторазить половинку если больше 5 отобразить целую

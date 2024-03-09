@@ -8,7 +8,6 @@ interface cards {
   meta: IMetaData;
 }
 
-
 interface IMetaData {
   count: number;
   total: number;
@@ -27,7 +26,10 @@ export const api = createApi({
     getCard: builder.query<ICard, number>({
       query: (id) => `products/${id}`,
     }),
+    getBasket: builder.query<ICard, null>({
+      query: () => `cart`,
+    }),
   }),
 });
 
-export const { useGetCardsQuery, useGetCardQuery } = api;
+export const { useGetCardsQuery, useGetCardQuery, useGetBasketQuery } = api;

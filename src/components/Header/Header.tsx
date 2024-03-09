@@ -4,6 +4,7 @@ import st from "./header.module.scss";
 import './../../style/scss/allStyle.scss'
 import { useAddBasket } from "../../hooks/useAddBasket";
 import { NavLink } from "react-router-dom";
+import { Basket } from "../Basket/Basket";
 export const Header: React.FC = () => {
   const { basket } = useAddBasket();
 
@@ -26,6 +27,7 @@ export const Header: React.FC = () => {
         <div className={st.header__cart}>
           <img src={cart} alt="Cart" />
           <p>Корзина({basket.length})</p>
+          <Basket />
         </div>
       </div>
     </header>
