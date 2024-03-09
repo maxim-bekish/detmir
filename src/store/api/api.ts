@@ -26,7 +26,7 @@ export const api = createApi({
     getCard: builder.query<ICard, number>({
       query: (id) => `products/${id}`,
     }),
-    getBasket: builder.query<ICard, null>({
+    getBasket: builder.query<ICard[], null>({
       query: () => `cart`,
     }),
   }),

@@ -10,11 +10,12 @@ type ComponentProps = {
   id?: string;
 };
 
+type cardsInfoType = {
+  quantity: number;
+  id: string;
+};
 
-
-// НУЖНО ПОЛУЧИТЬ СОСТОЯНИЕ КОРЗИНЫ И ДОБАВИТЬ К НЕМУ НОВЫЙ ТОВАР И ОБНОВИТЬ КОРЗИНУ(РАЗОБРАТЬСЯ КАК СВЕРЯТЬ ID)
-
-
+// НУЖНО ПОЛУЧИТЬ СОСТОЯНИЕ КОРЗИНЫ И ДОБАВИТЬ К НЕМУ НОВЫЙ ТОВАР И ОБНОВИТЬ КОРЗИНУ(РАЗОБРАТЬСЯ КАК СВЕРЯТЬ ID) продолжить
 
 export const Checkout: React.FC<ComponentProps> = ({ id }) => {
   const { basket } = useAddBasket();
@@ -59,9 +60,15 @@ export const Checkout: React.FC<ComponentProps> = ({ id }) => {
   };
   const [xxx] = usePostCardBasketMutation();
   const { data } = useGetBasketQuery(null);
+  const cardsInfo: cardsInfoType[] = [];
+  //  {id: id, quantity: count}
 
-  //  data
-  console.log(data);
+  if (data) {
+    data.forEach((el) => {
+      // console.log(el.quantity);
+      cardsInfo.push({ quantity: el.quantity, id: el.product.id });
+    });
+  }
   const addAndRemoveBasket = () => {
     if (count !== -1) {
       clearTimeout(timer);
