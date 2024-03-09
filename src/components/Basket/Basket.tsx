@@ -4,7 +4,7 @@ import st from "./basket.module.scss";
 export const Basket: React.FC = () => {
   const { basket } = useAddBasket();
   const { data } = useGetBasketQuery(null);
-  console.log(data)
+  // console.log(data)
   return (
     <>
       <div></div>

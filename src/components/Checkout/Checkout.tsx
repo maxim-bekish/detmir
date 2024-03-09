@@ -5,9 +5,17 @@ import { useEffect, useRef, useState } from "react";
 import { usePostCardBasketMutation } from "../../store/api/basket.api";
 import { useActions } from "../../hooks/useActions";
 import { useAddBasket } from "../../hooks/useAddBasket";
+import { useGetBasketQuery } from "../../store/api/api";
 type ComponentProps = {
   id?: string;
 };
+
+
+
+// НУЖНО ПОЛУЧИТЬ СОСТОЯНИЕ КОРЗИНЫ И ДОБАВИТЬ К НЕМУ НОВЫЙ ТОВАР И ОБНОВИТЬ КОРЗИНУ(РАЗОБРАТЬСЯ КАК СВЕРЯТЬ ID)
+
+
+
 export const Checkout: React.FC<ComponentProps> = ({ id }) => {
   const { basket } = useAddBasket();
   const filterAddBasket = (basket: any) => {
@@ -42,8 +50,7 @@ export const Checkout: React.FC<ComponentProps> = ({ id }) => {
   const addInBasket = (e: any) => {
     setCount(1);
     if (count !== 0) addAndRemoveBasket();
-    // if (divinest.current) divinest.current.style.display = "flex";
-    // e.target.style.display = "none";
+
     toggleButton();
   };
 
@@ -51,23 +58,18 @@ export const Checkout: React.FC<ComponentProps> = ({ id }) => {
     setCount((prevCount: any) => (bool ? prevCount + 1 : prevCount - 1));
   };
   const [xxx] = usePostCardBasketMutation();
+  const { data } = useGetBasketQuery(null);
 
+  //  data
+  console.log(data);
   const addAndRemoveBasket = () => {
     if (count !== -1) {
       clearTimeout(timer);
-      xxx({
-        data: [
-          {
-            id: id,
-            quantity: count,
-          },
-        ],
-      })
+      xxx(data)
         .unwrap()
         .then((data) => {
           // Обработка успешного выполнения запроса
           toggleBasket(data[0]);
-          // console.log(data)
         })
         .catch((error) => {
           console.error("ошибочка", error);
@@ -84,9 +86,6 @@ export const Checkout: React.FC<ComponentProps> = ({ id }) => {
 
     // Очищаем таймер при каждом обновлении count
   }, [count]);
-
-  // if (1 > count) if (divinest.current) divinest.current.style.display = "none";
-  // if (1 > count) if (inBasket.current) inBasket.current.style.display = "flex";
 
   return (
     <div className={st.addBasket}>
