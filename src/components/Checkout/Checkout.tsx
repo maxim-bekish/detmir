@@ -15,10 +15,13 @@ type cardsInfoType = {
   id: string;
 };
 
-// НУЖНО ПОЛУЧИТЬ СОСТОЯНИЕ КОРЗИНЫ И ДОБАВИТЬ К НЕМУ НОВЫЙ ТОВАР И ОБНОВИТЬ КОРЗИНУ(РАЗОБРАТЬСЯ КАК СВЕРЯТЬ ID) продолжить
+// ПРОДОЛЖИТЬ РАЗБИРАТЬ ПОРЯДОК ДЕЙСТВИЙ ОБНОВЛЕНИЯ СОСТОЯНИЯ
 
 export const Checkout: React.FC<ComponentProps> = ({ id }) => {
-  const { basket } = useAddBasket();
+  const { data } = useGetBasketQuery(null); // получение состояния корзины с сервера
+  const { basket } = useAddBasket(); // получение состояния корзины в redux
+
+  console.log(data, "api");
   const filterAddBasket = (basket: any) => {
     if (!id) return -1; // Если id не определен, возвращаем -1
     const productInBasket = basket.find(
@@ -59,24 +62,21 @@ export const Checkout: React.FC<ComponentProps> = ({ id }) => {
     setCount((prevCount: any) => (bool ? prevCount + 1 : prevCount - 1));
   };
   const [xxx] = usePostCardBasketMutation();
-  const { data } = useGetBasketQuery(null);
-  const cardsInfo: cardsInfoType[] = [];
-  //  {id: id, quantity: count}
 
   if (data) {
     data.forEach((el) => {
-      // console.log(el.quantity);
-      cardsInfo.push({ quantity: el.quantity, id: el.product.id });
+      toggleBasket({ quantity: el.quantity, id: el.product.id });
     });
   }
+
   const addAndRemoveBasket = () => {
     if (count !== -1) {
       clearTimeout(timer);
-      xxx(data)
+
+      xxx({ data: basket })
         .unwrap()
-        .then((data) => {
+        .then((datas) => {
           // Обработка успешного выполнения запроса
-          toggleBasket(data[0]);
         })
         .catch((error) => {
           console.error("ошибочка", error);

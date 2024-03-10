@@ -1,16 +1,21 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { useGetBasketQuery } from "../api/api";
 
+// interface typeData {
+//   createdAt: string;
+//   product: {
+//     category: string;
+//     description: string;
+//     id: string;
+//     picture: string;
+//     price: number;
+//     rating: number;
+//     title: string;
+//   };
+//   quantity: number;
+// }
 interface typeData {
-  createdAt: string;
-  product: {
-    category: string;
-    description: string;
-    id: string;
-    picture: string;
-    price: number;
-    rating: number;
-    title: string;
-  };
+  id: string;
   quantity: number;
 }
 
@@ -20,9 +25,7 @@ export const basketSlice = createSlice({
   initialState,
   reducers: {
     toggleBasket: (state, { payload: dataCard }: PayloadAction<typeData>) => {
-      const index = state.findIndex(
-        (e) => e.product.id === dataCard.product.id
-      );
+      const index = state.findIndex((e) => e.id === dataCard.id);
 
       if (index !== -1) {
         // Если продукт уже присутствует в корзине, обновляем его количество

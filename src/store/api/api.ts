@@ -28,6 +28,7 @@ export const api = createApi({
     }),
     getBasket: builder.query<ICard[], null>({
       query: () => `cart`,
+      providesTags: () => [{ type: "GetProduct" }],
     }),
   }),
 });

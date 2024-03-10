@@ -1,13 +1,14 @@
 import logo from "./../../assets/SVG/Logo.svg";
 import cart from "./../../assets/SVG/Cart.svg";
 import st from "./header.module.scss";
-import './../../style/scss/allStyle.scss'
+import "./../../style/scss/allStyle.scss";
 import { useAddBasket } from "../../hooks/useAddBasket";
 import { NavLink } from "react-router-dom";
 import { Basket } from "../Basket/Basket";
+import { useGetBasketQuery } from "../../store/api/api";
 export const Header: React.FC = () => {
-  const { basket } = useAddBasket();
-
+  // const { basket } = useAddBasket();
+  const { data } = useGetBasketQuery(null);
   return (
     <header className={st.header}>
       <div className={st.container}>
@@ -26,7 +27,7 @@ export const Header: React.FC = () => {
         </nav>
         <div className={st.header__cart}>
           <img src={cart} alt="Cart" />
-          <p>Корзина({basket.length})</p>
+          <p>Корзина({data?data.length:''})</p>
           <Basket />
         </div>
       </div>

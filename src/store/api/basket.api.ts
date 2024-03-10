@@ -7,6 +7,7 @@ export const basketApi = api.injectEndpoints({
         url: "cart/update",
         method: "POST",
       }),
+      invalidatesTags:()=>[{type:"GetProduct"}]
     }),
   }),
 });
