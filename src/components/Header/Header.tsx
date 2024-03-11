@@ -5,10 +5,11 @@ import "./../../style/scss/allStyle.scss";
 import { useAddBasket } from "../../hooks/useAddBasket";
 import { NavLink } from "react-router-dom";
 import { Basket } from "../Basket/Basket";
-import { useGetBasketQuery } from "../../store/api/api";
+// import { useGetBasketQuery } from "../../store/api/api";
 export const Header: React.FC = () => {
-  // const { basket } = useAddBasket();
-  const { data } = useGetBasketQuery(null);
+  const { basket } = useAddBasket();
+  // console.log(basket);
+  // const { data } = useGetBasketQuery(null);
   return (
     <header className={st.header}>
       <div className={st.container}>
@@ -27,7 +28,7 @@ export const Header: React.FC = () => {
         </nav>
         <div className={st.header__cart}>
           <img src={cart} alt="Cart" />
-          <p>Корзина({data?data.length:''})</p>
+          <p>Корзина({basket.length})</p>
           <Basket />
         </div>
       </div>

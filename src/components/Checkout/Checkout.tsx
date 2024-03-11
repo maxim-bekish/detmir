@@ -18,20 +18,22 @@ type cardsInfoType = {
 // ПРОДОЛЖИТЬ РАЗБИРАТЬ ПОРЯДОК ДЕЙСТВИЙ ОБНОВЛЕНИЯ СОСТОЯНИЯ
 
 export const Checkout: React.FC<ComponentProps> = ({ id }) => {
-  const { data } = useGetBasketQuery(null); // получение состояния корзины с сервера
   const { basket } = useAddBasket(); // получение состояния корзины в redux
 
-  console.log(data, "api");
-  const filterAddBasket = (basket: any) => {
+  const { toggleBasket } = useActions(); // add in basket
+
+  // нужно разобраться почему при обновлении нет товара в стейте
+  
+  const filterAddBasket = (data: any) => {
     if (!id) return -1; // Если id не определен, возвращаем -1
-    const productInBasket = basket.find(
-      (e: any) => Number(e.product.id) === Number(id)
-    );
+    const productInBasket = data.find((e: any) => Number(e.id) === Number(id));
+
     return productInBasket ? productInBasket.quantity : -1; // Если продукт найден, возвращаем его количество, иначе -1
   };
-  const { toggleBasket } = useActions(); // add in basket
-  const [count, setCount] = useState(filterAddBasket(basket) || -1);
+console.log(filterAddBasket(basket));
+  const [count, setCount] = useState(filterAddBasket(basket));
   const divinest = useRef<HTMLDivElement>(null);
+
   const inBasket = useRef<HTMLButtonElement>(null);
   let timer: any;
 
@@ -53,7 +55,7 @@ export const Checkout: React.FC<ComponentProps> = ({ id }) => {
   toggleButton();
   const addInBasket = (e: any) => {
     setCount(1);
-    if (count !== 0) addAndRemoveBasket();
+    // if (count !== 0) addAndRemoveBasket();
 
     toggleButton();
   };
@@ -63,30 +65,45 @@ export const Checkout: React.FC<ComponentProps> = ({ id }) => {
   };
   const [xxx] = usePostCardBasketMutation();
 
-  if (data) {
-    data.forEach((el) => {
-      toggleBasket({ quantity: el.quantity, id: el.product.id });
-    });
-  }
-
-  const addAndRemoveBasket = () => {
-    if (count !== -1) {
-      clearTimeout(timer);
-
-      xxx({ data: basket })
-        .unwrap()
-        .then((datas) => {
-          // Обработка успешного выполнения запроса
-        })
-        .catch((error) => {
-          console.error("ошибочка", error);
-        });
-    }
-  };
+  // const addAndRemoveBasket = () => {
+  //   if (count !== -1) {
+  //     clearTimeout(timer);
+  //     xxx({ data: basket })
+  //       .unwrap()
+  //       .then((datas) => {
+  //         if (id) {
+  //           datas.forEach((el:any) => {
+  //             toggleBasket({ quantity: el.quantity, id: el.product.id });
+  //           });
+  //         }
+  //         // Обработка успешного выполнения запроса
+  //       })
+  //       .catch((error) => {
+  //         console.error("ошибочка", error);
+  //       });
+  //   }
+  // };
   useEffect(() => {
     // Отправляем запрос на сервер после изменения count через 0.5 секунд если стейт(count) не ровен -1
     const timer = setTimeout(() => {
-      addAndRemoveBasket();
+      if (id) toggleBasket({ quantity: count, id: id });
+
+      if (count !== -1) {
+        clearTimeout(timer);
+        xxx({ data: basket })
+          // .unwrap()
+          // .then((datas) => {
+          //   if (id) {
+          //     datas.forEach((el: any) => {
+          //       toggleBasket({ quantity: el.quantity, id: el.product.id });
+          //     });
+          //   }
+          //   // Обработка успешного выполнения запроса
+          // })
+          // .catch((error) => {
+          //   console.error("ошибочка", error);
+          // });
+      }
     }, 500);
 
     return () => clearTimeout(timer);
