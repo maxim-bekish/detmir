@@ -12,15 +12,12 @@ export const Product: React.FC = () => {
 
   const { data, isLoading } = useGetCardsQuery(step);
 
-
-
   const { ref, inView } = useInView({
     threshold: 0,
   });
   useEffect(() => {
     if (inView && !isLoading && data && data.data.length > 0) {
       setStep((prevStep) => prevStep + 1);
-  
     }
   }, [inView, isLoading]);
 

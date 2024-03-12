@@ -6,16 +6,18 @@ import { useActions } from "./hooks/useActions";
 import { useEffect } from "react";
 
 export const App: React.FC = () => {
-  const { data  } = useGetBasketQuery(null); // получение состояния корзины с сервера
+  const { data, isSuccess } = useGetBasketQuery(null); // получение состояния корзины с сервера
   const { toggleBasket } = useActions(); // add in basket
   useEffect(() => {
-    if (data) {
-      data.forEach((el) => {
-        toggleBasket({ quantity: el.quantity, id: el.product.id });
-      });
+    if (isSuccess) {
+      // data.forEach((el) => {
+      //   toggleBasket({ quantity: el.quantity, id: el.product.id });
+      // });
+      console.log("получение всей корзины c servera ", data);
+      toggleBasket(data);
     }
-  }, [data]);
-
+  }, [isSuccess]);
+  // console.log(isSuccess);
   return (
     <>
       <BrowserRouter>

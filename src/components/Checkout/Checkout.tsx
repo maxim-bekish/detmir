@@ -1,120 +1,110 @@
 import st from "./checkout.module.scss";
-import minus from "./../../assets/SVG/minus.svg";
-import plus from "./../../assets/SVG/plus.svg";
+// import minus from "./../../assets/SVG/minus.svg";
+// import plus from "./../../assets/SVG/plus.svg";
 import { useEffect, useRef, useState } from "react";
 import { usePostCardBasketMutation } from "../../store/api/basket.api";
 import { useActions } from "../../hooks/useActions";
 import { useAddBasket } from "../../hooks/useAddBasket";
-import { useGetBasketQuery } from "../../store/api/api";
-type ComponentProps = {
-  id?: string;
-};
+import { AddRemoveBasket } from "../AddRemoveBasket/AddRemoveBasket";
 
-type cardsInfoType = {
-  quantity: number;
+type ComponentProps = {
   id: string;
 };
 
-// ПРОДОЛЖИТЬ РАЗБИРАТЬ ПОРЯДОК ДЕЙСТВИЙ ОБНОВЛЕНИЯ СОСТОЯНИЯ
-
 export const Checkout: React.FC<ComponentProps> = ({ id }) => {
-  const { basket } = useAddBasket(); // получение состояния корзины в redux
+  // const { basket } = useAddBasket(); // получение состояния корзины в redux
+  // console.log(basket);
+  // const { toggleBasket } = useActions(); // add in basket
 
-  const { toggleBasket } = useActions(); // add in basket
+  // useEffect(() => {
+  //   if (!id) return setCountChek(-1); // Если id не определен, возвращаем -1
+  //   const productInBasket = basket.find(
+  //     (e: any) => Number(e.id) === Number(id)
+  //   );
 
-  // нужно разобраться почему при обновлении нет товара в стейте
-  
-  const filterAddBasket = (data: any) => {
-    if (!id) return -1; // Если id не определен, возвращаем -1
-    const productInBasket = data.find((e: any) => Number(e.id) === Number(id));
+  //   return productInBasket
+  //     ? setCountChek(productInBasket.quantity)
+  //     : setCountChek(-1); // Если продукт найден, возвращаем его количество, иначе -1
+  // }, [basket]);
 
-    return productInBasket ? productInBasket.quantity : -1; // Если продукт найден, возвращаем его количество, иначе -1
-  };
-console.log(filterAddBasket(basket));
-  const [count, setCount] = useState(filterAddBasket(basket));
+  // const updateState = (bool: boolean) => {
+  //   setCount((prevCount: any) => (bool ? prevCount + 1 : prevCount - 1));
+  // };
+
+  // const [xxx] = usePostCardBasketMutation();
+
+  // useEffect(() => {
+  //   // Отправляем запрос на сервер после изменения count через 0.5 секунд если стейт(count) не ровен -1
+  //   const timer = setTimeout(() => {
+  //     const eee = [{ quantity: count, id: id }];
+  //     const result = [...basket, ...eee];
+
+  //     if (count !== -1) {
+  //       clearTimeout(timer);
+
+  //       xxx({ data: result })
+  //         .unwrap()
+  //         .then(() => {
+  //           if (id) toggleBasket({ quantity: count, id: id });
+
+  //           // Обработка успешного выполнения запроса
+  //         })
+  //         .catch((error) => {
+  //           console.error("ошибочка", error);
+  //         });
+  //     }
+  //   }, 500);
+
+  //   return () => clearTimeout(timer);
+
+  //   // Очищаем таймер при каждом обновлении count
+  // }, [count]);
+
+  const [countChek, setCountChek] = useState(false);
   const divinest = useRef<HTMLDivElement>(null);
 
   const inBasket = useRef<HTMLButtonElement>(null);
-  let timer: any;
 
-  const toggleButton = () => {
-    // Проверяем наличие элементов перед изменением стилей
+  // const toggleButton = () => {
+  // Проверяем наличие элементов перед изменением стилей
+  useEffect(() => {
+    // console.log(countChek);
     if (divinest.current && inBasket.current) {
       // Показываем divinest и скрываем inBasket, если count больше 0
-      if (count > 0) {
+      if (countChek) {
+        // console.log(1);
         divinest.current.style.display = "flex";
         inBasket.current.style.display = "none";
       } else {
+        // console.log(2);
         // В противном случае, скрываем divinest и показываем inBasket
         divinest.current.style.display = "none";
         inBasket.current.style.display = "flex";
       }
     }
-  };
-
-  toggleButton();
-  const addInBasket = (e: any) => {
-    setCount(1);
-    // if (count !== 0) addAndRemoveBasket();
-
-    toggleButton();
-  };
-
-  const updateState = (bool: boolean) => {
-    setCount((prevCount: any) => (bool ? prevCount + 1 : prevCount - 1));
-  };
-  const [xxx] = usePostCardBasketMutation();
-
-  // const addAndRemoveBasket = () => {
-  //   if (count !== -1) {
-  //     clearTimeout(timer);
-  //     xxx({ data: basket })
-  //       .unwrap()
-  //       .then((datas) => {
-  //         if (id) {
-  //           datas.forEach((el:any) => {
-  //             toggleBasket({ quantity: el.quantity, id: el.product.id });
-  //           });
-  //         }
-  //         // Обработка успешного выполнения запроса
-  //       })
-  //       .catch((error) => {
-  //         console.error("ошибочка", error);
-  //       });
-  //   }
+  }, [countChek]);
   // };
-  useEffect(() => {
-    // Отправляем запрос на сервер после изменения count через 0.5 секунд если стейт(count) не ровен -1
-    const timer = setTimeout(() => {
-      if (id) toggleBasket({ quantity: count, id: id });
 
-      if (count !== -1) {
-        clearTimeout(timer);
-        xxx({ data: basket })
-          // .unwrap()
-          // .then((datas) => {
-          //   if (id) {
-          //     datas.forEach((el: any) => {
-          //       toggleBasket({ quantity: el.quantity, id: el.product.id });
-          //     });
-          //   }
-          //   // Обработка успешного выполнения запроса
-          // })
-          // .catch((error) => {
-          //   console.error("ошибочка", error);
-          // });
-      }
-    }, 500);
+  // toggleButton();
+  const addInBasket = () => {
+    setCountChek(true);
 
-    return () => clearTimeout(timer);
+    // if (divinest.current && inBasket.current) {
+    //   inBasket.current.style.display = "none";
+    //   divinest.current.style.display = "flex";
+    // }
+    // toggleButton();
+  };
 
-    // Очищаем таймер при каждом обновлении count
-  }, [count]);
-
+  function updateBoolean(x: boolean): void {
+    setCountChek(x);
+  }
   return (
     <div className={st.addBasket}>
       <div ref={divinest} className={st.inputWrap}>
-        <div className={st.input}>
+
+   <AddRemoveBasket prop={{ countChek, id, updateBoolean }} />
+        {/* <div className={st.input}>
           <button onClick={() => updateState(false)}>
             <img src={minus} alt="" />
           </button>
@@ -126,7 +116,7 @@ console.log(filterAddBasket(basket));
           <button onClick={() => updateState(true)}>
             <img src={plus} alt="" />
           </button>
-        </div>
+        </div> */}
 
         <button className={st.handleBasket}>Оформить заказ</button>
       </div>

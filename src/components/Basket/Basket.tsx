@@ -7,7 +7,17 @@ export const Basket: React.FC = () => {
   // console.log(data)
   return (
     <>
-      <div></div>
+      <div>
+        {/*  */}
+        <div className={st.miniWrapper} >
+          
+            {/* <img src="" alt="" /> */}
+          
+          <h2></h2>
+          
+           </div>
+        {/*  */}
+      </div>
     </>
   );
 };
