@@ -1,0 +1,88 @@
+@import "./../../style/scss/allStyle.scss";
+
+.wrapper {
+  max-width: 792px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+  .wrapperUp {
+    display: flex;
+    gap: 24px;
+    .image {
+      box-sizing: border-box;
+      width: 50%;
+      img {
+        width: 100%;
+      }
+    }
+    .info {
+      box-sizing: border-box;
+      width: 47%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      .miniWrap {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .title {
+        // font-family: "Circe Rounded DM";
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 32px;
+      }
+      .price {
+        // font-family: Circe Rounded DM;
+        font-size: 28px;
+        font-weight: 800;
+        line-height: 32px;
+      }
+    
+      .return {
+        font-family: "Nunito";
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 20px;
+
+        p {
+          &:nth-child(2) {
+            font-weight: 400;
+          }
+        }
+      }
+      .addInfo {
+        font-family: "Nunito";
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 16px;
+        color: $Gray;
+      }
+    }
+  }
+  .wrapperDown {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-family: "Nunito";
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
+    h3 {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 24px;
+    }
+  }
+}
+
+.wrapperUp,
+.wrapperDown {
+  padding: 24px;
+  border-radius: 16px;
+  gap: 24px;
+  background-color: $White;
+}

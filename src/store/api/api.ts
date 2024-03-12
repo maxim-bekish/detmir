@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ICard } from "./../../types/card.types";
 const API_URL = "https://skillfactory-task.detmir.team/";
 
-interface www {
+interface cards {
   data: ICard[];
   meta: IMetaData;
 }
@@ -15,15 +15,22 @@ interface IMetaData {
 }
 export const api = createApi({
   reducerPath: "api",
-  tagTypes: ["Basket"],
+  tagTypes: ["GetProduct"],
   baseQuery: fetchBaseQuery({
     baseUrl: API_URL,
   }),
   endpoints: (builder) => ({
-    getCards: builder.query<www, null>({
-      query: () => "products?limit=15&page=1",
+    getCards: builder.query<cards, number>({
+      query: (id) => `products?limit=15&page=${id}`,
+    }),
+    getCard: builder.query<ICard, number>({
+      query: (id) => `products/${id}`,
+    }),
+    getBasket: builder.query<ICard[], null>({
+      query: () => `cart`,
+      providesTags: () => [{ type: "GetProduct" }],
     }),
   }),
 });
 
-export const { useGetCardsQuery } = api;
+export const { useGetCardsQuery, useGetCardQuery, useGetBasketQuery } = api;

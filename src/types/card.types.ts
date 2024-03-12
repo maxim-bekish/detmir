@@ -1,4 +1,6 @@
 export interface ICard {
+  product: any;
+  quantity: number;
   category: string;
   description: string;
   id: string;

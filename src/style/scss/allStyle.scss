@@ -4,4 +4,10 @@
 body {
   background-color: $BrandLight3;
 }
-
+button {
+  cursor: pointer;
+}
+.active {
+  border-bottom: 2px solid $Brand;
+  color: $Brand !important;
+}
