@@ -3,21 +3,19 @@ import { Header } from "./components/Header/Header";
 import Routes from "./routes";
 import { useGetBasketQuery } from "./store/api/api";
 import { useActions } from "./hooks/useActions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export const App: React.FC = () => {
-  const { data, isSuccess } = useGetBasketQuery(null); // получение состояния корзины с сервера
+  const { data } = useGetBasketQuery(null); // получение состояния корзины с сервера
+  const [get, setGet] = useState(false);
   const { toggleBasket } = useActions(); // add in basket
   useEffect(() => {
-    if (isSuccess) {
-      // data.forEach((el) => {
-      //   toggleBasket({ quantity: el.quantity, id: el.product.id });
-      // });
-      console.log("получение всей корзины c servera ", data);
+    if (!get && data) {
       toggleBasket(data);
+      setGet(true);
     }
-  }, [isSuccess]);
-  // console.log(isSuccess);
+  }, [data, toggleBasket]);
+
   return (
     <>
       <BrowserRouter>

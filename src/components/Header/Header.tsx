@@ -5,9 +5,9 @@ import "./../../style/scss/allStyle.scss";
 import { useAddBasket } from "../../hooks/useAddBasket";
 import { NavLink } from "react-router-dom";
 import { Basket } from "../Basket/Basket";
+
 export const Header: React.FC = () => {
   const { basket } = useAddBasket();
-
   return (
     <header className={st.header}>
       <div className={st.container}>
