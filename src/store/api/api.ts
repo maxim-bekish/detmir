@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { ICard } from "./../../types/card.types";
+import { ICards, ICard } from "./../../types/card.types";
 const API_URL = "https://skillfactory-task.detmir.team/";
 
 interface cards {
-  data: ICard[];
+  data: ICards[];
   meta: IMetaData;
 }
 

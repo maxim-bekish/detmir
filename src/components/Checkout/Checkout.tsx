@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { usePostCardBasketMutation } from "../../store/api/basket.api";
 import { useActions } from "../../hooks/useActions";
 import { useAddBasket } from "../../hooks/useAddBasket";
+import { ICard } from "../../types/card.types";
 
 type ComponentProps = {
   id: string;
@@ -19,14 +20,14 @@ export const Checkout: React.FC<ComponentProps> = ({ id }) => {
   useEffect(() => {
     if (!id) return setCount(-1); // Если id не определен, возвращаем -1
     const productInBasket = basket.find(
-      (e: any) => Number(e.id) === Number(id)
+      (e) => Number(e.product.id) === Number(id)
     );
 
     return productInBasket ? setCount(productInBasket.quantity) : setCount(-1); // Если продукт найден, возвращаем его количество, иначе -1
   }, [basket]);
 
   const updateState = (bool: boolean) => {
-    setCount((prevCount: any) => (bool ? prevCount + 1 : prevCount - 1));
+    setCount((prevCount) => (bool ? prevCount + 1 : prevCount - 1));
   };
 
   const [xxx] = usePostCardBasketMutation();
@@ -44,30 +45,30 @@ export const Checkout: React.FC<ComponentProps> = ({ id }) => {
           updatedBasket = [{ quantity: count, id: id }];
         } else {
           updatedBasket = basket
-            .map((item: { quantity: number; id: string }) => {
-              if (Number(item.id) === Number(id)) {
+            .map((item: ICard) => {
+              if (Number(item.product.id) === Number(id)) {
                 if (count <= 0) return null;
                 return { ...item, quantity: count };
               }
-              return { quantity: item.quantity, id: item.id };
+              return { quantity: item.quantity, id: item.product.id };
             })
             .filter((item): item is { quantity: number; id: string } => !!item);
           // Добавляем новый объект, если такого ID не было в basket
           const isNewItemExist = basket.some(
-            (item) => Number(item.id) === Number(id)
+            (item) => Number(item.product.id) === Number(id)
           );
           if (!isNewItemExist && count > 0) {
             updatedBasket.push({ quantity: count, id: id });
           }
         }
-        console.log("do ", updatedBasket);
+        // console.log("do ", updatedBasket);
 
         xxx({ data: updatedBasket })
           .unwrap()
           .then((res) => {
             toggleBasket(res);
-            console.log("res  ", res);
-            console.log("basket ", basket);
+            // console.log("res  ", res);
+            // console.log("basket ", basket);
             // Обработка успешного выполнения запроса
           })
           .catch((error) => {
@@ -87,7 +88,7 @@ export const Checkout: React.FC<ComponentProps> = ({ id }) => {
 
   // Проверяем наличие элементов перед изменением стилей
   useEffect(() => {
-    console.log(count);
+    // console.log(count);
     if (divinest.current && inBasket.current) {
       // Показываем divinest и скрываем inBasket, если count больше 0
       if (count > 0) {
