@@ -1,13 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { ItemCards } from "./../../components/ItemCards/ItemCards";
 import { useGetCardsQuery } from "./../../store/api/api";
-import { ICard } from "./../../types/card.types";
+import { ICards } from "./../../types/card.types";
 // import st from "./products.module.scss";
 // import { useCallback } from "react";
 import { useInView } from "react-intersection-observer";
 
 export const Product: React.FC = () => {
-  const [cards, setCards] = useState<ICard[]>([]);
+  const [cards, setCards] = useState<ICards[]>([]);
   const [step, setStep] = useState(1);
 
   const { data, isLoading } = useGetCardsQuery(step);
@@ -24,6 +24,7 @@ export const Product: React.FC = () => {
   useEffect(() => {
     if (data && data.data.length > 0) {
       // Добавляем новые карточки к текущему состоянию
+
       setCards((prevCards) => [...prevCards, ...data.data]);
     }
   }, [data]);

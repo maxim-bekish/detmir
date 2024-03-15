@@ -1,20 +1,15 @@
 import st from "./ItemCards.module.scss";
 // import { useActions } from "../../hooks/useActions";
 
-import { ICard } from "./../../types/card.types";
+import { ICards } from "./../../types/card.types";
 import Rating from "../Rating/Rating";
 import { Link } from "react-router-dom";
 
-interface IItemCardsProps {
-  cards: ICard[];
+interface ItemCardsProps {
+  cards: ICards[];
 }
 
-export const ItemCards: React.FC<IItemCardsProps> = ({ cards }) => {
-
-
-  // если первая цифра 4 отобразить отобразить 4 картинки
-  // если вторая цифра меньше нет или меньше 6 оторазить половинку если больше 5 отобразить целую
-
+export const ItemCards: React.FC<ItemCardsProps> = ({ cards }) => {
   return (
     <section className={st.cards}>
       {cards.map((el) => (

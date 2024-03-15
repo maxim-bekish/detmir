@@ -7,8 +7,17 @@ export const basketApi = api.injectEndpoints({
         url: "cart/update",
         method: "POST",
       }),
-      invalidatesTags:()=>[{type:"GetProduct"}]
+      invalidatesTags: () => [{ type: "GetProduct" }],
+    }),
+    postCheckoutBasket: builder.mutation({
+      query: () => ({
+        // body: card,
+        url: "cart/submit",
+        method: "POST",
+        
+      }),
     }),
   }),
 });
-export const { usePostCardBasketMutation } = basketApi;
+export const { usePostCardBasketMutation, usePostCheckoutBasketMutation } =
+  basketApi;

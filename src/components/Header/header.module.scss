@@ -42,6 +42,7 @@
     }
   }
   .header__cart {
+    cursor: pointer;
     display: flex;
     column-gap: 4px;
     img {
@@ -60,4 +61,13 @@
 
 .header {
   background: rgba(242, 246, 250, 1);
+}
+.containerBasket {
+  display: none;
+  z-index: 999;
+  top: 50px;
+  right: 15px;
+  position: absolute;
+  box-sizing: border-box;
+  transition: display 1s ease-out 0s;
 }

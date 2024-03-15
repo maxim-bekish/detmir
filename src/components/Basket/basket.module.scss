@@ -1,0 +1,45 @@
+@import "./../../style/scss/allStyle.scss";
+
+.basket {
+  box-sizing: border-box;
+  padding: 8px 24px 24px 24px;
+  border-radius: 24px;
+  width: 560px;
+  background-color: $White;
+  box-shadow: 0px 16px 40px 0px rgba(23, 32, 41, 0.32);
+
+  .result {
+    display: flex;
+    justify-content: space-between;
+    h3 {
+      font-family: "Nunito";
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 24px;
+      color: $Black;
+      text-align: left;
+    }
+    p {
+      font-family: "Circe Rounded";
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 32px;
+      text-align: right;
+      color: $Black;
+    }
+  }
+  .button {
+    width: 100%;
+    border-radius: 12px;
+    padding: 16px;
+    background-color: $Brand;
+    outline: none;
+    border: 0;
+    font-family: "Nunito";
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 20px;
+    color: $White;
+    justify-content: center;
+  }
+}
