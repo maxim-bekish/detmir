@@ -5,8 +5,10 @@ import "./../../style/scss/allStyle.scss";
 import { useAddBasket } from "../../hooks/useAddBasket";
 import { NavLink } from "react-router-dom";
 import { Basket } from "../Basket/Basket";
+import { useState } from "react";
 
 export const Header: React.FC = () => {
+  const [toggleBasket, setToggleBasket] = useState(false);
   const { basket } = useAddBasket();
   return (
     <header className={st.header}>
@@ -24,9 +26,19 @@ export const Header: React.FC = () => {
             </li>
           </ul>
         </nav>
-        <div className={st.header__cart}>
+        <div
+          onClick={() => setToggleBasket(!toggleBasket)}
+          className={st.header__cart}
+        >
           <img src={cart} alt="Cart" />
           <p>Корзина({basket.length})</p>
+        </div>
+        <div
+          className={st.containerBasket}
+          style={{
+            display: toggleBasket ? "block" : "none",
+          }}
+        >
           <Basket />
         </div>
       </div>

@@ -6,6 +6,7 @@ import { usePostCardBasketMutation } from "../../store/api/basket.api";
 import { useActions } from "../../hooks/useActions";
 import { useAddBasket } from "../../hooks/useAddBasket";
 import { ICard } from "../../types/card.types";
+import { CheckoutButton } from "../CheckoutButton/CheckoutButton";
 
 type ComponentProps = {
   id: string;
@@ -48,7 +49,8 @@ export const Checkout: React.FC<ComponentProps> = ({ id }) => {
             .map((item: ICard) => {
               if (Number(item.product.id) === Number(id)) {
                 if (count <= 0) return null;
-                return { ...item, quantity: count };
+                // в этом случае нужно
+                return { quantity: count, id: item.product.id };
               }
               return { quantity: item.quantity, id: item.product.id };
             })
@@ -61,7 +63,7 @@ export const Checkout: React.FC<ComponentProps> = ({ id }) => {
             updatedBasket.push({ quantity: count, id: id });
           }
         }
-        // console.log("do ", updatedBasket);
+        console.log("do ", updatedBasket);
 
         xxx({ data: updatedBasket })
           .unwrap()
@@ -122,8 +124,8 @@ export const Checkout: React.FC<ComponentProps> = ({ id }) => {
             <img src={plus} alt="" />
           </button>
         </div>
-
-        <button className={st.handleBasket}>Оформить заказ</button>
+        <CheckoutButton />
+        {/* <button className={st.handleBasket}>Оформить заказ</button> */}
       </div>
       <button ref={inBasket} className={st.handleBasket} onClick={addInBasket}>
         Добавить в корзину

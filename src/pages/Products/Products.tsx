@@ -24,7 +24,7 @@ export const Product: React.FC = () => {
   useEffect(() => {
     if (data && data.data.length > 0) {
       // Добавляем новые карточки к текущему состоянию
-      console.log(data.data)
+
       setCards((prevCards) => [...prevCards, ...data.data]);
     }
   }, [data]);

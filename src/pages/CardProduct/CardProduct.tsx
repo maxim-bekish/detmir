@@ -9,21 +9,20 @@ import { Checkout } from "../../components/Checkout/Checkout";
 export const CardProduct: React.FC = () => {
   const { id } = useParams<string>();
   const { data, isLoading } = useGetCardQuery(Number(id));
-  
   if (data) {
     return (
       <div className={st.wrapper}>
         <div className={st.wrapperUp}>
           <div className={st.image}>
-            <img src={data.product.picture} alt="img" />
+            <img src={data.picture} alt="img" />
           </div>
           <div className={st.info}>
             <div className={st.miniWrap}>
-              <h2 className={st.title}>{data.product.title}</h2>
-              <Rating stars={data.product.rating} />
+              <h2 className={st.title}>{data.title}</h2>
+              <Rating stars={data.rating} />
             </div>
             <div className={st.miniWrap}>
-              <p className={st.price}> {data.product.price}₽</p>
+              <p className={st.price}> {data.price}₽</p>
               {id ? <Checkout id={id} /> : ""}
             </div>
             <div className={`${st.return} ${st.miniWrap}`}>
@@ -42,7 +41,7 @@ export const CardProduct: React.FC = () => {
         </div>
         <div className={st.wrapperDown}>
           <h3>Описание</h3>
-          <div dangerouslySetInnerHTML={{ __html: data.product.description }} />
+          <div dangerouslySetInnerHTML={{ __html: data.description }} />
         </div>
       </div>
     );

@@ -20,6 +20,7 @@ export const App: React.FC = () => {
     <>
       <BrowserRouter>
         <Header />
+   
         <main>
           <Routes />
         </main>

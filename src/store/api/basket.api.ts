@@ -9,6 +9,15 @@ export const basketApi = api.injectEndpoints({
       }),
       invalidatesTags: () => [{ type: "GetProduct" }],
     }),
+    postCheckoutBasket: builder.mutation({
+      query: () => ({
+        // body: card,
+        url: "cart/submit",
+        method: "POST",
+        
+      }),
+    }),
   }),
 });
-export const { usePostCardBasketMutation } = basketApi;
+export const { usePostCardBasketMutation, usePostCheckoutBasketMutation } =
+  basketApi;
