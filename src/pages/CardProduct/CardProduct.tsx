@@ -9,7 +9,8 @@ import { Checkout } from "../../components/Checkout/Checkout";
 export const CardProduct: React.FC = () => {
   const { id } = useParams<string>();
   const { data, isLoading } = useGetCardQuery(Number(id));
-  if (data) {
+
+  if (data && id) {
     return (
       <div className={st.wrapper}>
         <div className={st.wrapperUp}>
@@ -23,10 +24,13 @@ export const CardProduct: React.FC = () => {
             </div>
             <div className={st.miniWrap}>
               <p className={st.price}>{data.price} ₽</p>
-              {id ? <Checkout id={id} /> : ""}
+              <Checkout id={id} />
             </div>
             <div className={`${st.return} ${st.miniWrap}`}>
-              <Link target="_blank" to="https://detmir.by/pages/exchange_and_refund/">
+              <Link
+                target="_blank"
+                to="https://detmir.by/pages/exchange_and_refund/"
+              >
                 <img src={shape} alt="shape" /> Условия возврата
               </Link>
               <p>

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { CheckoutButton } from "../CheckoutButton/CheckoutButton";
 import { AddRemoveInBasket } from "../addRemoveInBasket/AddRemoveInBasket";
 
+
 type ComponentProps = {
   id: string;
 };
@@ -11,7 +12,6 @@ type ComponentProps = {
 export const Checkout: React.FC<ComponentProps> = ({ id }) => {
   const divinest = useRef<HTMLDivElement>(null);
   const inBasket = useRef<HTMLButtonElement>(null);
-
   const [count, setCount] = useState(-1);
 
   // Проверяем наличие элементов перед изменением стилей
@@ -33,12 +33,18 @@ export const Checkout: React.FC<ComponentProps> = ({ id }) => {
   const addInBasket = () => {
     setCount(1);
   };
-
+  // console.log(count);
   return (
     <div className={st.addBasket}>
       <div ref={divinest} className={st.inputWrap}>
-        <AddRemoveInBasket obj={{ id: id, count: count, setCount: setCount }} />
-        <CheckoutButton  />
+        <AddRemoveInBasket
+          obj={{
+            count: count,
+            setCount: setCount,
+            id: id,
+          }}
+        />
+        <CheckoutButton />
       </div>
       <button ref={inBasket} className={st.handleBasket} onClick={addInBasket}>
         Добавить в корзину

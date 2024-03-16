@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {  useState } from "react";
 import { ICard } from "../../types/card.types";
 import st from "./basketItem.module.scss";
 import { Link } from "react-router-dom";
@@ -19,7 +19,7 @@ export const BasketItem: React.FC<Props> = ({ data }) => {
           <h2 className={st.title}>{data.product.title}</h2>
         </Link>
         <AddRemoveInBasket
-          obj={{ id: data.product.id, count: count, setCount: setCount }}
+          obj={{ count: count, setCount: setCount, id: data.product.id }}
         />
         <div className={st.price}>
           <p className={st.priceOne}>{data.product.price} ₽ за шт.</p>

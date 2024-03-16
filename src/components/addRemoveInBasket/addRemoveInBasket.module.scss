@@ -6,6 +6,8 @@
   display: flex;
   overflow: hidden;
   flex-direction: row;
+  width: 156px;
+  box-sizing: border-box;
   input {
     font-family: "Nunito";
     font-size: 1rem;
@@ -13,17 +15,32 @@
     line-height: 20px;
     width: 100%;
     border: 0;
+    padding-inline: 0px;
+    padding: 0px;
     outline: none;
     text-align: center;
-
     background-color: $BrandLight2;
+    box-sizing: border-box;
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
       -webkit-appearance: none;
       margin: 0;
     }
+    &:disabled {
+      opacity: 40%;
+    }
+    &:focus {
+      background-color: rgb(207, 228, 250);
+      border: 2px solid $Brand;
+      box-sizing: border-box;
+    }
+    &:hover {
+      background-color: rgb(207, 228, 250);
+    }
   }
   button {
+    box-sizing: border-box;
+    padding-inline: 0px;
     display: flex;
     align-items: center;
     justify-content: center;

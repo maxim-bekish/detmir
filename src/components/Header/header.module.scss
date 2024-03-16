@@ -10,9 +10,16 @@
   height: 48px;
   padding: 12px 32px 0px 32px;
   border-bottom: 1px solid $BrandLight2;
+  @media (max-width: 480px) {
+    padding: 10px 10px 0px 10px;
+    margin: 0 auto 10px auto;
+  }
   .header__logo {
     height: 100%;
     img {
+      @media (max-width: 480px) {
+        width: 100px;
+      }
       width: 150px;
       height: 24px;
     }
@@ -41,6 +48,23 @@
       }
     }
   }
+  @media (max-width: 480px) {
+    .header__navigating {
+      position: relative;
+      z-index: 1000;
+
+      ul {
+        padding: 20px;
+        background-color: red;
+        li {
+          // background-color: red;
+        }
+
+        flex-direction: column;
+      }
+    }
+  }
+
   .header__cart {
     cursor: pointer;
     display: flex;
@@ -69,5 +93,6 @@
   right: 15px;
   position: absolute;
   box-sizing: border-box;
-  transition: display 1s ease-out 0s;
+  width: 560px;
+  // transition: display 1s ease-out 0s;
 }
