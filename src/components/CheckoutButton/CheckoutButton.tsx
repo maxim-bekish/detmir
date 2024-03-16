@@ -1,33 +1,33 @@
+import { useEffect, useState } from "react";
+import { totalPrice } from "../../helpFun/totalPrice";
+import { useAddBasket } from "../../hooks/useAddBasket";
 import { useGetCheckoutQuery } from "../../store/api/api";
 import { usePostCheckoutBasketMutation } from "../../store/api/basket.api";
 import st from "./checkoutButton.module.scss";
+
 export const CheckoutButton: React.FC = () => {
+  const [dis, setDis] = useState(false);
   const [xxx] = usePostCheckoutBasketMutation();
   const post = () => {
-    xxx([])
-      .unwrap()
-      .then((res) => {
-        // toggleBasket(res);
-        console.log("res  ", res);
-        // console.log("basket ", basket);
-        // Обработка успешного выполнения запроса
-      })
-      .catch((error) => {
-        console.error("ошибочка", error);
-      });
+    xxx({});
   };
-  const { data, refetch } = useGetCheckoutQuery(null);
-  const get = () => {
-    refetch();
-    if (data) console.log(data);
-  };
+  const { basket } = useAddBasket();
+  // console.log(basket);
+  useEffect(() => {
+    // console.log(totalPrice(basket));
+    if (totalPrice(basket) > 10000) setDis(true);
+    if (totalPrice(basket) < 10000) setDis(false);
+  }, [basket]);
+
+  // const { data } = useGetCheckoutQuery(null);
+  // if (data) console.log(data);
 
   return (
     <>
-      <button onClick={post} className={st.handleBasket}>
+      <button disabled={dis} onClick={post} className={st.handleBasket}>
         Оформить заказ
       </button>
-      <button onClick={get}> check </button>
+  
     </>
   );
 };

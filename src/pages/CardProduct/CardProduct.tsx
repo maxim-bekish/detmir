@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useGetCardQuery } from "../../store/api/api";
 import shape from "./../../assets/SVG/Shape.svg";
 
@@ -22,13 +22,13 @@ export const CardProduct: React.FC = () => {
               <Rating stars={data.rating} />
             </div>
             <div className={st.miniWrap}>
-              <p className={st.price}> {data.price}₽</p>
+              <p className={st.price}>{data.price} ₽</p>
               {id ? <Checkout id={id} /> : ""}
             </div>
             <div className={`${st.return} ${st.miniWrap}`}>
-              <p>
+              <Link target="_blank" to="https://detmir.by/pages/exchange_and_refund/">
                 <img src={shape} alt="shape" /> Условия возврата
-              </p>
+              </Link>
               <p>
                 Обменять или вернуть товар надлежащего качества можно в течение
                 14 дней с момента покупки.

@@ -9,6 +9,7 @@ import { useState } from "react";
 
 export const Header: React.FC = () => {
   const [toggleBasket, setToggleBasket] = useState(false);
+
   const { basket } = useAddBasket();
   return (
     <header className={st.header}>

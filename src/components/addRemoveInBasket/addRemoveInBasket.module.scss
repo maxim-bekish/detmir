@@ -1,0 +1,44 @@
+@import "./../../style/scss/allStyle.scss";
+
+.input {
+  height: 100%;
+  border-radius: 12px;
+  display: flex;
+  overflow: hidden;
+  flex-direction: row;
+  input {
+    font-family: "Nunito";
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 20px;
+    width: 100%;
+    border: 0;
+    outline: none;
+    text-align: center;
+
+    background-color: $BrandLight2;
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $BrandLight2;
+    width: 100%;
+    border: 0;
+    outline: none;
+    &:disabled {
+      opacity: 40%;
+    }
+    &:active {
+      background-color: $Brand;
+    }
+    &:hover {
+      background-color: rgb(207, 228, 250);
+    }
+  }
+}
