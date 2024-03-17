@@ -21,20 +21,24 @@
     text-align: center;
     background-color: $BrandLight2;
     box-sizing: border-box;
+    transition: all 200ms ease-in-out;
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
       -webkit-appearance: none;
       margin: 0;
     }
     &:disabled {
+      transition: all 100ms ease-in-out;
       opacity: 40%;
     }
     &:focus {
+      transition: all 100ms ease-in-out;
       background-color: rgb(207, 228, 250);
       border: 2px solid $Brand;
       box-sizing: border-box;
     }
     &:hover {
+      transition: all 100ms ease-in-out;
       background-color: rgb(207, 228, 250);
     }
   }
@@ -48,13 +52,17 @@
     width: 100%;
     border: 0;
     outline: none;
+    transition: all 200ms ease-in-out;
     &:disabled {
+      transition: all 100ms ease-in-out;
       opacity: 40%;
     }
     &:active {
+      transition: all 100ms ease-in-out;
       background-color: $Brand;
     }
     &:hover {
+      transition: all 100ms ease-in-out;
       background-color: rgb(207, 228, 250);
     }
   }

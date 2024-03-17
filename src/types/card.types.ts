@@ -7,7 +7,7 @@ export interface ICards {
   rating: number;
   title: string;
 }
-export interface ICard  {
+export interface ICard {
   quantity: number;
   createdAt: string;
   product: {
@@ -19,4 +19,8 @@ export interface ICard  {
     picture: string;
     rating: number;
   };
+}
+export interface ProductInBasket {
+  id: string;
+  quantity: number;
 }

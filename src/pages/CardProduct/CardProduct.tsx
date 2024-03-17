@@ -5,12 +5,25 @@ import shape from "./../../assets/SVG/Shape.svg";
 import st from "./CardProduct.module.scss";
 import Rating from "../../components/Rating/Rating";
 import { Checkout } from "../../components/Checkout/Checkout";
+import { useAddBasket } from "../../hooks/useAddBasket";
 
 export const CardProduct: React.FC = () => {
   const { id } = useParams<string>();
   const { data, isLoading } = useGetCardQuery(Number(id));
+  const { basket } = useAddBasket();
 
   if (data && id) {
+    const productInBasket = basket.reduce(
+      (result, e) => {
+        if (Number(e.product.id) === Number(id)) {
+          result.id = e.product.id;
+          result.quantity = e.quantity;
+        }
+        return result;
+      },
+      { id: id, quantity: -1 }
+    );
+
     return (
       <div className={st.wrapper}>
         <div className={st.wrapperUp}>
@@ -24,7 +37,7 @@ export const CardProduct: React.FC = () => {
             </div>
             <div className={st.miniWrap}>
               <p className={st.price}>{data.price} ₽</p>
-              <Checkout id={id} />
+              <Checkout productInBasket={productInBasket} />
             </div>
             <div className={`${st.return} ${st.miniWrap}`}>
               <Link

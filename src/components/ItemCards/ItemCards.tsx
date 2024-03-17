@@ -1,6 +1,4 @@
 import st from "./ItemCards.module.scss";
-// import { useActions } from "../../hooks/useActions";
-
 import { ICards } from "./../../types/card.types";
 import Rating from "../Rating/Rating";
 import { Link } from "react-router-dom";

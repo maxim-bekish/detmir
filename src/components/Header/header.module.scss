@@ -51,6 +51,7 @@
       }
     }
   }
+
   .burger {
     display: none;
   }
@@ -79,27 +80,29 @@
       right: 0;
       position: absolute;
       z-index: 1;
-      width: 50%;
+      width: 40%;
       height: 20%;
 
       ul {
         padding: 30px 30px 20px 20px;
-        background-color: $White;
-        gap: 15px;
+        background-color: $BrandLight2;
+        gap: 10px;
+        border-radius: 15px 0px 15px 15px;
         flex-direction: column;
+        height: auto;
+        // li {
+        // }
         :nth-child(3) {
           // background-color: red;
           display: block !important;
         }
       }
     }
-    .header__navigating__burger {
-      display: none;
+    .none {
+      display: none !important;
     }
   }
-  .none {
-    display: none !important;
-  }
+
   .header__cart {
     cursor: pointer;
     display: flex;

@@ -28,6 +28,86 @@
       color: $Black;
     }
   }
+  .miniWrapper {
+    border-bottom: 1px solid $GrayLight1;
+    display: flex;
+    align-items: center;
+    padding: 16px 0;
+    height: 84px;
+    gap: 16px;
+    box-sizing: border-box;
+    .img {
+      width: 52px;
+      height: 52px;
+    }
+    a {
+      text-decoration: none;
+      .title {
+        width: 144px;
+        font-family: "Nunito";
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 20px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: left;
+        color: $Black;
+      }
+    }
+    .input {
+      width: 155px;
+      height: 100%;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: row;
+      background-color: $BrandLight2;
+      input {
+        font-family: "Nunito";
+        font-size: 1rem;
+        font-weight: 700;
+        line-height: 20px;
+        width: 100%;
+        border: 0;
+        outline: none;
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0);
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+      }
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 0, 0, 0);
+        width: 100%;
+        border: 0;
+        outline: none;
+      }
+    }
+    .price {
+      width: 112px;
+      .priceOne {
+        font-family: "Nunito";
+        font-size: 0.75rem;
+        font-weight: 400;
+        line-height: 16px;
+        text-align: right;
+        color: $Gray;
+      }
+      .priceAll {
+        font-family: "Nunito";
+        font-size: 1.25rem;
+        font-weight: 700;
+        line-height: 24px;
+        text-align: right;
+        color: $Black;
+      }
+    }
+  }
   .button {
     width: 100%;
     border-radius: 12px;

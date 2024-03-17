@@ -24,8 +24,10 @@
     max-height: 358px;
     background-color: $White;
     &:hover {
+      transition: all 100ms ease-in-out;
       box-shadow: 0px 0px 30px 0px #00000026;
     }
+    transition: all 200ms ease-in-out;
     .preview {
       width: 100%;
 

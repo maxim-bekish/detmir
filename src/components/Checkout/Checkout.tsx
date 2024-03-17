@@ -1,25 +1,22 @@
 import st from "./checkout.module.scss";
-import { useEffect, useRef, useState } from "react";
-
+import { useEffect, useRef } from "react";
 import { CheckoutButton } from "../CheckoutButton/CheckoutButton";
+import { useUpdateQuantity } from "../../hooks/useUpdateQuantity";
 import { AddRemoveInBasket } from "../addRemoveInBasket/AddRemoveInBasket";
+import { ProductInBasket } from "../../types/card.types";
 
-
-type ComponentProps = {
-  id: string;
-};
-
-export const Checkout: React.FC<ComponentProps> = ({ id }) => {
+export const Checkout: React.FC<{ productInBasket: ProductInBasket }> = ({
+  productInBasket,
+}) => {
   const divinest = useRef<HTMLDivElement>(null);
   const inBasket = useRef<HTMLButtonElement>(null);
-  const [count, setCount] = useState(-1);
+  const { updateQuantity } = useUpdateQuantity();
 
   // Проверяем наличие элементов перед изменением стилей
   useEffect(() => {
-    // console.log(count);
     if (divinest.current && inBasket.current) {
       // Показываем divinest и скрываем inBasket, если count больше 0
-      if (count > 0) {
+      if (productInBasket.quantity > 0) {
         divinest.current.style.display = "flex";
         inBasket.current.style.display = "none";
       } else {
@@ -28,22 +25,16 @@ export const Checkout: React.FC<ComponentProps> = ({ id }) => {
         inBasket.current.style.display = "flex";
       }
     }
-  }, [count]);
+  }, [productInBasket.quantity]);
 
   const addInBasket = () => {
-    setCount(1);
+    updateQuantity(productInBasket.id, 1);
   };
-  // console.log(count);
+
   return (
     <div className={st.addBasket}>
       <div ref={divinest} className={st.inputWrap}>
-        <AddRemoveInBasket
-          obj={{
-            count: count,
-            setCount: setCount,
-            id: id,
-          }}
-        />
+        <AddRemoveInBasket propsInBasket={productInBasket} />
         <CheckoutButton />
       </div>
       <button ref={inBasket} className={st.handleBasket} onClick={addInBasket}>

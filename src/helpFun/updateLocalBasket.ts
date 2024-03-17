@@ -1,11 +1,11 @@
-import { ICard } from "../types/card.types";
+import { ICard, ProductInBasket } from "../types/card.types";
 
 export const updateLocalBasket = (
   basket: ICard[],
   count: number,
   id: string
-): { quantity: number; id: string }[] | [] => {
-  let updatedBasket: { quantity: number; id: string }[] = [];
+): ProductInBasket[] | [] => {
+  let updatedBasket: ProductInBasket[] = [];
   if (basket.length === 0) {
     if (count <= 0) return [];
 
@@ -20,7 +20,7 @@ export const updateLocalBasket = (
         }
         return { quantity: item.quantity, id: item.product.id };
       })
-      .filter((item): item is { quantity: number; id: string } => !!item);
+      .filter((item): item is ProductInBasket => !!item);
     // Добавляем новый объект, если такого ID не было в basket
     const isNewItemExist = basket.some(
       (item) => Number(item.product.id) === Number(id)

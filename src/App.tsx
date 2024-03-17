@@ -6,21 +6,23 @@ import { useActions } from "./hooks/useActions";
 import { useEffect, useState } from "react";
 
 export const App: React.FC = () => {
-  const { data } = useGetBasketQuery(null); // получение состояния корзины с сервера
-  const [get, setGet] = useState(false);
+  
+  const { data, isSuccess } = useGetBasketQuery(null); // получение состояния корзины с сервера
+
+  const [get, setGet] = useState(true);
   const { toggleBasket } = useActions(); // add in basket
   useEffect(() => {
-    if (!get && data) {
+    if (get && isSuccess) {
       toggleBasket(data);
-      setGet(true);
+      setGet(false);
     }
-  }, [data, toggleBasket]);
+  }, [isSuccess]);
 
   return (
     <>
       <BrowserRouter>
         <Header />
-   
+
         <main>
           <Routes />
         </main>
