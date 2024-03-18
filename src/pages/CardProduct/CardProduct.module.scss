@@ -48,10 +48,10 @@
         a {
           text-decoration: none;
           color: $Black;
-          transition: all 200ms ease-in-out;
+          transition: $Animation200;
           &:hover {
             color: $Gray;
-            transition: all 100ms ease-in-out;
+            transition: $Animation100;
           }
         }
         p {

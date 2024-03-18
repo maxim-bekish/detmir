@@ -9,7 +9,8 @@ export const basketApi = api.injectEndpoints({
       }),
     }),
     postCheckoutBasket: builder.mutation({
-      query: () => ({
+      query: (card) => ({
+        body: card,
         url: "cart/submit",
         method: "POST",
       }),

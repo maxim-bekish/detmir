@@ -1,19 +1,17 @@
-
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import { ICards, ICard } from "./../../types/card.types";
 const API_URL = "https://skillfactory-task.detmir.team/";
 
-
-
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
     baseUrl: API_URL,
+    credentials: "include",
   }),
 
   endpoints: (builder) => ({
-    getCards: builder.query<{data: ICards[]}, number>({
+    getCards: builder.query<{ data: ICards[] }, number>({
       query: (id) => `products?limit=15&page=${id}`,
     }),
     getCard: builder.query<ICards, number>({
@@ -22,13 +20,11 @@ export const api = createApi({
     getBasket: builder.query<ICard[], null>({
       query: () => `cart`,
     }),
-    getCheckout: builder.query<any, null>({
-      query: () => `orders?limit=1&page=1`,
+    getCheckout: builder.query<{ data: ICard[][] }, number>({
+      query: (id) => `orders?limit=15&page=${id}`,
     }),
   }),
 });
-
-
 
 export const {
   useGetCardsQuery,

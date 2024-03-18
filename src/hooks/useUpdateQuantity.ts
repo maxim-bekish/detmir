@@ -4,7 +4,7 @@ import { usePostCardBasketMutation } from "../store/api/basket.api";
 import { updateLocalBasket } from "../helpFun/updateLocalBasket";
 import { useActions } from "./useActions";
 
-// Создаем хук useUpdateQuantity
+
 export const useUpdateQuantity = () => {
   const { basket } = useAddBasket();
   const { toggleBasket } = useActions();

@@ -7,7 +7,26 @@
   width: 100%;
   background-color: $White;
   box-shadow: 0px 16px 40px 0px rgba(23, 32, 41, 0.32);
-
+  .openBasketPage {
+    box-sizing: border-box;
+    text-align: end;
+    a {
+      display: inline-block;
+      background-color: $BrandLight1;
+      color: $White;
+      padding: 3px 5px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 100;
+      font-family: "Nunito";
+      font-size: 18px;
+      transition: $Animation200;
+      &:hover {
+        transition: $Animation100;
+        opacity: 0.8;
+      }
+    }
+  }
   .result {
     display: flex;
     justify-content: space-between;

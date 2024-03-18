@@ -1,13 +1,10 @@
-import { useEffect, useState } from "react";
-import { totalPrice } from "../../helpFun/totalPrice";
-import { useAddBasket } from "../../hooks/useAddBasket";
 import { usePostCheckoutBasketMutation } from "../../store/api/basket.api";
 import st from "./checkoutButton.module.scss";
 import { useUpdateQuantity } from "../../hooks/useUpdateQuantity";
+import { useValidateBasket } from "../../hooks/useValidateBasket";
+import { useGetCheckoutQuery } from "../../store/api/api";
 
 export const CheckoutButton: React.FC = () => {
-  const { updateQuantity } = useUpdateQuantity();
-  const [dis, setDis] = useState(false);
   const [submitBasket] = usePostCheckoutBasketMutation();
   const post = () => {
     submitBasket({})
@@ -16,20 +13,18 @@ export const CheckoutButton: React.FC = () => {
         updateQuantity(null, 0);
       });
   };
-  const { basket } = useAddBasket();
+  const { updateQuantity } = useUpdateQuantity();
 
-  useEffect(() => {
-    if (totalPrice(basket) > 10000) setDis(true);
-    if (totalPrice(basket) < 10000) setDis(false);
-    if (basket.length === 0) setDis(true);
-  }, [basket]);
+  const { isValid, isError } = useValidateBasket();
+
 
   return (
-    <>
-      <button disabled={dis} onClick={post} className={st.handleBasket}>
+    <div className={st.handleBasket}>
+      {isValid && <p>{isError}</p>}
+      <button disabled={isValid} onClick={post}>
         Оформить заказ
       </button>
-      {dis? <p> limit in button</p>: ''}
-    </>
+    
+    </div>
   );
 };

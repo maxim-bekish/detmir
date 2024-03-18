@@ -1,3 +1,8 @@
+export interface ICard {
+  quantity: number;
+  createdAt: string;
+  product: ICards;
+}
 export interface ICards {
   category: string;
   description: string;
@@ -7,20 +12,9 @@ export interface ICards {
   rating: number;
   title: string;
 }
-export interface ICard {
-  quantity: number;
-  createdAt: string;
-  product: {
-    id: string;
-    category: string;
-    title: string;
-    description: string;
-    price: number;
-    picture: string;
-    rating: number;
-  };
-}
 export interface ProductInBasket {
   id: string;
   quantity: number;
 }
+
+
