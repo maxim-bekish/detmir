@@ -3,7 +3,7 @@
 .basket {
   box-sizing: border-box;
   padding: 8px 24px 24px 24px;
-  border-radius: 24px;
+  border-radius: $Radius24;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -19,7 +19,7 @@
       background-color: $BrandLight1;
       color: $White;
       padding: 3px 5px;
-      border-radius: 10px;
+      border-radius: $Radius12;
       text-decoration: none;
       font-weight: 100;
       font-family: "Nunito";
@@ -93,7 +93,7 @@
       align-items: center;
       gap: $Gap16;
       .price {
-        width: calc(45% - $Gap8);
+        width: calc(50% - $Gap8);
         min-width: 90px;
         .priceOne {
           font-family: "Nunito";
@@ -116,7 +116,7 @@
   }
   .button {
     width: 100%;
-    border-radius: 12px;
+    border-radius: $Radius12;
     padding: 16px;
     background-color: $Brand;
     outline: none;
@@ -138,7 +138,6 @@
       height: 125px + $Gap8;
       .left {
         gap: $Gap8;
-        // max-width: calc(100% - $WidthImages - $Gap8);
         max-width: 100%;
         a {
           max-width: calc(100% - $WidthImages - $Gap8);

@@ -5,7 +5,14 @@ $Animation100: all 100ms ease-in-out;
 $WidthImages: 52px;
 $Gap4: 4px;
 $Gap8: 8px;
+$Gap10: 10px;
+$Gap12: 12px;
 $Gap16: 16px;
+$Gap24: 24px;
+$Radius4: 4px;
+$Radius12: 12px;
+$Radius16: 16px;
+$Radius24: 24px;
 
 body {
   font-family: "Nunito";
@@ -30,7 +37,7 @@ main {
 
 @mixin button {
   width: 100%;
-  border-radius: 12px;
+  border-radius: $Radius12;
   padding: 16px;
   background-color: $Brand;
   outline: none;

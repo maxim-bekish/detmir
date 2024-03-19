@@ -5,28 +5,30 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  row-gap: 24px;
+  row-gap: $Gap24;
   .wrapperUp {
     display: flex;
-    gap: 24px;
+    gap: $Gap24;
     .image {
+      display: flex;
+      align-items: center;
       box-sizing: border-box;
-      width: 50%;
+      max-width: calc(50% - $Gap24 / 2);
       img {
         width: 100%;
       }
     }
     .info {
       box-sizing: border-box;
-      width: 47%;
+      max-width: calc(50% - $Gap24 / 2);
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: $Gap16;
 
       .miniWrap {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: $Gap8;
       }
       .title {
         font-family: "Circe Rounded";
@@ -34,11 +36,23 @@
         font-weight: 700;
         line-height: 32px;
       }
-      .price {
-        font-family: "Circe Rounded";
-        font-size: 1.75rem;
-        font-weight: 800;
-        line-height: 32px;
+      .priceAndError {
+        display: flex;
+        justify-content: space-between;
+        gap: $Gap8;
+        .price {
+          white-space: nowrap;
+          font-family: "Circe Rounded";
+          font-size: 1.75rem;
+          font-weight: 800;
+          line-height: 32px;
+        }
+        .error {
+          display: flex;
+          color: $Gray;
+          font-size: 0.75rem;
+          align-items: flex-end;
+        }
       }
       .return {
         font-family: "Nunito";
@@ -70,7 +84,7 @@
   .wrapperDown {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: $Gap16;
     font-family: "Nunito";
     font-size: 1rem;
     font-weight: 400;
@@ -89,7 +103,7 @@
   left: 30px;
   cursor: pointer;
   display: flex;
-  gap: 4px;
+  gap: $Gap4;
   font-family: "Nunito";
   font-size: 16px;
   font-weight: 700;
@@ -99,7 +113,31 @@
 .wrapperUp,
 .wrapperDown {
   padding: 24px;
-  border-radius: 16px;
-  gap: 24px;
+  border-radius: $Radius16;
+  gap: $Gap24;
   background-color: $White;
+}
+
+@media (max-width: 1000px) {
+  .back {
+    top: 23px;
+  }
+}
+@media (max-width: 480px) {
+  .wrapper {
+    .wrapperUp {
+      flex-direction: column;
+      .image {
+        max-width: 100%;
+      }
+      .info {
+        max-width: 100%;
+      }
+    }
+    .wrapperDown {
+    }
+  }
+  .back {
+    display: none;
+  }
 }

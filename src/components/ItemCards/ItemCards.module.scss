@@ -5,14 +5,14 @@
   display: flex;
   flex-wrap: wrap;
   max-width: 1346px;
-  gap: 24px;
+  gap: $Gap24;
   justify-content: center;
   .card {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: $Gap12;
     text-decoration: none;
-    border-radius: 16px;
+    border-radius: $Radius16;
     overflow: hidden;
     max-width: 250px;
     @media (max-width: 480px) {
@@ -44,12 +44,12 @@
       flex-direction: column;
       width: 100%;
       padding: 0px 16px 16px 16px;
-      gap: 16px;
+      gap: $Gap16;
       .title {
         display: flex;
         flex-direction: column;
         width: 100%;
-        gap: 4px;
+        gap: $Gap4;
         .name {
           box-sizing: border-box;
           font-family: "Nunito";
@@ -67,7 +67,7 @@
           width: 100%;
           height: 16px;
           flex-direction: column;
-          gap: 4px;
+          gap: $Gap4;
           img {
             width: 12px;
             height: 12px;
@@ -83,7 +83,7 @@
         text-align: left;
       }
       @media (max-width: 480px) {
-        gap: 8px;
+        gap: $Gap8;
       }
     }
   }

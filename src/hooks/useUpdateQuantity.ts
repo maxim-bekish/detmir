@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useAddBasket } from "./useAddBasket";
-import { usePostCardBasketMutation } from "../store/api/basket.api";
+
 import { updateLocalBasket } from "../helpFun/updateLocalBasket";
 import { useActions } from "./useActions";
-
+import { usePostBasketUpdateMutation } from "../store/api/postBasketUpdate.api";
 
 export const useUpdateQuantity = () => {
   const { basket } = useAddBasket();
   const { toggleBasket } = useActions();
-  const [updateBasketMutation] = usePostCardBasketMutation();
+  const [updateBasket] = usePostBasketUpdateMutation();
   const [error, setError] = useState<string | null>(null);
 
   // Функция для обновления количества товаров в корзине
@@ -23,7 +23,7 @@ export const useUpdateQuantity = () => {
       const updatedBasket = updateLocalBasket(basket, quantity, productId);
 
       // Отправляем запрос на сервер с обновленной корзиной
-      const response = await updateBasketMutation({
+      const response = await updateBasket({
         data: updatedBasket,
       });
 

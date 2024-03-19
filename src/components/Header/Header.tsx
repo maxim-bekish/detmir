@@ -8,10 +8,11 @@ import { Basket } from "../Basket/Basket";
 import { useEffect, useRef, useState } from "react";
 
 export const Header: React.FC = () => {
-  const [toggleBasket, setToggleBasket] = useState(false);
-  const [toggleBurger, setToggleBurger] = useState(false);
+  const [toggleBasket, setToggleBasket] = useState<boolean>(false);
+  const [toggleBurger, setToggleBurger] = useState<boolean>(false);
   const { pathname } = useLocation();
 
+  const { basket } = useAddBasket();
   const blockRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -23,7 +24,6 @@ export const Header: React.FC = () => {
         !blockRef.current.contains(event.target as Node) &&
         toggleBurger
       ) {
-        console.log("Клик 2");
         setToggleBurger(false);
       }
     };
@@ -35,7 +35,25 @@ export const Header: React.FC = () => {
     };
   }, [toggleBurger, pathname]);
 
-  const { basket } = useAddBasket();
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 480) {
+        setToggleBasket(false);
+      }
+    };
+
+    // Добавляем слушатель события изменения размера окна
+    window.addEventListener("resize", handleResize);
+
+    // Вызываем обработчик при загрузке компонента, чтобы установить начальное состояние
+    handleResize();
+
+    // Удаляем слушатель события при размонтировании компонента
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <header className={st.header}>
       <div className={st.container}>

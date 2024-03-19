@@ -1,7 +1,8 @@
-import { useGetCheckoutQuery } from "../../store/api/api";
+
 import st from "./orders.module.scss";
 import { totalPrice } from "../../helpFun/totalPrice";
 import { ICard } from "../../types/card.types";
+import { useGetCheckoutQuery } from "../../store/api/getCheckout";
 export const Orders: React.FC = () => {
   const { data } = useGetCheckoutQuery(1);
 

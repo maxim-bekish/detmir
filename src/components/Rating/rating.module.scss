@@ -1,6 +1,9 @@
+@import "./../../style/scss/allStyle.scss";
+
+
 .ratingStars {
   width: 76px;
-  gap: 4px;
+  gap: $Gap4;
 
   display: flex;
   align-items: center;

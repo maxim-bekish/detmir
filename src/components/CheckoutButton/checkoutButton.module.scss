@@ -9,12 +9,22 @@
     max-width: revert;
     position: absolute;
     z-index: 1;
-    border-radius: 5px;
+    border-radius: $Radius4;
     padding: 3px;
     color: gray;
     border: 1px solid gray;
   }
   button {
     @include button;
+    padding: 16px 8px;
+    @media (max-width: 675px) {
+      padding: 16px 6px;
+    }
+    @media (max-width: 658px) {
+      padding: 6px;
+    }
+    @media (max-width: 480px) {
+      padding: 16px;
+    }
   }
 }

@@ -1,12 +1,12 @@
 import { BrowserRouter } from "react-router-dom";
 import { Header } from "./components/Header/Header";
 import Routes from "./routes";
-import { useGetBasketQuery } from "./store/api/api";
+
 import { useActions } from "./hooks/useActions";
 import { useEffect, useState } from "react";
+import { useGetBasketQuery } from "./store/api/getBasket";
 
 export const App: React.FC = () => {
-  
   const { data, isSuccess } = useGetBasketQuery(null); // получение состояния корзины с сервера
 
   const [get, setGet] = useState(true);

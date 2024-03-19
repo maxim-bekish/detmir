@@ -1,5 +1,5 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useGetCardQuery } from "../../store/api/api";
+
 import shape from "./../../assets/SVG/Shape.svg";
 import back from "./../../assets/SVG/ArrowLeft.svg";
 
@@ -7,13 +7,13 @@ import st from "./CardProduct.module.scss";
 import Rating from "../../components/Rating/Rating";
 import { Checkout } from "../../components/Checkout/Checkout";
 import { useAddBasket } from "../../hooks/useAddBasket";
+import { useGetCardQuery } from "../../store/api/getCard";
 
 export const CardProduct: React.FC = () => {
   const { id } = useParams<string>();
   const { data, isLoading } = useGetCardQuery(Number(id));
   const { basket } = useAddBasket();
-const navigate = useNavigate();
-
+  const navigate = useNavigate();
 
   if (data && id) {
     const productInBasket = basket.reduce(
@@ -21,6 +21,7 @@ const navigate = useNavigate();
         if (Number(e.product.id) === Number(id)) {
           result.id = e.product.id;
           result.quantity = e.quantity;
+          // result.price = e.product.price;
         }
         return result;
       },
@@ -40,7 +41,15 @@ const navigate = useNavigate();
                 <Rating stars={data.rating} />
               </div>
               <div className={st.miniWrap}>
-                <p className={st.price}>{data.price} ₽</p>
+                <div className={st.priceAndError}>
+                  <p className={st.price}>{data.price} ₽</p>
+
+                  {data.price * productInBasket.quantity > 10000 && (
+                    <p className={st.error}>
+                      Максимальная сумма товаров 10 000₽
+                    </p>
+                  )}
+                </div>
                 <Checkout productInBasket={productInBasket} />
               </div>
               <div className={`${st.return} ${st.miniWrap}`}>
@@ -66,7 +75,7 @@ const navigate = useNavigate();
             <div dangerouslySetInnerHTML={{ __html: data.description }} />
           </div>
         </div>
-        <div onClick={()=>navigate(-1)} className={st.back}>
+        <div onClick={() => navigate(-1)} className={st.back}>
           <img src={back} alt="arrowBack" />
           <span>Назад</span>
         </div>

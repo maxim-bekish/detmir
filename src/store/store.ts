@@ -1,17 +1,17 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { reducer as BasketReducer } from "./basket/basket.slice";
 
-import { api } from "./api/api";
+import { getCards } from "./api/getCardsStart";
 
 const reducers = combineReducers({
   basket: BasketReducer,
-  [api.reducerPath]: api.reducer,
+  [getCards.reducerPath]: getCards.reducer,
 }); //all reducers
 
 export const store = configureStore({
   reducer: reducers,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(api.middleware),
+    getDefaultMiddleware().concat(getCards.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

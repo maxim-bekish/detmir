@@ -28,7 +28,7 @@
         height: 100%;
         display: flex;
         flex-direction: row;
-        column-gap: 16px;
+        column-gap: $Gap16;
         li {
           &:nth-child(3) {
             display: none;
@@ -53,7 +53,7 @@
     .header__cart {
       cursor: pointer;
       display: flex;
-      column-gap: 4px;
+      column-gap: $Gap4;
       img {
         width: 20px;
         height: 20px;
@@ -79,6 +79,10 @@
       position: absolute;
       box-sizing: border-box;
       width: 560px;
+
+      @media (max-width: 590px) {
+        width: 95%;
+      }
     }
   }
 }
@@ -120,8 +124,8 @@
         ul {
           padding: 20px;
           background-color: $BrandLight2;
-          gap: 10px;
-          border-radius: 15px 0px 15px 15px;
+          gap: $Gap10;
+          border-radius: $Radius16 0px 0px $Radius16;
           flex-direction: column;
           justify-content: space-between;
           li {

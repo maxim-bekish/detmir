@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ItemCards } from "./../../components/ItemCards/ItemCards";
-import { useGetCardsQuery } from "./../../store/api/api";
+import { useGetCardsQuery } from "../../store/api/getCardsStart";
 import { ICards } from "./../../types/card.types";
 import { useInView } from "react-intersection-observer";
 

@@ -1,12 +1,12 @@
 @import "./../../style/scss/allStyle.scss";
 
 .input {
-  height: 58px;
-  border-radius: 12px;
+  height: 52px;
+  border-radius: $Radius12;
   display: flex;
   overflow: hidden;
   flex-direction: row;
-  max-width: calc(55% - $Gap8);
+  max-width: calc(50% - $Gap8);
   @media (max-width: 480px) {
       height: 52px;
     max-width: calc(50% - $Gap4);
