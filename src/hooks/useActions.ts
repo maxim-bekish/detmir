@@ -1,9 +1,11 @@
 import { bindActionCreators } from "@reduxjs/toolkit";
 import { useMemo } from "react";
 import { useDispatch } from "react-redux";
-import { actions } from "./../store/basket/basket.slice";
+import { actions as basket } from "./../store/basket/basket.slice";
+
 const rootActions = {
-  ...actions,
+  ...basket,
+
 };
 
 export const useActions = () => {

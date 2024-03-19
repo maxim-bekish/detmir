@@ -1,26 +1,28 @@
 import { BrowserRouter } from "react-router-dom";
 import { Header } from "./components/Header/Header";
 import Routes from "./routes";
-import { useGetBasketQuery } from "./store/api/api";
+
 import { useActions } from "./hooks/useActions";
 import { useEffect, useState } from "react";
+import { useGetBasketQuery } from "./store/api/getBasket";
 
 export const App: React.FC = () => {
-  const { data } = useGetBasketQuery(null); // получение состояния корзины с сервера
-  const [get, setGet] = useState(false);
+  const { data, isSuccess } = useGetBasketQuery(null); // получение состояния корзины с сервера
+
+  const [get, setGet] = useState(true);
   const { toggleBasket } = useActions(); // add in basket
   useEffect(() => {
-    if (!get && data) {
+    if (get && isSuccess) {
       toggleBasket(data);
-      setGet(true);
+      setGet(false);
     }
-  }, [data, toggleBasket]);
+  }, [isSuccess]);
 
   return (
     <>
       <BrowserRouter>
         <Header />
-   
+
         <main>
           <Routes />
         </main>

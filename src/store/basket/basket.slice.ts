@@ -33,6 +33,7 @@ export const basketSlice = createSlice({
 
       return updatedState;
     },
+   
   },
 });
 

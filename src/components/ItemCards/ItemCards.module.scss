@@ -5,22 +5,36 @@
   display: flex;
   flex-wrap: wrap;
   max-width: 1346px;
-  gap: 24px;
+  gap: $Gap24;
   justify-content: center;
   .card {
+    display: flex;
+    flex-direction: column;
+    gap: $Gap12;
     text-decoration: none;
-    border-radius: 16px 16px 0 0;
+    border-radius: $Radius16;
     overflow: hidden;
-    width: 250px;
-    height: 358px;
+    max-width: 250px;
+    @media (max-width: 480px) {
+      max-width: 160px;
+    }
+    @media (max-width: 343px) {
+      max-width: 250px;
+    }
+    max-height: 358px;
     background-color: $White;
+    &:hover {
+      transition: $Animation100;
+      box-shadow: 0px 0px 30px 0px #00000026;
+    }
+    transition: $Animation200;
     .preview {
-      width: 250px;
-      height: 250px;
+      width: 100%;
+      min-height: 185px;
+      max-height: 250px;
       img {
         box-sizing: border-box;
-        width: 250px;
-        height: 250px;
+        width: 100%;
         border: 2px solid $White;
       }
     }
@@ -28,22 +42,18 @@
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
-      width: 250px;
-      height: 108px;
-      padding: 12px 16px 16px 16px;
-      gap: 4px;
+      width: 100%;
+      padding: 0px 16px 16px 16px;
+      gap: $Gap16;
       .title {
-
         display: flex;
         flex-direction: column;
-        width: 218px;
-        height: 52px;
-        padding: 0px 0px 12px 0px;
-        gap: 4px;
+        width: 100%;
+        gap: $Gap4;
         .name {
           box-sizing: border-box;
           font-family: "Nunito";
-          font-size: 16px;
+          font-size: 1rem;
           font-weight: 400;
           line-height: 20px;
           color: $Black;
@@ -54,10 +64,10 @@
         }
         .rating {
           display: flex;
-          width: 76px;
+          width: 100%;
           height: 16px;
           flex-direction: column;
-          gap: 4px;
+          gap: $Gap4;
           img {
             width: 12px;
             height: 12px;
@@ -67,10 +77,13 @@
       .price {
         color: $Black;
         font-family: "Nunito";
-        font-size: 22px;
+        font-size: 1.375rem;
         font-weight: 800;
         line-height: 24px;
         text-align: left;
+      }
+      @media (max-width: 480px) {
+        gap: $Gap8;
       }
     }
   }

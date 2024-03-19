@@ -1,0 +1,73 @@
+@import "./../../style/scss/allStyle.scss";
+
+.input {
+  height: 52px;
+  border-radius: $Radius12;
+  display: flex;
+  overflow: hidden;
+  flex-direction: row;
+  max-width: calc(50% - $Gap8);
+  @media (max-width: 480px) {
+      height: 52px;
+    max-width: calc(50% - $Gap4);
+  }
+  box-sizing: border-box;
+  input {
+    font-family: "Nunito";
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 20px;
+    width: 100%;
+    border: 0;
+    padding-inline: 0px;
+    padding: 0px;
+    outline: none;
+    text-align: center;
+    background-color: $BrandLight2;
+    box-sizing: border-box;
+    transition: $Animation200;
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    &:disabled {
+      transition: $Animation100;
+      opacity: 40%;
+    }
+    &:focus {
+      transition: $Animation100;
+      background-color: rgb(207, 228, 250);
+      border: 2px solid $Brand;
+      box-sizing: border-box;
+    }
+    &:hover {
+      transition: $Animation100;
+      background-color: rgb(207, 228, 250);
+    }
+  }
+  button {
+    box-sizing: border-box;
+    padding-inline: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $BrandLight2;
+    width: 100%;
+    border: 0;
+    outline: none;
+    transition: $Animation200;
+    &:disabled {
+      transition: $Animation100;
+      opacity: 40%;
+    }
+    &:active {
+      transition: $Animation100;
+      background-color: $Brand;
+    }
+    &:hover {
+      transition: $Animation100;
+      background-color: rgb(207, 228, 250);
+    }
+  }
+}

@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { ItemCards } from "./../../components/ItemCards/ItemCards";
-import { useGetCardsQuery } from "./../../store/api/api";
+import { useGetCardsQuery } from "../../store/api/getCardsStart";
 import { ICards } from "./../../types/card.types";
-// import st from "./products.module.scss";
-// import { useCallback } from "react";
 import { useInView } from "react-intersection-observer";
 
 export const Product: React.FC = () => {
@@ -17,9 +15,9 @@ export const Product: React.FC = () => {
   });
   useEffect(() => {
     if (inView && !isLoading && data && data.data.length > 0) {
-      setStep((prevStep) => prevStep + 1);
+      setStep(step + 1);
     }
-  }, [inView, isLoading]);
+  }, [inView]);
 
   useEffect(() => {
     if (data && data.data.length > 0) {
@@ -33,7 +31,7 @@ export const Product: React.FC = () => {
     return (
       <>
         <ItemCards cards={cards} />
-        <div ref={ref}>123</div>
+        <div ref={ref}></div>
       </>
     );
   }

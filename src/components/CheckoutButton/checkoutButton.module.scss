@@ -1,15 +1,30 @@
 @import "./../../style/scss/allStyle.scss";
 .handleBasket {
-    width: 100%;
-    border-radius: 12px;
-    padding: 16px;
-    background-color: $Brand;
-    outline: none;
-    border: 0;
-    font-family: "Nunito";
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 20px;
-    color: $White;
-    justify-content: center;
+  position: relative;
+  p {
+    opacity: 0.7;
+    font-size: 12px;
+    left: 46px;
+    bottom: 56px;
+    max-width: revert;
+    position: absolute;
+    z-index: 1;
+    border-radius: $Radius4;
+    padding: 3px;
+    color: gray;
+    border: 1px solid gray;
   }
+  button {
+    @include button;
+    padding: 16px 8px;
+    @media (max-width: 675px) {
+      padding: 16px 6px;
+    }
+    @media (max-width: 658px) {
+      padding: 6px;
+    }
+    @media (max-width: 480px) {
+      padding: 16px;
+    }
+  }
+}

@@ -1,33 +1,27 @@
-import { useGetCheckoutQuery } from "../../store/api/api";
-import { usePostCheckoutBasketMutation } from "../../store/api/basket.api";
 import st from "./checkoutButton.module.scss";
+import { useUpdateQuantity } from "../../hooks/useUpdateQuantity";
+import { useValidateBasket } from "../../hooks/useValidateBasket";
+import { usePostPlaceOrdersMutation } from "../../store/api/postPlaceOrders.api";
+
 export const CheckoutButton: React.FC = () => {
-  const [xxx] = usePostCheckoutBasketMutation();
+  const [submitBasket] = usePostPlaceOrdersMutation();
   const post = () => {
-    xxx([])
+    submitBasket({})
       .unwrap()
-      .then((res) => {
-        // toggleBasket(res);
-        console.log("res  ", res);
-        // console.log("basket ", basket);
-        // Обработка успешного выполнения запроса
-      })
-      .catch((error) => {
-        console.error("ошибочка", error);
+      .then(() => {
+        updateQuantity(null, 0);
       });
   };
-  const { data, refetch } = useGetCheckoutQuery(null);
-  const get = () => {
-    refetch();
-    if (data) console.log(data);
-  };
+  const { updateQuantity } = useUpdateQuantity();
+
+  const { isValid } = useValidateBasket();
 
   return (
-    <>
-      <button onClick={post} className={st.handleBasket}>
+    <div className={st.handleBasket}>
+      {/* {isValid && <p>{isError}</p>} */}
+      <button disabled={isValid} onClick={post}>
         Оформить заказ
       </button>
-      <button onClick={get}> check </button>
-    </>
+    </div>
   );
 };

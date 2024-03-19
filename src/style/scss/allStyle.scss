@@ -1,13 +1,64 @@
 @import "./reset.scss";
 @import "./colors.scss";
+$Animation200: all 200ms ease-in-out;
+$Animation100: all 100ms ease-in-out;
+$WidthImages: 52px;
+$Gap4: 4px;
+$Gap8: 8px;
+$Gap10: 10px;
+$Gap12: 12px;
+$Gap16: 16px;
+$Gap24: 24px;
+$Radius4: 4px;
+$Radius12: 12px;
+$Radius16: 16px;
+$Radius24: 24px;
 
 body {
+  font-family: "Nunito";
   background-color: $BrandLight3;
+}
+html {
+  font-size: 16px;
+  @media (max-width: 480px) {
+    font-size: 12px;
+  }
 }
 button {
   cursor: pointer;
 }
+main {
+  position: relative;
+}
 .active {
   border-bottom: 2px solid $Brand;
   color: $Brand !important;
+}
+
+@mixin button {
+  width: 100%;
+  border-radius: $Radius12;
+  padding: 16px;
+  background-color: $Brand;
+  outline: none;
+  border: 0;
+  font-family: "Nunito";
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 20px;
+  color: $White;
+  justify-content: center;
+  transition: $Animation200;
+  &:disabled {
+    transition: $Animation100;
+    opacity: 40%;
+  }
+  &:hover {
+    transition: $Animation100;
+    background-color: rgb(51, 143, 235);
+  }
+  &:active {
+    transition: $Animation100;
+    background-color: rgb(0, 92, 184);
+  }
 }
