@@ -5,6 +5,10 @@
   padding: 8px 24px 24px 24px;
   border-radius: 24px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  gap: $Gap16;
   background-color: $White;
   box-shadow: 0px 16px 40px 0px rgba(23, 32, 41, 0.32);
   .openBasketPage {
@@ -47,83 +51,66 @@
       color: $Black;
     }
   }
+
   .miniWrapper {
+    max-width: 100%;
     border-bottom: 1px solid $GrayLight1;
     display: flex;
-    align-items: center;
-    padding: 16px 0;
-    height: 84px;
-    gap: 16px;
+    padding-bottom: 16px;
+    height: 100%;
+    gap: $Gap16;
     box-sizing: border-box;
-    .img {
-      width: 52px;
-      height: 52px;
-    }
-    a {
-      text-decoration: none;
-      .title {
-        width: 144px;
-        font-family: "Nunito";
-        font-size: 1rem;
-        font-weight: 400;
-        line-height: 20px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        text-align: left;
-        color: $Black;
-      }
-    }
-    .input {
-      width: 155px;
-      height: 100%;
-      border-radius: 12px;
+    justify-content: space-between;
+    .left {
+      max-width: 50%;
       display: flex;
-      flex-direction: row;
-      background-color: $BrandLight2;
-      input {
-        font-family: "Nunito";
-        font-size: 1rem;
-        font-weight: 700;
-        line-height: 20px;
-        width: 100%;
-        border: 0;
-        outline: none;
-        text-align: center;
-        background-color: rgba(0, 0, 0, 0);
-        &::-webkit-outer-spin-button,
-        &::-webkit-inner-spin-button {
-          -webkit-appearance: none;
-          margin: 0;
+      align-items: center;
+      gap: $Gap16;
+      .img {
+        width: $WidthImages;
+        height: $WidthImages;
+      }
+      a {
+        max-width: calc(100% - $WidthImages - $Gap16);
+        text-decoration: none;
+        .title {
+          max-width: 100%;
+          font-family: "Nunito";
+          font-size: 1rem;
+          font-weight: 400;
+          line-height: 20px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          text-align: left;
+          color: $Black;
         }
       }
-      button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: rgba(0, 0, 0, 0);
-        width: 100%;
-        border: 0;
-        outline: none;
-      }
     }
-    .price {
-      width: 112px;
-      .priceOne {
-        font-family: "Nunito";
-        font-size: 0.75rem;
-        font-weight: 400;
-        line-height: 16px;
-        text-align: right;
-        color: $Gray;
-      }
-      .priceAll {
-        font-family: "Nunito";
-        font-size: 1.25rem;
-        font-weight: 700;
-        line-height: 24px;
-        text-align: right;
-        color: $Black;
+    .right {
+      max-width: 50%;
+      display: flex;
+      align-items: center;
+      gap: $Gap16;
+      .price {
+        width: calc(45% - $Gap8);
+        min-width: 90px;
+        .priceOne {
+          font-family: "Nunito";
+          font-size: 0.75rem;
+          font-weight: 400;
+          line-height: 16px;
+          text-align: right;
+          color: $Gray;
+        }
+        .priceAll {
+          font-family: "Nunito";
+          font-size: 1.25rem;
+          font-weight: 700;
+          line-height: 24px;
+          text-align: right;
+          color: $Black;
+        }
       }
     }
   }
@@ -140,5 +127,30 @@
     line-height: 20px;
     color: $White;
     justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .basket {
+    .miniWrapper {
+      flex-direction: column;
+      gap: $Gap8;
+      height: 125px + $Gap8;
+      .left {
+        gap: $Gap8;
+        // max-width: calc(100% - $WidthImages - $Gap8);
+        max-width: 100%;
+        a {
+          max-width: calc(100% - $WidthImages - $Gap8);
+        }
+      }
+      .right {
+        gap: $Gap8;
+        max-width: 100%;
+        .price {
+          width: calc(50% - $Gap4);
+        }
+      }
+    }
   }
 }

@@ -14,6 +14,7 @@ export const basketApi = api.injectEndpoints({
         url: "cart/submit",
         method: "POST",
       }),
+      invalidatesTags: ["orders"],
     }),
   }),
 });

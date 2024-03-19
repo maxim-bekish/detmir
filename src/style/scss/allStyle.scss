@@ -2,6 +2,11 @@
 @import "./colors.scss";
 $Animation200: all 200ms ease-in-out;
 $Animation100: all 100ms ease-in-out;
+$WidthImages: 52px;
+$Gap4: 4px;
+$Gap8: 8px;
+$Gap16: 16px;
+
 body {
   font-family: "Nunito";
   background-color: $BrandLight3;
@@ -14,6 +19,9 @@ html {
 }
 button {
   cursor: pointer;
+}
+main {
+  position: relative;
 }
 .active {
   border-bottom: 2px solid $Brand;

@@ -21,14 +21,14 @@ export const Basket: React.FC = () => {
         {pathname === "/basket" ? "" : <Link to="basket">Open</Link>}
       </div>
       {basket.map((data) => (
-        <div key={data.product.id} className={st.miniWrapper}>
-          {/* <div className={st.left}> */}
+        <section key={data.product.id} className={st.miniWrapper}>
+          <div className={st.left}>
           <img className={st.img} src={data.product.picture} alt="" />
-          <Link to={`cardProduct/${data.product.id}`}>
+          <Link to={`/cardProduct/${data.product.id}`}>
             <h2 className={st.title}>{data.product.title}</h2>
           </Link>
-          {/* </div>
-          <div className={st.right}> */}
+          </div>
+          <div className={st.right}>
           <AddRemoveInBasket
             propsInBasket={{ id: data.product.id, quantity: data.quantity }}
           />
@@ -38,8 +38,8 @@ export const Basket: React.FC = () => {
               {data.quantity * data.product.price} ₽
             </p>
           </div>
-          {/* </div> */}
-        </div>
+          </div>
+        </section>
       ))}
       <div className={st.result}>
         <h3>Итог</h3>
@@ -47,5 +47,5 @@ export const Basket: React.FC = () => {
       </div>
       <CheckoutButton />
     </div>
-  );
+  )
 };

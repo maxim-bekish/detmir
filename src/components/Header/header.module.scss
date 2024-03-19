@@ -59,11 +59,12 @@
         height: 20px;
       }
       p {
+        min-width: 102px;
         font-family: "Nunito";
         font-size: 1rem;
         line-height: 20px;
         font-weight: 700;
-        text-align: center;
+        text-align: left;
       }
     }
 

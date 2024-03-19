@@ -5,6 +5,7 @@ const API_URL = "https://skillfactory-task.detmir.team/";
 
 export const api = createApi({
   reducerPath: "api",
+  tagTypes: ["orders"],
   baseQuery: fetchBaseQuery({
     baseUrl: API_URL,
     credentials: "include",
@@ -21,7 +22,8 @@ export const api = createApi({
       query: () => `cart`,
     }),
     getCheckout: builder.query<{ data: ICard[][] }, number>({
-      query: (id) => `orders?limit=15&page=${id}`,
+      query: (id) => `orders?limit=10&page=${id}`,
+      providesTags: () => [{ type: "orders" }],
     }),
   }),
 });

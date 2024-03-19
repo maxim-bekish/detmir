@@ -12,16 +12,16 @@ export const Header: React.FC = () => {
   const [toggleBurger, setToggleBurger] = useState(false);
   const { pathname } = useLocation();
 
-  // если pathname ==='/basket' запрет на открытие корзины
-
   const blockRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    if(pathname === "/basket") setToggleBasket(false);
+    if (pathname === "/basket") setToggleBasket(false);
 
     const handleClickOutside = (event: MouseEvent) => {
       if (
         blockRef.current &&
-        !blockRef.current.contains(event.target as Node)
+        !blockRef.current.contains(event.target as Node) &&
+        toggleBurger
       ) {
         console.log("Клик 2");
         setToggleBurger(false);
@@ -59,7 +59,9 @@ export const Header: React.FC = () => {
               <NavLink to="orders">Заказы</NavLink>
             </li>
             <li>
-              <NavLink to="basket">Корзина ({basket.length})</NavLink>
+              <NavLink to="basket">
+                Корзина {basket.length === 0 ? "" : `(${basket.length})`}
+              </NavLink>
             </li>
           </ul>
         </nav>
@@ -72,7 +74,7 @@ export const Header: React.FC = () => {
           className={st.header__cart}
         >
           <img src={cart} alt="Cart" />
-          <p>Корзина({basket.length})</p>
+          <p> Корзина {basket.length === 0 ? "" : `(${basket.length})`}</p>
         </div>
         <div
           ref={blockRef}
