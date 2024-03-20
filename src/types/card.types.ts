@@ -18,3 +18,7 @@ export interface ProductInBasket {
 }
 
 
+export interface OrdersData {
+  data: ICard[][];
+  meta: { count: number; total: number,id?:number };
+}

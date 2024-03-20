@@ -1,23 +1,30 @@
+import Routes from "./routes";
 import { BrowserRouter } from "react-router-dom";
 import { Header } from "./components/Header/Header";
-import Routes from "./routes";
 
 import { useActions } from "./hooks/useActions";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useGetBasketQuery } from "./store/api/getBasket";
+// import { useGetOrdersQuery } from "./store/api/getOrders";
 
 export const App: React.FC = () => {
-  const { data, isSuccess } = useGetBasketQuery(null); // получение состояния корзины с сервера
+  const { updateCartInRedux, updateOrdersInRedux } = useActions(); // add in basket
+  localStorage.setItem("step", "1");
+  const { data: dataBasket, isSuccess: isSuccessBasket } =
+    useGetBasketQuery(null); // получение корзины с сервера
+  // const { data: dataOrders, isSuccess: isSuccessOrders } = useGetOrdersQuery(1); // получение заказов с сервера
 
-  const [get, setGet] = useState(true);
-  const { toggleBasket } = useActions(); // add in basket
   useEffect(() => {
-    if (get && isSuccess) {
-      toggleBasket(data);
-      setGet(false);
+    if (isSuccessBasket) {
+      updateCartInRedux(dataBasket);
     }
-  }, [isSuccess]);
+  }, [isSuccessBasket, dataBasket]);
 
+  // useEffect(() => {
+  //   if (isSuccessOrders) {
+  //     updateOrdersInRedux(dataOrders);
+  //   }
+  // }, [dataOrders, isSuccessOrders]);
   return (
     <>
       <BrowserRouter>

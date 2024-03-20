@@ -117,6 +117,7 @@
 }
 @media (max-width: 480px) {
   .wrapper {
+    gap: $Gap12;
     .container {
       padding: 15px;
       flex-direction: column;

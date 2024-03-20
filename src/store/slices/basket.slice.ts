@@ -7,7 +7,10 @@ export const basketSlice = createSlice({
   name: "basket",
   initialState,
   reducers: {
-    toggleBasket: (state, { payload: dataCard }: PayloadAction<ICard[]>) => {
+    updateCartInRedux: (
+      state,
+      { payload: dataCard }: PayloadAction<ICard[]>
+    ) => {
       // Создаем новый массив, основанный на текущем состоянии
       const newState: ICard[] = [...state];
 
@@ -33,7 +36,6 @@ export const basketSlice = createSlice({
 
       return updatedState;
     },
-   
   },
 });
 

@@ -1,42 +1,50 @@
-
 import st from "./orders.module.scss";
 import { totalPrice } from "../../helpFun/totalPrice";
-import { ICard } from "../../types/card.types";
-import { useGetCheckoutQuery } from "../../store/api/getCheckout";
+
+import { formatDate } from "../../helpFun/formatDate";
+import { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
+import { useGetOrdersQuery } from "../../store/api/getOrders";
+import { useActions } from "../../hooks/useActions";
+import { useAddOrders } from "../../hooks/useAddOrders";
+
 export const Orders: React.FC = () => {
-  const { data } = useGetCheckoutQuery(1);
+  const [step, setStep] = useState(1);
+  const { orders } = useAddOrders();
+  const { updateOrdersInRedux } = useActions();
 
-  const formatDate = (dateString: string): string => {
-    const months = [
-      "Января",
-      "Февраля",
-      "Марта",
-      "Апреля",
-      "Мая",
-      "Июня",
-      "Июля",
-      "Августа",
-      "Сентября",
-      "Октября",
-      "Ноября",
-      "Декабря",
-    ];
+  const { ref, inView } = useInView({
+    threshold: 0,
+    rootMargin: "-50px",
+  });
+  const { data, isLoading, refetch } = useGetOrdersQuery(step); // получение заказов с сервера
+  useEffect(() => {
+    if (inView && data && data.meta.count > 0 && !isLoading) {
+      setStep((prevStep) => prevStep + 1);
+    }
+  }, [inView, data]);
 
-    const date = new Date(dateString);
-    const day = date.getDate();
-    const monthIndex = date.getMonth();
-    const year = date.getFullYear();
+  useEffect(() => {
+    if (data) {
+      if (data.meta.total > orders.data.length && data.meta.count > 0) {
+        refetch();
+        updateOrdersInRedux(data);
+      }
+    }
+  }, [step, isLoading]);
 
-    return `${day} ${months[monthIndex]} ${year} г.`;
-  };
-  const get = (array: ICard[]) => {
-    console.log(array);
-  };
-  if (data) {
-
+  if (orders.data.length === 0) {
     return (
+      <>
+        <div>Заказов пока что нет</div>;
+      </>
+    );
+  }
+
+  return (
+    <>
       <section className={st.wrapper}>
-        {data.data.map((element, elementID) => (
+        {orders.data.map((element, elementID) => (
           <div key={elementID} className={st.container}>
             <div className={st.left}>
               <div className={st.orderID}>
@@ -63,7 +71,7 @@ export const Orders: React.FC = () => {
                 })}
               </div>
             </div>
-            <button onClick={() => get(element)}>get</button>
+
             <div className={st.right}>
               <span className={`${st.div1} ${st.title}`}>Оформлено</span>
               <span className={`${st.div2} ${st.value}`}>
@@ -77,7 +85,9 @@ export const Orders: React.FC = () => {
           </div>
         ))}
       </section>
-    );
-  }
-  return <div>hi</div>;
+      <div ref={ref}>vvvvvvvvvvvv</div>
+    </>
+  );
+
+  // return <div>Loading...</div>;
 };
