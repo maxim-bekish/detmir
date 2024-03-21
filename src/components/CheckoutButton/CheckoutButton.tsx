@@ -8,6 +8,7 @@ import { useActions } from "../../hooks/useActions";
 export const CheckoutButton: React.FC = () => {
   const [submitBasket] = usePostPlaceOrdersMutation();
   const { basket } = useAddBasket();
+  const { updateBasketItems } = useUpdateBasket();
   const { updateOrdersInRedux } = useActions();
   const post = () => {
     submitBasket({})
@@ -17,7 +18,6 @@ export const CheckoutButton: React.FC = () => {
         updateOrdersInRedux({ data: [basket], meta: { count: 1, total: 1 } });
       });
   };
-  const { updateBasketItems } = useUpdateBasket();
 
   const { isValid } = useValidateBasket();
 
