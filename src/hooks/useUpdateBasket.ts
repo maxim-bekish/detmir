@@ -5,31 +5,33 @@ import { updateLocalBasket } from "../helpFun/updateLocalBasket";
 import { useActions } from "./useActions";
 import { usePostBasketUpdateMutation } from "../store/api/postBasketUpdate.api";
 
-export const useUpdateQuantity = () => {
+interface IUpdateQuantity {
+  id: string;
+  quantity: number;
+}
+export const useUpdateBasket = () => {
   const { basket } = useAddBasket();
-  const { updateCartInRedux } = useActions();
+  const { updateBasketInRedux } = useActions();
   const [updateCartOnServer] = usePostBasketUpdateMutation();
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string>("null");
 
   // Функция для обновления количества товаров в корзине
-  const updateQuantity = async (productId: string | null, quantity: number) => {
+  const updateBasketItems = async (array: IUpdateQuantity[], bool: boolean) => {
     try {
-      if (productId === null) {
-        // Если productId равен null, просто очищаем состояние корзины
-        updateCartInRedux([]);
-        return; // Завершаем выполнение функции
+      let data: { id: string; quantity: number }[] = [];
+      if (array[0].id === "null") {
+        data = [];
+      } else {
+        data = updateLocalBasket(basket, array, bool);
       }
-      // Обновляем локальное состояние корзины
-      const updatedBasket = updateLocalBasket(basket, quantity, productId);
-
-      // Отправляем запрос на сервер с обновленной корзиной
       const response = await updateCartOnServer({
-        data: updatedBasket,
+        data: data,
       });
+      // Отправляем запрос на сервер с обновленной корзиной
 
       if ("data" in response) {
         // Возвращаем обновленную корзину
-        updateCartInRedux(response.data);
+        updateBasketInRedux(response.data);
         return response.data;
       }
     } catch (error) {
@@ -39,5 +41,5 @@ export const useUpdateQuantity = () => {
     }
   };
 
-  return { updateQuantity, error };
+  return { updateBasketItems, error };
 };

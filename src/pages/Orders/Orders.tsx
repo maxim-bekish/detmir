@@ -7,15 +7,18 @@ import { useInView } from "react-intersection-observer";
 import { useGetOrdersQuery } from "../../store/api/getOrders";
 import { useActions } from "../../hooks/useActions";
 import { useAddOrders } from "../../hooks/useAddOrders";
+import { useUpdateBasket } from "../../hooks/useUpdateBasket";
+import { ICard } from "../../types/card.types";
 
 export const Orders: React.FC = () => {
   const [step, setStep] = useState(1);
   const { orders } = useAddOrders();
   const { updateOrdersInRedux } = useActions();
+  const { updateBasketItems } = useUpdateBasket();
 
   const { ref, inView } = useInView({
     threshold: 0,
-    rootMargin: "-50px",
+    // rootMargin: "-50px",
   });
   const { data, isLoading, refetch } = useGetOrdersQuery(step); // получение заказов с сервера
   useEffect(() => {
@@ -40,6 +43,16 @@ export const Orders: React.FC = () => {
       </>
     );
   }
+
+  const addOrderInBasket = (e: ICard[]) => {
+    const res = e.map((el) => ({
+      id: el.product.id,
+      quantity: el.quantity
+    }));
+
+    const bool = window.confirm("перезаписать?");
+    updateBasketItems(res,bool);
+  };
 
   return (
     <>
@@ -71,7 +84,7 @@ export const Orders: React.FC = () => {
                 })}
               </div>
             </div>
-
+            <button onClick={() => addOrderInBasket(element)}></button>
             <div className={st.right}>
               <span className={`${st.div1} ${st.title}`}>Оформлено</span>
               <span className={`${st.div2} ${st.value}`}>

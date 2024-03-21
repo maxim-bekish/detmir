@@ -1,7 +1,7 @@
 import st from "./checkout.module.scss";
 import { useEffect, useRef } from "react";
 import { CheckoutButton } from "../CheckoutButton/CheckoutButton";
-import { useUpdateQuantity } from "../../hooks/useUpdateQuantity";
+import { useUpdateBasket } from "../../hooks/useUpdateBasket";
 import { AddRemoveInBasket } from "../addRemoveInBasket/AddRemoveInBasket";
 import { ProductInBasket } from "../../types/card.types";
 
@@ -10,7 +10,7 @@ export const Checkout: React.FC<{ productInBasket: ProductInBasket }> = ({
 }) => {
   const divinest = useRef<HTMLDivElement>(null);
   const inBasket = useRef<HTMLButtonElement>(null);
-  const { updateQuantity } = useUpdateQuantity();
+  const { updateBasketItems } = useUpdateBasket();
 
   // Проверяем наличие элементов перед изменением стилей
   useEffect(() => {
@@ -28,7 +28,7 @@ export const Checkout: React.FC<{ productInBasket: ProductInBasket }> = ({
   }, [productInBasket.quantity]);
 
   const addInBasket = () => {
-    updateQuantity(productInBasket.id, 1);
+    updateBasketItems([{ id: productInBasket.id, quantity: 1 }], false);
   };
 
   return (

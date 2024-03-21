@@ -2,13 +2,14 @@ import minus from "./../../assets/SVG/minus.svg";
 import plus from "./../../assets/SVG/plus.svg";
 import st from "./addRemoveInBasket.module.scss";
 import { validateInput } from "../../helpFun/validateInput";
-import { useUpdateQuantity } from "../../hooks/useUpdateQuantity";
+import { useUpdateBasket } from "../../hooks/useUpdateBasket";
 import { ProductInBasket } from "../../types/card.types";
 
-
-export const AddRemoveInBasket: React.FC<{propsInBasket: ProductInBasket}> = ({ propsInBasket }) => {
+export const AddRemoveInBasket: React.FC<{
+  propsInBasket: ProductInBasket;
+}> = ({ propsInBasket }) => {
   const { id, quantity } = propsInBasket;
-  const { updateQuantity } = useUpdateQuantity();
+  const { updateBasketItems } = useUpdateBasket();
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
 
@@ -17,7 +18,7 @@ export const AddRemoveInBasket: React.FC<{propsInBasket: ProductInBasket}> = ({ 
 
     // Если нет ошибок, обновить state
     if (!error) {
-      updateQuantity(id, value);
+      updateBasketItems([{ id: id, quantity: value }],false);
     }
   };
 
@@ -25,7 +26,7 @@ export const AddRemoveInBasket: React.FC<{propsInBasket: ProductInBasket}> = ({ 
     <div className={st.input}>
       <button
         onClick={() => {
-          updateQuantity(id, quantity - 1);
+          updateBasketItems([{ id: id, quantity: quantity - 1 }],false);
         }}
       >
         <img src={minus} alt="" />
@@ -35,7 +36,7 @@ export const AddRemoveInBasket: React.FC<{propsInBasket: ProductInBasket}> = ({ 
       <button
         disabled={quantity >= 10}
         onClick={() => {
-          updateQuantity(id, quantity + 1);
+          updateBasketItems([{ id: id, quantity: quantity + 1 }], false);
         }}
       >
         <img src={plus} alt="" />

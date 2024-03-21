@@ -7,7 +7,7 @@ export const basketSlice = createSlice({
   name: "basket",
   initialState,
   reducers: {
-    updateCartInRedux: (
+    updateBasketInRedux: (
       state,
       { payload: dataCard }: PayloadAction<ICard[]>
     ) => {

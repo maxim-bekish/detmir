@@ -1,5 +1,5 @@
 import st from "./checkoutButton.module.scss";
-import { useUpdateQuantity } from "../../hooks/useUpdateQuantity";
+import { useUpdateBasket } from "../../hooks/useUpdateBasket";
 import { useValidateBasket } from "../../hooks/useValidateBasket";
 import { usePostPlaceOrdersMutation } from "../../store/api/postPlaceOrders.api";
 import { useAddBasket } from "../../hooks/useAddBasket";
@@ -13,11 +13,11 @@ export const CheckoutButton: React.FC = () => {
     submitBasket({})
       .unwrap()
       .then(() => {
-        updateQuantity(null, 0);
+        updateBasketItems([{ id: "null", quantity: 0 }], false);
         updateOrdersInRedux({ data: [basket], meta: { count: 1, total: 1 } });
       });
   };
-  const { updateQuantity } = useUpdateQuantity();
+  const { updateBasketItems } = useUpdateBasket();
 
   const { isValid } = useValidateBasket();
 
