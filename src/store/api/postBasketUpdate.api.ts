@@ -1,5 +1,5 @@
-import { getCards } from "./getCardsStart";
-export const postBasketUpdate = getCards.injectEndpoints({
+import { getProducts } from "./getCardsStart";
+export const postBasketUpdate = getProducts.injectEndpoints({
   endpoints: (builder) => ({
     postBasketUpdate: builder.mutation({
       query: (card) => ({
@@ -8,7 +8,6 @@ export const postBasketUpdate = getCards.injectEndpoints({
         method: "POST",
       }),
     }),
-   
   }),
 });
 export const { usePostBasketUpdateMutation } = postBasketUpdate;

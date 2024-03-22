@@ -1,6 +1,6 @@
 import { ICards } from "../../types/card.types";
-import { getCards } from "./getCardsStart";
-export const getCard = getCards.injectEndpoints({
+import { getProducts } from "./getCardsStart";
+export const getCard = getProducts.injectEndpoints({
   endpoints: (builder) => ({
     getCard: builder.query<ICards, number>({
       query: (id) => `products/${id}`,

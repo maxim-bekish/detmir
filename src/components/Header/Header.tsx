@@ -6,6 +6,8 @@ import { useAddBasket } from "../../hooks/useAddBasket";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import { Basket } from "../Basket/Basket";
 import { useEffect, useRef, useState } from "react";
+import { useActions } from "../../hooks/useActions";
+import { useGetBasketQuery } from "../../store/api/getBasket";
 
 export const Header: React.FC = () => {
   const [toggleBasket, setToggleBasket] = useState<boolean>(false);
@@ -14,6 +16,18 @@ export const Header: React.FC = () => {
 
   const { basket } = useAddBasket();
   const blockRef = useRef<HTMLDivElement>(null);
+  const www = useRef<HTMLDivElement>(null);
+
+  const { updateBasketInRedux } = useActions(); // add in basket
+
+  const { data, isSuccess } =
+    useGetBasketQuery(null); // получение корзины с сервера
+
+  useEffect(() => {
+    if (isSuccess) {
+      updateBasketInRedux(data);
+    }
+  }, [isSuccess, data]);
 
   useEffect(() => {
     if (pathname === "/basket") setToggleBasket(false);
@@ -25,6 +39,13 @@ export const Header: React.FC = () => {
         toggleBurger
       ) {
         setToggleBurger(false);
+      }
+      if (
+        www.current &&
+        !www.current.contains(event.target as Node) &&
+        toggleBurger
+      ) {
+        setToggleBasket(false);
       }
     };
 
@@ -84,6 +105,7 @@ export const Header: React.FC = () => {
           </ul>
         </nav>
         <div
+          ref={www}
           onClick={() => {
             pathname === "/basket"
               ? setToggleBasket(false)

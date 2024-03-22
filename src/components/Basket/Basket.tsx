@@ -7,6 +7,7 @@ import { AddRemoveInBasket } from "../addRemoveInBasket/AddRemoveInBasket";
 import { useMemo, useState } from "react";
 import { totalPrice } from "../../helpFun/totalPrice";
 import { useUpdateBasket } from "../../hooks/useUpdateBasket";
+import { LoadingComponent } from "../LoadingComponent/LoadingComponent";
 
 export const Basket: React.FC = () => {
   const [hoveredItemId, setHoveredItemId] = useState<string | null>(null);
@@ -24,6 +25,12 @@ export const Basket: React.FC = () => {
   const { pathname } = useLocation();
   const memoizedTotalPrice = useMemo(() => totalPrice, []);
 
+
+
+
+
+
+  
   return (
     <div className={st.basket}>
       <div className={st.openBasketPage}>

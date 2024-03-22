@@ -1,10 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ICard } from "../../types/card.types";
-
-interface OrdersData {
-  data: ICard[][];
-  meta: { count: number; total: number };
-}
+import { OrdersData } from "../../types/card.types";
 
 const initialState: OrdersData = {
   data: [],
@@ -41,7 +36,6 @@ export const ordersSlice = createSlice({
       // Обновляем мета информацию
       state.meta = meta;
     },
-  
   },
 });
 

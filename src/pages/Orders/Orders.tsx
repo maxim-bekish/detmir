@@ -9,6 +9,7 @@ import { useActions } from "../../hooks/useActions";
 import { useAddOrders } from "../../hooks/useAddOrders";
 import { useUpdateBasket } from "../../hooks/useUpdateBasket";
 import { ICard } from "../../types/card.types";
+import { LoadingComponent } from "../../components/LoadingComponent/LoadingComponent";
 
 export const Orders: React.FC = () => {
   const [step, setStep] = useState(1);
@@ -17,10 +18,10 @@ export const Orders: React.FC = () => {
   const { updateBasketItems } = useUpdateBasket();
 
   const { ref, inView } = useInView({
-    threshold: 0,
-    // rootMargin: "-50px",
+    threshold: 0, // как только элемент появится на экране, даже частично, inView станет true.
+    rootMargin: "50px",
   });
-  const { data, isLoading, refetch } = useGetOrdersQuery(step); // получение заказов с сервера
+  const { data, isLoading, refetch, isError } = useGetOrdersQuery(step); // получение заказов с сервера
   useEffect(() => {
     if (inView && data && data.meta.count > 0 && !isLoading) {
       setStep((prevStep) => prevStep + 1);
@@ -36,23 +37,34 @@ export const Orders: React.FC = () => {
     }
   }, [step, isLoading]);
 
+  const addOrderInBasket = (e: ICard[]) => {
+    const res = e.map((el) => ({
+      id: el.product.id,
+      quantity: el.quantity,
+    }));
+
+    const bool = window.confirm("перезаписать?");
+    updateBasketItems(res, bool);
+  };
+
+
+  if (isLoading) return <LoadingComponent />;
+
+  if (isError) return <div>Error</div>;
+
+
+
+
+
   if (orders.data.length === 0) {
     return (
       <>
-        <div>Заказов пока что нет</div>;
+        <div>Заказов пока что нет</div>
       </>
     );
   }
 
-  const addOrderInBasket = (e: ICard[]) => {
-    const res = e.map((el) => ({
-      id: el.product.id,
-      quantity: el.quantity
-    }));
 
-    const bool = window.confirm("перезаписать?");
-    updateBasketItems(res,bool);
-  };
 
   return (
     <>
@@ -98,9 +110,9 @@ export const Orders: React.FC = () => {
           </div>
         ))}
       </section>
-      <div ref={ref}>vvvvvvvvvvvv</div>
+      <div ref={ref}> чек поинт</div>
     </>
   );
 
-  // return <div>Loading...</div>;
+
 };

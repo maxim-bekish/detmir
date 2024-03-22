@@ -32,5 +32,5 @@ export const ItemCards: React.FC<ItemCardsProps> = ({ cards }) => {
         </Link>
       ))}
     </section>
-  );
+  )
 };

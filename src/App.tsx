@@ -8,16 +8,6 @@ import { useGetBasketQuery } from "./store/api/getBasket";
 // import { useGetOrdersQuery } from "./store/api/getOrders";
 
 export const App: React.FC = () => {
-  const { updateBasketInRedux } = useActions(); // add in basket
-  localStorage.setItem("step", "1");
-  const { data: dataBasket, isSuccess: isSuccessBasket } =
-    useGetBasketQuery(null); // получение корзины с сервера
- 
-  useEffect(() => {
-    if (isSuccessBasket) {
-      updateBasketInRedux(dataBasket);
-    }
-  }, [isSuccessBasket, dataBasket]);
 
 
   return (
