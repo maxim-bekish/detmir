@@ -10,6 +10,7 @@ import { useAddOrders } from "../../hooks/useAddOrders";
 import { useUpdateBasket } from "../../hooks/useUpdateBasket";
 import { ICard } from "../../types/card.types";
 import { LoadingComponent } from "../../components/LoadingComponent/LoadingComponent";
+import { ErrorCustom } from "../ErrorCustom/ErrorCustom";
 
 export const Orders: React.FC = () => {
   const [step, setStep] = useState(1);
@@ -47,14 +48,9 @@ export const Orders: React.FC = () => {
     updateBasketItems(res, bool);
   };
 
-
   if (isLoading) return <LoadingComponent />;
 
-  if (isError) return <div>Error</div>;
-
-
-
-
+  if (isError) return <ErrorCustom />;
 
   if (orders.data.length === 0) {
     return (
@@ -63,8 +59,6 @@ export const Orders: React.FC = () => {
       </>
     );
   }
-
-
 
   return (
     <>
@@ -113,6 +107,4 @@ export const Orders: React.FC = () => {
       <div ref={ref}> чек поинт</div>
     </>
   );
-
-
 };

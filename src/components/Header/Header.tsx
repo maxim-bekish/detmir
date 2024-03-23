@@ -8,6 +8,8 @@ import { Basket } from "../Basket/Basket";
 import { useEffect, useRef, useState } from "react";
 import { useActions } from "../../hooks/useActions";
 import { useGetBasketQuery } from "../../store/api/getBasket";
+import { ErrorCustom } from "../../pages/ErrorCustom/ErrorCustom";
+import { LoadingComponent } from "../LoadingComponent/LoadingComponent";
 
 export const Header: React.FC = () => {
   const [toggleBasket, setToggleBasket] = useState<boolean>(false);
@@ -20,8 +22,7 @@ export const Header: React.FC = () => {
 
   const { updateBasketInRedux } = useActions(); // add in basket
 
-  const { data, isSuccess } =
-    useGetBasketQuery(null); // получение корзины с сервера
+  const { data, isSuccess, isLoading, isError } = useGetBasketQuery(null); // получение корзины с сервера
 
   useEffect(() => {
     if (isSuccess) {
@@ -74,7 +75,8 @@ export const Header: React.FC = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
+  if (isError) return <ErrorCustom />;
+  if (isLoading) return <LoadingComponent />;
   return (
     <header className={st.header}>
       <div className={st.container}>
