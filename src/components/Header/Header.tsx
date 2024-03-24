@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import { useActions } from "../../hooks/useActions";
 import { useGetBasketQuery } from "../../store/api/getBasket";
 import { ErrorCustom } from "../../pages/ErrorCustom/ErrorCustom";
-import { LoadingComponent } from "../LoadingComponent/LoadingComponent";
+import { Loader } from "../Loader/Loader";
 
 export const Header: React.FC = () => {
   const [toggleBasket, setToggleBasket] = useState<boolean>(false);
@@ -76,7 +76,7 @@ export const Header: React.FC = () => {
     };
   }, []);
   if (isError) return <ErrorCustom />;
-  if (isLoading) return <LoadingComponent />;
+  if (isLoading) return <Loader />;
   return (
     <header className={st.header}>
       <div className={st.container}>

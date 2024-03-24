@@ -8,7 +8,7 @@ import Rating from "../../components/Rating/Rating";
 import { Checkout } from "../../components/Checkout/Checkout";
 import { useAddBasket } from "../../hooks/useAddBasket";
 import { useGetCardQuery } from "../../store/api/getCard";
-import { LoadingComponent } from "../../components/LoadingComponent/LoadingComponent";
+import { Loader } from "../../components/Loader/Loader";
 import { ErrorCustom } from "../ErrorCustom/ErrorCustom";
 
 export const CardProduct: React.FC = () => {
@@ -16,7 +16,7 @@ export const CardProduct: React.FC = () => {
   const { data, isLoading, isError,isSuccess } = useGetCardQuery(Number(id));
   const { basket } = useAddBasket();
   const navigate = useNavigate();
-  if (isLoading) return <LoadingComponent />;
+  if (isLoading) return <Loader />;
 
   if (isError) return <ErrorCustom />;
 

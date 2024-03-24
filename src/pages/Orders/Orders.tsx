@@ -9,11 +9,15 @@ import { useActions } from "../../hooks/useActions";
 import { useAddOrders } from "../../hooks/useAddOrders";
 import { useUpdateBasket } from "../../hooks/useUpdateBasket";
 import { ICard } from "../../types/card.types";
-import { LoadingComponent } from "../../components/LoadingComponent/LoadingComponent";
+import { Loader } from "../../components/Loader/Loader";
 import { ErrorCustom } from "../ErrorCustom/ErrorCustom";
+import { useNavigate } from "react-router-dom";
 
 export const Orders: React.FC = () => {
   const [step, setStep] = useState(1);
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  const navigate = useNavigate();
+
   const { orders } = useAddOrders();
   const { updateOrdersInRedux } = useActions();
   const { updateBasketItems } = useUpdateBasket();
@@ -38,20 +42,29 @@ export const Orders: React.FC = () => {
     }
   }, [step, isLoading]);
 
-  const addOrderInBasket = (e: ICard[]) => {
-    const res = e.map((el) => ({
-      id: el.product.id,
+  const openOrder = (elementID: number) => {
+    if (expandedIndex === elementID) {
+      setExpandedIndex(null);
+    } else {
+      setExpandedIndex(elementID);
+    }
+  };
+  const addOrderInBasket = (element: ICard[], bool: boolean) => {
+    const res = element.map((el) => ({
       quantity: el.quantity,
+      id: el.product.id,
     }));
-
-    const bool = window.confirm("перезаписать?");
+console.log(res)
     updateBasketItems(res, bool);
   };
 
-  if (isLoading) return <LoadingComponent />;
+  if (isLoading) return <Loader />;
 
   if (isError) return <ErrorCustom />;
-
+  const openItemCard = (idProduct: string) => {
+    console.log(idProduct);
+    navigate(`/cardProduct/${idProduct}`);
+  };
   if (orders.data.length === 0) {
     return (
       <>
@@ -64,46 +77,104 @@ export const Orders: React.FC = () => {
     <>
       <section className={st.wrapper}>
         {orders.data.map((element, elementID) => (
-          <div key={elementID} className={st.container}>
-            <div className={st.left}>
-              <div className={st.orderID}>
-                <p className={st.order}> Заказ</p>
-                <p className={st.iD}>№{elementID + 1}</p>
+          <div
+            onClick={() => openOrder(elementID)}
+            key={elementID}
+            className={`${st.container} ${
+              expandedIndex === elementID ? st.containerBig : ""
+            }`}
+          >
+            <section className={st.openInfo}>
+              <div className={st.left}>
+                <div className={st.orderID}>
+                  <p className={st.order}> Заказ</p>
+                  <p className={st.iD}>№{elementID + 1}</p>
+                </div>
+                <div className={st.images}>
+                  {element.map((el, elID) => {
+                    if (elID < 4) {
+                      return (
+                        <div className={st.image} key={elementID + elID}>
+                          <img src={el.product.picture} alt="img" />
+                        </div>
+                      );
+                    } else if (elID === 4) {
+                      return (
+                        <div className={st.endImage} key={elementID + elID}>
+                          <span>и т.д.</span>
+                        </div>
+                      );
+                    } else {
+                      return null; // Пропускаем остальные элементы массива
+                    }
+                  })}
+                </div>
               </div>
-              <div className={st.images}>
-                {element.map((el, elID) => {
-                  if (elID < 4) {
-                    return (
-                      <div className={st.image} key={elementID + elID}>
-                        <img src={el.product.picture} alt="img" />
-                      </div>
-                    );
-                  } else if (elID === 4) {
-                    return (
-                      <div className={st.endImage} key={elementID + elID}>
-                        <span>и т.д.</span>
-                      </div>
-                    );
-                  } else {
-                    return null; // Пропускаем остальные элементы массива
-                  }
-                })}
+              <div className={st.right}>
+                <span className={`${st.div1} ${st.title}`}>Оформлено</span>
+                <span className={`${st.div2} ${st.value}`}>
+                  {formatDate(element[0].createdAt)}
+                </span>
+                <span className={`${st.div3} ${st.title}`}>На сумму</span>
+                <span className={`${st.div4} ${st.value}`}>
+                  {totalPrice(element)} ₽
+                </span>
               </div>
-            </div>
-            <button onClick={() => addOrderInBasket(element)}></button>
-            <div className={st.right}>
-              <span className={`${st.div1} ${st.title}`}>Оформлено</span>
-              <span className={`${st.div2} ${st.value}`}>
-                {formatDate(element[0].createdAt)}
-              </span>
-              <span className={`${st.div3} ${st.title}`}>На сумму</span>
-              <span className={`${st.div4} ${st.value}`}>
-                {totalPrice(element)} ₽
-              </span>
-            </div>
+            </section>
+            {expandedIndex === elementID && (
+              <>
+                <section className={st.closedInfo}>
+                  <table className={st.table}>
+                    <thead>
+                      <tr>
+                        <th className={st.idTable}>№</th>
+                        <th className={st.imgTable}></th>
+                        <th className={st.titleTable}>Название</th>
+                        <th className={st.quantityTable}>Кол.</th>
+                        <th className={st.priceTable}>Цена</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {element.map((el, elId) => (
+                        <tr
+                          key={`tr${elId}`}
+                          className={st.itemTable}
+                          onClick={() => openItemCard(el.product.id)}
+                        >
+                          <td className={st.idTable}>{elId + 1}</td>
+                          <td className={st.imgTable}>
+                            <img src={el.product.picture} alt="" />
+                          </td>
+                          <td className={st.titleTable}>
+                            <p> {el.product.title}</p>
+                          </td>
+                          <td className={st.quantityTable}>{el.quantity}</td>
+                          <td className={st.priceTable}>{el.product.price}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </section>
+                <div className={st.closedButtons}>
+                  <button
+                    onClick={() => addOrderInBasket(element, false)}
+                    className={st.addBasket}
+                  >
+                    Добавить к корзине
+                  </button>
+                  <button
+                    onClick={() => addOrderInBasket(element, true)}
+                    className={st.updateBasket}
+                  >
+                    Обновить корзину
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         ))}
       </section>
+
       <div ref={ref}> чек поинт</div>
     </>
   );
