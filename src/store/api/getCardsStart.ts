@@ -19,4 +19,3 @@ export const getProducts = createApi({
 });
 
 export const { useGetProductsQuery } = getProducts;
-// useGetProductsQuery

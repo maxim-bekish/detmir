@@ -72,17 +72,19 @@
       display: none;
     }
     .containerBasket {
-      display: none;
+      display: flex;
       z-index: 999;
       top: 50px;
       right: 15px;
       position: absolute;
       box-sizing: border-box;
       width: 560px;
-
       @media (max-width: 590px) {
         width: 95%;
       }
+    }
+    .containerBasketNone {
+      display: none;
     }
   }
 }
@@ -129,13 +131,14 @@
           flex-direction: column;
           justify-content: space-between;
           li {
-            height: auto;
+            height: 100%;
             transition: $Animation200;
             :hover {
               transition: $Animation100;
               color: $Brand;
             }
             a {
+              height: auto;
               font-size: 2.2rem;
               line-height: 35px;
             }

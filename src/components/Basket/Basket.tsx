@@ -29,50 +29,65 @@ export const Basket: React.FC = () => {
       <div className={st.openBasketPage}>
         {pathname === "/basket" ? "" : <Link to="basket">Open</Link>}
       </div>
-      {basket.map((item) => (
-        <section key={item.product.id} className={st.miniWrapper}>
-          <div className={st.left}>
-            <img className={st.img} src={item.product.picture} alt="" />
-            <Link to={`/cardProduct/${item.product.id}`}>
-              <h2 className={st.title}>{item.product.title}</h2>
+      <section className={st.itemsAll}>
+        {basket.length === 0 ? (
+          <div className={st.zeroBasket}>
+            <span>Корзина пустая.</span>
+            <Link to={"/"} data-close-on-click={true}>
+              Перейти к выбору товара
             </Link>
           </div>
-          <div className={st.right}>
-            <AddRemoveInBasket
-              propsInBasket={{ id: item.product.id, quantity: item.quantity }}
-            />
-            <div
-              onMouseEnter={() => handleMouseEnter(item.product.id)}
-              onMouseLeave={handleMouseLeave}
-              className={st.priceAndTrash}
-            >
-              <div
-                className={`${st.price} ${
-                  hoveredItemId === item.product.id ? st.hidden : ""
-                }`}
-                // className={st.price}
-              >
-                <p className={st.priceOne}>{item.product.price} ₽ за шт.</p>
-                <p className={st.priceAll}>
-                  {item.quantity * item.product.price} ₽
-                </p>
+        ) : (
+          basket.map((item) => (
+            <div key={item.product.id} className={st.miniWrapper}>
+              <div className={st.left}>
+                <img className={st.img} src={item.product.picture} alt="" />
+                <Link to={`/cardProduct/${item.product.id}`}>
+                  <h2 data-close-on-click={true} className={st.title}>
+                    {item.product.title}
+                  </h2>
+                </Link>
               </div>
-              <div
-                className={`${st.trash}  ${
-                  hoveredItemId === item.product.id ? "" : st.hidden
-                }`}
-                onClick={() => deleteItem(item.product.id)}
-              >
-                <img src={trash} alt="" />
-                <span>Удалить</span>
+              <div className={st.right}>
+                <AddRemoveInBasket
+                  propsInBasket={{
+                    id: item.product.id,
+                    quantity: item.quantity,
+                  }}
+                />
+                <div
+                  onMouseEnter={() => handleMouseEnter(item.product.id)}
+                  onMouseLeave={handleMouseLeave}
+                  className={st.priceAndTrash}
+                >
+                  <div
+                    className={`${st.price} ${
+                      hoveredItemId === item.product.id ? st.hidden : ""
+                    }`}
+                  >
+                    <p className={st.priceOne}>{item.product.price} ₽ за шт.</p>
+                    <p className={st.priceAll}>
+                      {item.quantity * item.product.price} ₽
+                    </p>
+                  </div>
+                  <div
+                    className={`${st.trash}  ${
+                      hoveredItemId === item.product.id ? "" : st.hidden
+                    }`}
+                    onClick={() => deleteItem(item.product.id)}
+                  >
+                    <img src={trash} alt="" />
+                    <span>Удалить</span>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
-      ))}
+          ))
+        )}
+      </section>
       <div className={st.result}>
         <h3>Итог</h3>
-        <p>{memoizedTotalPrice(basket)} ₽</p>
+        <p>{memoizedTotalPrice(basket) || 0} ₽</p>
       </div>
       <CheckoutButton />
     </div>

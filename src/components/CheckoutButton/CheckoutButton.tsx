@@ -11,12 +11,14 @@ export const CheckoutButton: React.FC = () => {
   const { updateBasketItems } = useUpdateBasket();
   const { updateOrdersInRedux } = useActions();
   const post = () => {
+
     submitBasket({})
       .unwrap()
       .then(() => {
         updateBasketItems([{ id: "null", quantity: 0 }], false);
         updateOrdersInRedux({ data: [basket], meta: { count: 1, total: 1 } });
       });
+      
   };
 
   const { isValid } = useValidateBasket();
@@ -24,7 +26,7 @@ export const CheckoutButton: React.FC = () => {
   return (
     <div className={st.handleBasket}>
       {/* {isValid && <p>{isError}</p>} */}
-      <button disabled={isValid} onClick={post}>
+      <button data-close-on-click={true} disabled={isValid} onClick={post}>
         Оформить заказ
       </button>
     </div>

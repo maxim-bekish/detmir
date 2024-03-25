@@ -1,6 +1,5 @@
 import st from "./orders.module.scss";
 import { totalPrice } from "../../helpFun/totalPrice";
-
 import { formatDate } from "../../helpFun/formatDate";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
@@ -57,14 +56,13 @@ export const Orders: React.FC = () => {
 
     updateBasketItems(res, bool);
   };
-
+  const openItemCard = (idProduct: string) => {
+    navigate(`/cardProduct/${idProduct}`);
+  };
   if (isLoading) return <Loader />;
 
   if (isError) return <ErrorCustom />;
-  const openItemCard = (idProduct: string) => {
-    console.log(idProduct);
-    navigate(`/cardProduct/${idProduct}`);
-  };
+
   if (orders.data.length === 0) {
     return (
       <>
