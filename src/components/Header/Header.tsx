@@ -19,6 +19,7 @@ export const Header: React.FC = () => {
   const { basket } = useAddBasket();
   const blockRef = useRef<HTMLDivElement>(null);
   const www = useRef<HTMLDivElement>(null);
+  const desktopBasket = useRef<HTMLDivElement>(null);
 
   const { updateBasketInRedux } = useActions(); // add in basket
 
@@ -35,17 +36,26 @@ export const Header: React.FC = () => {
 
     const handleClickOutside = (event: MouseEvent) => {
       if (
+        toggleBurger &&
         blockRef.current &&
-        !blockRef.current.contains(event.target as Node) &&
-        toggleBurger
+        !blockRef.current.contains(event.target as Node)
       ) {
         setToggleBurger(false);
       }
       if (
+        toggleBurger &&
         www.current &&
-        !www.current.contains(event.target as Node) &&
-        toggleBurger
+        !www.current.contains(event.target as Node)
       ) {
+        setToggleBasket(false);
+      }
+      if (
+        toggleBasket &&
+        desktopBasket.current &&
+        !desktopBasket.current.contains(event.target as Node) &&
+        !www.current?.contains(event.target as Node)
+      ) {
+        console.log(desktopBasket.current);
         setToggleBasket(false);
       }
     };
@@ -55,7 +65,7 @@ export const Header: React.FC = () => {
     return () => {
       window.removeEventListener("click", handleClickOutside);
     };
-  }, [toggleBurger, pathname]);
+  }, [toggleBurger, pathname, toggleBasket]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -128,6 +138,7 @@ export const Header: React.FC = () => {
           <span></span>
         </div>
         <div
+          ref={desktopBasket}
           className={st.containerBasket}
           style={{
             display: toggleBasket ? "block" : "none",

@@ -54,7 +54,7 @@ export const Orders: React.FC = () => {
       quantity: el.quantity,
       id: el.product.id,
     }));
-console.log(res)
+
     updateBasketItems(res, bool);
   };
 
