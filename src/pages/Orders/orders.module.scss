@@ -126,6 +126,10 @@
       border-radius: 15px;
       gap: $Gap16;
       border: 1px solid $Gray;
+      max-height: 35vh;
+      overflow-y: auto;
+      @include scroll;
+
       .table {
         tr {
           font-family: "Nunito";

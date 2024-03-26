@@ -1,6 +1,6 @@
 import st from "./orders.module.scss";
 import { totalPrice } from "../../helpFun/totalPrice";
-import { formatDate } from "../../helpFun/formatDate";
+import { formatDate } from "./formatDate";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { useGetOrdersQuery } from "../../store/api/getOrders";
@@ -11,9 +11,11 @@ import { ICard } from "../../types/card.types";
 import { Loader } from "../../components/Loader/Loader";
 import { ErrorCustom } from "../ErrorCustom/ErrorCustom";
 import { useNavigate } from "react-router-dom";
+import { ModalWindow } from "../../components/ModalWindow/ModalWindow";
 
 export const Orders: React.FC = () => {
   const [step, setStep] = useState(1);
+  const [xxx, setXxx] = useState(false);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const navigate = useNavigate();
 
@@ -41,20 +43,28 @@ export const Orders: React.FC = () => {
     }
   }, [step, isLoading]);
 
-  const openOrder = (elementID: number) => {
-    if (expandedIndex === elementID) {
-      setExpandedIndex(null);
+  const openOrder = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const dataAttribute = (e.target as HTMLButtonElement).getAttribute(
+      "data-update"
+    );
+
+    if (expandedIndex === Number(e.currentTarget.id)) {
+      if (!dataAttribute) setExpandedIndex(null);
     } else {
-      setExpandedIndex(elementID);
+      setExpandedIndex(Number(e.currentTarget.id));
     }
   };
+
   const addOrderInBasket = (element: ICard[], bool: boolean) => {
     const res = element.map((el) => ({
       quantity: el.quantity,
       id: el.product.id,
     }));
 
-    updateBasketItems(res, bool);
+    updateBasketItems(res, {
+      addOrReplaceBasket: bool,
+      addOrReplaceItem: false,
+    });
   };
   const openItemCard = (idProduct: string) => {
     navigate(`/cardProduct/${idProduct}`);
@@ -73,11 +83,13 @@ export const Orders: React.FC = () => {
 
   return (
     <>
+      {xxx && <ModalWindow setXxx={setXxx} />}
       <section className={st.wrapper}>
         {orders.data.map((element, elementID) => (
           <div
-            onClick={() => openOrder(elementID)}
+            onClick={(e) => openOrder(e)}
             key={elementID}
+            id={`${elementID}`}
             className={`${st.container} ${
               expandedIndex === elementID ? st.containerBig : ""
             }`}
@@ -132,7 +144,7 @@ export const Orders: React.FC = () => {
                         <th className={st.priceTable}>Цена</th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody className={st.tbody}>
                       {element.map((el, elId) => (
                         <tr
                           key={`tr${elId}`}
@@ -157,12 +169,15 @@ export const Orders: React.FC = () => {
                   <button
                     onClick={() => addOrderInBasket(element, false)}
                     className={st.addBasket}
+                    data-update={"add"}
                   >
                     Добавить к корзине
                   </button>
                   <button
-                    onClick={() => addOrderInBasket(element, true)}
+                    // onClick={() => addOrderInBasket(element, true)}
+                    onClick={() => setXxx(true)}
                     className={st.updateBasket}
+                    data-update={"update"}
                   >
                     Обновить корзину
                   </button>

@@ -15,7 +15,10 @@ export const Basket: React.FC = () => {
   };
   const { updateBasketItems } = useUpdateBasket();
   const deleteItem = (id: string) => {
-    updateBasketItems([{ id: id, quantity: 0 }], false);
+    updateBasketItems([{ id: id, quantity: 0 }], {
+      addOrReplaceBasket: false,
+      addOrReplaceItem: true,
+    });
   };
   const handleMouseLeave = () => {
     setHoveredItemId(null);
@@ -32,7 +35,7 @@ export const Basket: React.FC = () => {
       <section className={st.itemsAll}>
         {basket.length === 0 ? (
           <div className={st.zeroBasket}>
-            <span>Корзина пустая.</span>
+            <span>Корзина пустая</span>
             <Link to={"/"} data-close-on-click={true}>
               Перейти к выбору товара
             </Link>

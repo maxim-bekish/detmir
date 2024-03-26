@@ -1,7 +1,7 @@
 import { ItemCards } from "./../../components/ItemCards/ItemCards";
 import { Loader } from "./../../components/Loader/Loader";
 import { useAddProducts } from "../../hooks/useAddProducts";
-import { useGetProducts } from "../../hooks/useGetProducts";
+import { useGetProducts } from "./useGetProducts";
 import { ErrorCustom } from "../ErrorCustom/ErrorCustom";
 import { useInView } from "react-intersection-observer";
 export const Product: React.FC = () => {

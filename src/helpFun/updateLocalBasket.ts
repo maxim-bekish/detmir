@@ -4,15 +4,14 @@ import { ICard, ProductInBasket } from "../types/card.types";
 export const updateLocalBasket = (
   basket: ICard[], // текущая корзина
   updates: ProductInBasket[], // массив обновлений
-  replace: boolean // флаг полной замены корзины
+  config: { addOrReplaceBasket: boolean; addOrReplaceItem: boolean } // флаг полной замены корзины
 ): ProductInBasket[] | [] => {
   let updatedBasket = basket.map((item) => ({
     id: item.product.id,
     quantity: item.quantity,
   }));
-
   // Если установлен флаг полной замены, присваиваем обновленную корзину
-  if (replace) {
+  if (config.addOrReplaceBasket) {
     updatedBasket = updates;
   } else {
     // Иначе обновляем количество товаров
@@ -21,7 +20,12 @@ export const updateLocalBasket = (
       const index = updatedBasket.findIndex((item) => item.id === update.id);
       // Если товар найден, обновляем количество
       if (index !== -1) {
-        updatedBasket[index].quantity = update.quantity;
+        if (!config.addOrReplaceItem) {
+          updatedBasket[index].quantity =
+            updatedBasket[index].quantity + update.quantity;
+        } else {
+          updatedBasket[index].quantity = update.quantity;
+        }
       } else {
         // Иначе добавляем новый товар
         updatedBasket.push(update);

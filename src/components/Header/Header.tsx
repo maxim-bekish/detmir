@@ -10,7 +10,7 @@ import { useActions } from "../../hooks/useActions";
 import { useGetBasketQuery } from "../../store/api/getBasket";
 import { ErrorCustom } from "../../pages/ErrorCustom/ErrorCustom";
 import { Loader } from "../Loader/Loader";
-import { useClickOutside } from "../../hooks/useClickOutside";
+import { useClickOutside } from "./useClickOutside";
 
 export const Header: React.FC = () => {
   const [toggleBasket, setToggleBasket] = useState<boolean>(false);
@@ -106,7 +106,9 @@ export const Header: React.FC = () => {
         <div
           ref={desktopBasketRefButton}
           onClick={() => {
-            setToggleBasket(!toggleBasket);
+            if (pathname !== "/basket") {
+              setToggleBasket(!toggleBasket);
+            }
           }}
           className={st.header__cart}
         >

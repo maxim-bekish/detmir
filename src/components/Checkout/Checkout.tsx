@@ -28,14 +28,21 @@ export const Checkout: React.FC<{ productInBasket: ProductInBasket }> = ({
   }, [productInBasket.quantity]);
 
   const addInBasket = () => {
-    updateBasketItems([{ id: productInBasket.id, quantity: 1 }], false);
+    updateBasketItems([{ id: productInBasket.id, quantity: 1 }], {
+      addOrReplaceBasket: false,
+      addOrReplaceItem: false,
+    });
   };
 
   return (
     <div className={st.addBasket}>
       <div ref={divinest} className={st.inputWrap}>
-        <AddRemoveInBasket propsInBasket={productInBasket} />
-        <CheckoutButton />
+        <div className={st.addRemoveInBasket}>
+          <AddRemoveInBasket propsInBasket={productInBasket} />
+        </div>
+        <div className={st.checkoutButton}>
+          <CheckoutButton />
+        </div>
       </div>
       <button ref={inBasket} className={st.handleBasket} onClick={addInBasket}>
         Добавить в корзину

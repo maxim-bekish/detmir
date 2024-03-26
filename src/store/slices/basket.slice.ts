@@ -22,7 +22,11 @@ export const basketSlice = createSlice({
 
         if (index !== -1) {
           // Если товар уже присутствует в корзине, создаем новый объект с обновленным количеством
-          newState[index] = { ...newState[index], quantity: element.quantity };
+
+          newState[index] = {
+            ...newState[index],
+            quantity: element.quantity,
+          };
         } else {
           // Иначе добавляем новый товар в корзину
           newState.push(element);

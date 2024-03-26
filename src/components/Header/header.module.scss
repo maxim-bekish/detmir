@@ -10,7 +10,7 @@
     justify-content: space-between;
     width: 100%;
     max-width: 1920px;
-    height: 48px;
+    height: $HeightHeader;
     padding: 12px 32px 0px 32px;
     border-bottom: 1px solid $BrandLight2;
 
@@ -74,8 +74,9 @@
     .containerBasket {
       display: flex;
       z-index: 999;
-      top: 50px;
+      top: $HeightHeader+24px;
       right: 15px;
+       max-height: calc(70vh - 24px - 48px);
       position: absolute;
       box-sizing: border-box;
       width: 560px;

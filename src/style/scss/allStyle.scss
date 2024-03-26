@@ -13,6 +13,7 @@ $Radius4: 4px;
 $Radius12: 12px;
 $Radius16: 16px;
 $Radius24: 24px;
+$HeightHeader: 48px;
 
 body {
   font-family: "Nunito";
@@ -69,5 +70,19 @@ main {
   @media (max-width: 480px) {
     height: 100%;
     padding: 8px;
+  }
+}
+@mixin scroll {
+  &::-webkit-scrollbar {
+    width: 5px; // Ширина скроллбара
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #888; // Цвет ползунка скроллбара
+    border-radius: 5px; // Скругление углов ползунка
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555; // Цвет ползунка скроллбара при наведении
   }
 }

@@ -6,7 +6,7 @@
   display: flex;
   overflow: hidden;
   flex-direction: row;
-  max-width: calc(50% - $Gap8);
+  max-width: 100%;
 
   @media (max-width: 800px) {
     height: 52px;

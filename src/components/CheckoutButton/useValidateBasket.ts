@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAddBasket } from "./useAddBasket";
+import { useAddBasket } from "../../hooks/useAddBasket";
 
 export const useValidateBasket = () => {
   const { basket } = useAddBasket();

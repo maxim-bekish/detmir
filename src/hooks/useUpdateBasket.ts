@@ -15,13 +15,20 @@ export const useUpdateBasket = () => {
   const [error, setError] = useState<string>("null");
 
   // Функция для обновления количества товаров в корзине
-  const updateBasketItems = async (array: IUpdateQuantity[], bool: boolean) => {
+  const updateBasketItems = async (
+    array: IUpdateQuantity[],
+    config: {
+      addOrReplaceBasket: boolean;
+      addOrReplaceItem: boolean;
+    }
+  ) => {
     try {
       let data: { id: string; quantity: number }[] = [];
+
       if (array[0].id === "null") {
         data = [];
       } else {
-        data = updateLocalBasket(basket, array, bool);
+        data = updateLocalBasket(basket, array, config);
       }
       const response = await updateCartOnServer({
         data: data,

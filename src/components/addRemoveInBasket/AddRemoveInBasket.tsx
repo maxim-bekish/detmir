@@ -1,7 +1,7 @@
 import minus from "./../../assets/SVG/minus.svg";
 import plus from "./../../assets/SVG/plus.svg";
 import st from "./addRemoveInBasket.module.scss";
-import { validateInput } from "../../helpFun/validateInput";
+import { validateInput } from "./validateInput";
 import { useUpdateBasket } from "../../hooks/useUpdateBasket";
 import { ProductInBasket } from "../../types/card.types";
 
@@ -18,7 +18,10 @@ export const AddRemoveInBasket: React.FC<{
 
     // Если нет ошибок, обновить state
     if (!error) {
-      updateBasketItems([{ id: id, quantity: value }],false);
+      updateBasketItems([{ id: id, quantity: value }], {
+        addOrReplaceBasket: false,
+        addOrReplaceItem: true,
+      });
     }
   };
 
@@ -26,7 +29,10 @@ export const AddRemoveInBasket: React.FC<{
     <div className={st.input}>
       <button
         onClick={() => {
-          updateBasketItems([{ id: id, quantity: quantity - 1 }],false);
+          updateBasketItems([{ id: id, quantity: -1 }], {
+            addOrReplaceBasket: false,
+            addOrReplaceItem: false,
+          });
         }}
       >
         <img src={minus} alt="" />
@@ -36,7 +42,10 @@ export const AddRemoveInBasket: React.FC<{
       <button
         disabled={quantity >= 10}
         onClick={() => {
-          updateBasketItems([{ id: id, quantity: quantity + 1 }], false);
+          updateBasketItems([{ id: id, quantity: 1 }], {
+            addOrReplaceBasket: false,
+            addOrReplaceItem: false,
+          });
         }}
       >
         <img src={plus} alt="" />

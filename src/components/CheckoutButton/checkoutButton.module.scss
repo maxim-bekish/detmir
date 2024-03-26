@@ -1,10 +1,7 @@
 @import "./../../style/scss/allStyle.scss";
 .handleBasket {
-  max-width: calc(50% - $Gap8);
-
-  @media (max-width: 800px) {
-    max-width: 100%;
-  }
+  max-width: 100%;
+  width: 100%;
   position: relative;
   p {
     opacity: 0.7;

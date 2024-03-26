@@ -14,7 +14,6 @@ export const useClickOutside = (
         !refButton.current.contains(event.target as Node)
       ) {
         handler();
-        console.log("Clicked вне element");
       }
     };
 

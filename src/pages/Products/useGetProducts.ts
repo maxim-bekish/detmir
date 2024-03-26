@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useGetProductsQuery } from "../store/api/getCardsStart";
-import { useActions } from "./useActions";
+import { useGetProductsQuery } from "../../store/api/getCardsStart";
+import { useActions } from "../../hooks/useActions";
 
 export const useGetProducts = (inView: boolean) => {
   const [step, setStep] = useState(1);
