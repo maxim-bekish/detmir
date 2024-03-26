@@ -7,7 +7,10 @@ export const basketSlice = createSlice({
   name: "basket",
   initialState,
   reducers: {
-    toggleBasket: (state, { payload: dataCard }: PayloadAction<ICard[]>) => {
+    updateBasketInRedux: (
+      state,
+      { payload: dataCard }: PayloadAction<ICard[]>
+    ) => {
       // Создаем новый массив, основанный на текущем состоянии
       const newState: ICard[] = [...state];
 
@@ -19,7 +22,11 @@ export const basketSlice = createSlice({
 
         if (index !== -1) {
           // Если товар уже присутствует в корзине, создаем новый объект с обновленным количеством
-          newState[index] = { ...newState[index], quantity: element.quantity };
+
+          newState[index] = {
+            ...newState[index],
+            quantity: element.quantity,
+          };
         } else {
           // Иначе добавляем новый товар в корзину
           newState.push(element);
@@ -33,7 +40,6 @@ export const basketSlice = createSlice({
 
       return updatedState;
     },
-   
   },
 });
 

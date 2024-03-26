@@ -1,25 +1,32 @@
 import st from "./checkoutButton.module.scss";
-import { useUpdateQuantity } from "../../hooks/useUpdateQuantity";
-import { useValidateBasket } from "../../hooks/useValidateBasket";
+import { useUpdateBasket } from "../../hooks/useUpdateBasket";
+import { useValidateBasket } from "./useValidateBasket";
 import { usePostPlaceOrdersMutation } from "../../store/api/postPlaceOrders.api";
+import { useAddBasket } from "../../hooks/useAddBasket";
+import { useActions } from "../../hooks/useActions";
 
 export const CheckoutButton: React.FC = () => {
   const [submitBasket] = usePostPlaceOrdersMutation();
+  const { basket } = useAddBasket();
+  const { updateBasketItems } = useUpdateBasket();
+  const { updateOrdersInRedux } = useActions();
   const post = () => {
     submitBasket({})
       .unwrap()
       .then(() => {
-        updateQuantity(null, 0);
+        updateBasketItems([{ id: "null", quantity: 0 }], {
+          addOrReplaceBasket: false,
+          addOrReplaceItem: false,
+        });
+        updateOrdersInRedux({ data: [basket], meta: { count: 1, total: 1 } });
       });
   };
-  const { updateQuantity } = useUpdateQuantity();
 
   const { isValid } = useValidateBasket();
 
   return (
     <div className={st.handleBasket}>
-      {/* {isValid && <p>{isError}</p>} */}
-      <button disabled={isValid} onClick={post}>
+      <button data-close-on-click={true} disabled={isValid} onClick={post}>
         Оформить заказ
       </button>
     </div>

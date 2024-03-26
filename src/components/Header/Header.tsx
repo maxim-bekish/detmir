@@ -6,38 +6,52 @@ import { useAddBasket } from "../../hooks/useAddBasket";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import { Basket } from "../Basket/Basket";
 import { useEffect, useRef, useState } from "react";
+import { useActions } from "../../hooks/useActions";
+import { useGetBasketQuery } from "../../store/api/getBasket";
+import { ErrorCustom } from "../../pages/ErrorCustom/ErrorCustom";
+import { Loader } from "../Loader/Loader";
+import { useClickOutside } from "./useClickOutside";
 
 export const Header: React.FC = () => {
   const [toggleBasket, setToggleBasket] = useState<boolean>(false);
-  const [toggleBurger, setToggleBurger] = useState<boolean>(false);
+  const [toggleBurgerMenu, setToggleBurgerMenu] = useState<boolean>(false);
   const { pathname } = useLocation();
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const { basket } = useAddBasket();
-  const blockRef = useRef<HTMLDivElement>(null);
+  const burgerMenuRef = useRef<HTMLDivElement>(null);
+  const desktopBasketRef = useRef<HTMLDivElement>(null);
+  const burgerMenuRefButton = useRef<HTMLDivElement>(null);
+  const desktopBasketRefButton = useRef<HTMLDivElement>(null);
+
+  const { updateBasketInRedux } = useActions(); // add in basket
+
+  const { data, isSuccess, isLoading, isError } = useGetBasketQuery(null); // получение корзины с сервера
 
   useEffect(() => {
-    if (pathname === "/basket") setToggleBasket(false);
+    if (isSuccess) {
+      updateBasketInRedux(data);
+    }
+  }, [isSuccess, data]);
 
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        blockRef.current &&
-        !blockRef.current.contains(event.target as Node) &&
-        toggleBurger
-      ) {
-        setToggleBurger(false);
-      }
-    };
-
-    window.addEventListener("click", handleClickOutside);
-
-    return () => {
-      window.removeEventListener("click", handleClickOutside);
-    };
-  }, [toggleBurger, pathname]);
+  useClickOutside(burgerMenuRef, burgerMenuRefButton, () =>
+    setToggleBurgerMenu(false)
+  );
+  useClickOutside(desktopBasketRef, desktopBasketRefButton, () =>
+    setToggleBasket(false)
+  );
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 480) {
+      const newWidth = window.innerWidth;
+      const prevWidth = windowWidth;
+      setWindowWidth(newWidth);
+
+      // Закрытие модальных окон при переходе между диапазонами 480px и 481px
+      if (
+        (prevWidth <= 480 && newWidth >= 481) ||
+        (prevWidth >= 481 && newWidth <= 480)
+      ) {
         setToggleBasket(false);
       }
     };
@@ -52,8 +66,9 @@ export const Header: React.FC = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
-
+  }, [windowWidth]);
+  if (isError) return <ErrorCustom />;
+  if (isLoading) return <Loader />;
   return (
     <header className={st.header}>
       <div className={st.container}>
@@ -63,54 +78,65 @@ export const Header: React.FC = () => {
           </div>
         </Link>
         <nav
+          ref={burgerMenuRef}
           className={
-            toggleBurger
+            toggleBurgerMenu
               ? st.header__navigating
               : `${st.header__navigating} ${st.none}`
           }
         >
           <ul>
             <li>
-              <NavLink to="/">Товары</NavLink>
+              <NavLink data-close-on-click={true} to="/">
+                Товары
+              </NavLink>
             </li>
             <li>
-              <NavLink to="orders">Заказы</NavLink>
+              <NavLink data-close-on-click={true} to="orders">
+                Заказы
+              </NavLink>
             </li>
             <li>
-              <NavLink to="basket">
+              <NavLink data-close-on-click={true} to="basket">
                 Корзина {basket.length === 0 ? "" : `(${basket.length})`}
               </NavLink>
             </li>
           </ul>
         </nav>
         <div
+          ref={desktopBasketRefButton}
           onClick={() => {
-            pathname === "/basket"
-              ? setToggleBasket(false)
-              : setToggleBasket(!toggleBasket);
+            if (pathname !== "/basket") {
+              setToggleBasket(!toggleBasket);
+            }
           }}
           className={st.header__cart}
         >
           <img src={cart} alt="Cart" />
           <p> Корзина {basket.length === 0 ? "" : `(${basket.length})`}</p>
         </div>
-        <div
-          ref={blockRef}
-          onClick={() => setToggleBurger(!toggleBurger)}
-          className={st.burger}
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div
-          className={st.containerBasket}
-          style={{
-            display: toggleBasket ? "block" : "none",
-          }}
-        >
-          <Basket />
-        </div>
+        {windowWidth <= 480 && (
+          <div
+            ref={burgerMenuRefButton}
+            onClick={() => setToggleBurgerMenu(!toggleBurgerMenu)}
+            className={st.burger}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        )}
+
+        {windowWidth > 480 && (
+          <div
+            ref={desktopBasketRef}
+            className={
+              toggleBasket ? st.containerBasket : st.containerBasketNone
+            }
+          >
+            <Basket />
+          </div>
+        )}
       </div>
     </header>
   );

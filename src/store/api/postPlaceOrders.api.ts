@@ -1,5 +1,5 @@
-import { getCards } from "./getCardsStart";
-export const postPlaceOrders = getCards.injectEndpoints({
+import { getProducts } from "./getCardsStart";
+export const postPlaceOrders = getProducts.injectEndpoints({
   endpoints: (builder) => ({
     postPlaceOrders: builder.mutation({
       query: (card) => ({

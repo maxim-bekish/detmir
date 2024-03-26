@@ -1,33 +1,37 @@
 import { ICard, ProductInBasket } from "../types/card.types";
+// Функция для обновления локальной корзины
 
 export const updateLocalBasket = (
-  basket: ICard[],
-  count: number,
-  id: string
+  basket: ICard[], // текущая корзина
+  updates: ProductInBasket[], // массив обновлений
+  config: { addOrReplaceBasket: boolean; addOrReplaceItem: boolean } // флаг полной замены корзины
 ): ProductInBasket[] | [] => {
-  let updatedBasket: ProductInBasket[] = [];
-  if (basket.length === 0) {
-    if (count <= 0) return [];
-
-    updatedBasket = [{ quantity: count, id: id }];
+  let updatedBasket = basket.map((item) => ({
+    id: item.product.id,
+    quantity: item.quantity,
+  }));
+  // Если установлен флаг полной замены, присваиваем обновленную корзину
+  if (config.addOrReplaceBasket) {
+    updatedBasket = updates;
   } else {
-    updatedBasket = basket
-      .map((item: ICard) => {
-        if (Number(item.product.id) === Number(id)) {
-          if (count <= 0) return null;
-          // в этом случае нужно
-          return { quantity: count, id: item.product.id };
+    // Иначе обновляем количество товаров
+    updates.forEach((update) => {
+      // Ищем индекс товара в корзине
+      const index = updatedBasket.findIndex((item) => item.id === update.id);
+      // Если товар найден, обновляем количество
+      if (index !== -1) {
+        if (!config.addOrReplaceItem) {
+          updatedBasket[index].quantity =
+            updatedBasket[index].quantity + update.quantity;
+        } else {
+          updatedBasket[index].quantity = update.quantity;
         }
-        return { quantity: item.quantity, id: item.product.id };
-      })
-      .filter((item): item is ProductInBasket => !!item);
-    // Добавляем новый объект, если такого ID не было в basket
-    const isNewItemExist = basket.some(
-      (item) => Number(item.product.id) === Number(id)
-    );
-    if (!isNewItemExist && count > 0) {
-      updatedBasket.push({ quantity: count, id: id });
-    }
+      } else {
+        // Иначе добавляем новый товар
+        updatedBasket.push(update);
+      }
+    });
   }
-  return updatedBasket;
+
+  return updatedBasket.filter((item) => item.quantity > 0);
 };

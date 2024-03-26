@@ -3,6 +3,7 @@ import { Product } from "./pages/Products/Products";
 import { Orders } from "./pages/Orders/Orders";
 import { CardProduct } from "./pages/CardProduct/CardProduct";
 import { BasketPage } from "./pages/Basket/BasketPage";
+import { NotFoundPage } from "./pages/NotFound/NotFoundPage";
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => (
   <Routes>
@@ -10,5 +11,6 @@ export default () => (
     <Route path="/orders" element={<Orders />} />
     <Route path="/cardProduct/:id" element={<CardProduct />} />
     <Route path="/basket" element={<BasketPage />} />
+    <Route path="*" element={<NotFoundPage />} />
   </Routes>
 );

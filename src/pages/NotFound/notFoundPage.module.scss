@@ -1,0 +1,48 @@
+@import "./../../style/scss/allStyle.scss"; // Подключаем ваши общие стили
+
+.notFoundPage {
+  font-weight: 100;
+  color: #333;
+  text-align: center;
+  padding: 40px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  background-color: $White;
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .notFoundMessage {
+    text-align: center;
+    margin-bottom: 20px;
+ 
+    display: flex;
+    flex-direction: column;
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    p {    text-align: left;
+      margin: 5px 0;
+    }
+  }
+
+  .homeButton {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: $Brand; /* Цвет кнопки */
+    color: $White; /* Цвет текста кнопки */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #0056b3; /* Цвет кнопки при наведении */
+    }
+  }
+}

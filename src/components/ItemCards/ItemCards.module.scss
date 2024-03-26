@@ -6,6 +6,9 @@
   flex-wrap: wrap;
   max-width: 1346px;
   gap: $Gap24;
+  @media (max-width: 480px) {
+    gap: $Gap12;
+  }
   justify-content: center;
   .card {
     display: flex;

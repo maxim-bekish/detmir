@@ -8,20 +8,24 @@ import Rating from "../../components/Rating/Rating";
 import { Checkout } from "../../components/Checkout/Checkout";
 import { useAddBasket } from "../../hooks/useAddBasket";
 import { useGetCardQuery } from "../../store/api/getCard";
+import { Loader } from "../../components/Loader/Loader";
+import { ErrorCustom } from "../ErrorCustom/ErrorCustom";
 
 export const CardProduct: React.FC = () => {
   const { id } = useParams<string>();
-  const { data, isLoading } = useGetCardQuery(Number(id));
+  const { data, isLoading, isError,isSuccess } = useGetCardQuery(Number(id));
   const { basket } = useAddBasket();
   const navigate = useNavigate();
+  if (isLoading) return <Loader />;
 
-  if (data && id) {
+  if (isError) return <ErrorCustom />;
+
+  if (isSuccess && id) {
     const productInBasket = basket.reduce(
       (result, e) => {
         if (Number(e.product.id) === Number(id)) {
           result.id = e.product.id;
           result.quantity = e.quantity;
-          // result.price = e.product.price;
         }
         return result;
       },
@@ -43,7 +47,6 @@ export const CardProduct: React.FC = () => {
               <div className={st.miniWrap}>
                 <div className={st.priceAndError}>
                   <p className={st.price}>{data.price} ₽</p>
-
                   {data.price * productInBasket.quantity > 10000 && (
                     <p className={st.error}>
                       Максимальная сумма товаров 10 000₽
@@ -52,13 +55,15 @@ export const CardProduct: React.FC = () => {
                 </div>
                 <Checkout productInBasket={productInBasket} />
               </div>
+
               <div className={`${st.return} ${st.miniWrap}`}>
-                <Link
+                <a
                   target="_blank"
-                  to="https://detmir.by/pages/exchange_and_refund/"
+                  rel="noreferrer"
+                  href="https://detmir.by/pages/exchange_and_refund/"
                 >
                   <img src={shape} alt="shape" /> Условия возврата
-                </Link>
+                </a>
                 <p>
                   Обменять или вернуть товар надлежащего качества можно в
                   течение 14 дней с момента покупки.
@@ -82,8 +87,5 @@ export const CardProduct: React.FC = () => {
       </>
     );
   }
-  if (isLoading) {
-    return <div>Loading</div>;
-  }
-  return <div>Чет не так</div>;
+  return <></>;
 };

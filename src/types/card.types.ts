@@ -17,4 +17,11 @@ export interface ProductInBasket {
   quantity: number;
 }
 
-
+export interface OrdersData {
+  data: ICard[][];
+  meta: { count: number; total: number; id?: number };
+}
+export interface ProductsData {
+  data: ICards[];
+  meta: { count: number; total: number };
+}

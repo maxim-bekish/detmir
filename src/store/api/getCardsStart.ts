@@ -1,9 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { ICards } from "../../types/card.types";
+import { ProductsData } from "../../types/card.types";
 const API_URL = "https://skillfactory-task.detmir.team/";
 
-export const getCards = createApi({
+export const getProducts = createApi({
   reducerPath: "api",
   tagTypes: ["UpdateOrders", "UpdateCard"],
   baseQuery: fetchBaseQuery({
@@ -12,10 +12,10 @@ export const getCards = createApi({
   }),
 
   endpoints: (builder) => ({
-    getCards: builder.query<{ data: ICards[] }, number>({
+    getProducts: builder.query<ProductsData, number>({
       query: (id) => `products?limit=15&page=${id}`,
     }),
   }),
 });
 
-export const { useGetCardsQuery } = getCards;
+export const { useGetProductsQuery } = getProducts;

@@ -3,12 +3,25 @@
 .addBasket {
   .inputWrap {
     display: none;
-    gap: $Gap8;
+    gap: $Gap16;
     height: 100%;
+    justify-content: flex-start;
+    .checkoutButton,
+    .addRemoveInBasket {
+      max-width: calc(50% - $Gap8);
+      width: 100%;
+    }
 
+    @media (max-width: 800px) {
+      gap: $Gap8;
+      flex-direction: column;
+      .checkoutButton,
+      .addRemoveInBasket {
+        max-width: 100%;
+      }
+    }
   }
   .handleBasket {
     @include button;
-   
   }
 }

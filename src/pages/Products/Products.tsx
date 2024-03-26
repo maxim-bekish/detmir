@@ -1,43 +1,25 @@
-import { useEffect, useState } from "react";
 import { ItemCards } from "./../../components/ItemCards/ItemCards";
-import { useGetCardsQuery } from "../../store/api/getCardsStart";
-import { ICards } from "./../../types/card.types";
+import { Loader } from "./../../components/Loader/Loader";
+import { useAddProducts } from "../../hooks/useAddProducts";
+import { useGetProducts } from "./useGetProducts";
+import { ErrorCustom } from "../ErrorCustom/ErrorCustom";
 import { useInView } from "react-intersection-observer";
-
 export const Product: React.FC = () => {
-  const [cards, setCards] = useState<ICards[]>([]);
-  const [step, setStep] = useState(1);
-
-  const { data, isLoading } = useGetCardsQuery(step);
+  const { products } = useAddProducts();
 
   const { ref, inView } = useInView({
-    threshold: 0,
+    threshold: 0, // как только элемент появится на экране, даже частично, inView станет true.
+    rootMargin: "50px",
   });
-  useEffect(() => {
-    if (inView && !isLoading && data && data.data.length > 0) {
-      setStep(step + 1);
-    }
-  }, [inView]);
+  const { isLoading, isError } = useGetProducts(inView);
 
-  useEffect(() => {
-    if (data && data.data.length > 0) {
-      // Добавляем новые карточки к текущему состоянию
+  if (isLoading) return <Loader />;
+  if (isError) return <ErrorCustom />;
 
-      setCards((prevCards) => [...prevCards, ...data.data]);
-    }
-  }, [data]);
-
-  if (cards.length > 0) {
-    return (
-      <>
-        <ItemCards cards={cards} />
-        <div ref={ref}></div>
-      </>
-    );
-  }
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-  return <div>No data available</div>;
+  return (
+    <>
+      <ItemCards cards={products.data} />
+      <div ref={ref}></div>
+    </>
+  );
 };

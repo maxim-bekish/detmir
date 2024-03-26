@@ -10,7 +10,7 @@
     justify-content: space-between;
     width: 100%;
     max-width: 1920px;
-    height: 48px;
+    height: $HeightHeader;
     padding: 12px 32px 0px 32px;
     border-bottom: 1px solid $BrandLight2;
 
@@ -72,17 +72,20 @@
       display: none;
     }
     .containerBasket {
-      display: none;
+      display: flex;
       z-index: 999;
-      top: 50px;
+      top: $HeightHeader+24px;
       right: 15px;
+       max-height: calc(70vh - 24px - 48px);
       position: absolute;
       box-sizing: border-box;
       width: 560px;
-
       @media (max-width: 590px) {
         width: 95%;
       }
+    }
+    .containerBasketNone {
+      display: none;
     }
   }
 }
@@ -129,13 +132,14 @@
           flex-direction: column;
           justify-content: space-between;
           li {
-            height: auto;
+            height: 100%;
             transition: $Animation200;
             :hover {
               transition: $Animation100;
               color: $Brand;
             }
             a {
+              height: auto;
               font-size: 2.2rem;
               line-height: 35px;
             }

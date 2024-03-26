@@ -6,10 +6,15 @@
   display: flex;
   overflow: hidden;
   flex-direction: row;
-  max-width: calc(50% - $Gap8);
+  max-width: 100%;
+
+  @media (max-width: 800px) {
+    height: 52px;
+    max-width: 100%;
+  }
   @media (max-width: 480px) {
-      height: 52px;
-    max-width: calc(50% - $Gap4);
+    height: 36px;
+ 
   }
   box-sizing: border-box;
   input {

@@ -125,16 +125,22 @@
 }
 @media (max-width: 480px) {
   .wrapper {
+    row-gap: $Gap12;
     .wrapperUp {
+      padding: 12px;
+      row-gap: $Gap12;
       flex-direction: column;
       .image {
         max-width: 100%;
       }
       .info {
+        gap: $Gap8;
         max-width: 100%;
       }
     }
     .wrapperDown {
+      padding: 12px;
+      gap:$Gap8;
     }
   }
   .back {
