@@ -13,12 +13,22 @@ import { ErrorCustom } from "../ErrorCustom/ErrorCustom";
 
 export const CardProduct: React.FC = () => {
   const { id } = useParams<string>();
-  const { data, isLoading, isError,isSuccess } = useGetCardQuery(Number(id));
+  const { data, isLoading, isError, isSuccess, error } = useGetCardQuery(
+    Number(id)
+  );
   const { basket } = useAddBasket();
   const navigate = useNavigate();
   if (isLoading) return <Loader />;
 
-  if (isError) return <ErrorCustom />;
+  if (isError) {
+    const errorResponse = error as {
+      status: number;
+      data: {
+        error: string;
+      };
+    };
+    return <ErrorCustom errors={errorResponse} />;
+  }
 
   if (isSuccess && id) {
     const productInBasket = basket.reduce(

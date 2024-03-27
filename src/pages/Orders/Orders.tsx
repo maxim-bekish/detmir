@@ -7,15 +7,14 @@ import { useGetOrdersQuery } from "../../store/api/getOrders";
 import { useActions } from "../../hooks/useActions";
 import { useAddOrders } from "../../hooks/useAddOrders";
 import { useUpdateBasket } from "../../hooks/useUpdateBasket";
-import { ICard } from "../../types/card.types";
+import { ErrorCustomType, ICard } from "../../types/card.types";
 import { Loader } from "../../components/Loader/Loader";
 import { ErrorCustom } from "../ErrorCustom/ErrorCustom";
 import { useNavigate } from "react-router-dom";
-import { ModalWindow } from "../../components/ModalWindow/ModalWindow";
 
 export const Orders: React.FC = () => {
   const [step, setStep] = useState(1);
-  const [xxx, setXxx] = useState(false);
+
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const navigate = useNavigate();
 
@@ -27,7 +26,7 @@ export const Orders: React.FC = () => {
     threshold: 0, // как только элемент появится на экране, даже частично, inView станет true.
     rootMargin: "50px",
   });
-  const { data, isLoading, refetch, isError } = useGetOrdersQuery(step); // получение заказов с сервера
+  const { data, isLoading, refetch, isError, error } = useGetOrdersQuery(step); // получение заказов с сервера
   useEffect(() => {
     if (inView && data && data.meta.count > 0 && !isLoading) {
       setStep((prevStep) => prevStep + 1);
@@ -69,9 +68,13 @@ export const Orders: React.FC = () => {
   const openItemCard = (idProduct: string) => {
     navigate(`/cardProduct/${idProduct}`);
   };
+
   if (isLoading) return <Loader />;
 
-  if (isError) return <ErrorCustom />;
+  if (isError) {
+    const errorResponse = error as ErrorCustomType;
+    return <ErrorCustom errors={errorResponse} />;
+  }
 
   if (orders.data.length === 0) {
     return (
@@ -83,7 +86,6 @@ export const Orders: React.FC = () => {
 
   return (
     <>
-      {xxx && <ModalWindow setXxx={setXxx} />}
       <section className={st.wrapper}>
         {orders.data.map((element, elementID) => (
           <div
@@ -174,8 +176,7 @@ export const Orders: React.FC = () => {
                     Добавить к корзине
                   </button>
                   <button
-                    // onClick={() => addOrderInBasket(element, true)}
-                    onClick={() => setXxx(true)}
+                    onClick={() => addOrderInBasket(element, true)}
                     className={st.updateBasket}
                     data-update={"update"}
                   >

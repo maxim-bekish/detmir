@@ -1,8 +1,17 @@
 import { Link } from "react-router-dom";
 import st from "./errorCustom.module.scss";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
-export const ErrorCustom: React.FC = () => {
-  const error = "Error 404";
+type CustomError = FetchBaseQueryError & {
+  data: {
+    error: string;
+  };
+};
+export const ErrorCustom: React.FC<{
+  errors: CustomError;
+}> = ({ errors }) => {
+  console.log(errors);
+
   const refreshPage = () => {
     window.location.reload();
   };
@@ -11,9 +20,9 @@ export const ErrorCustom: React.FC = () => {
       <div className={st.content}>
         <p>
           В безмолвии цифрового пространства шепчет нам <br />
-          <span>{error}</span> , ощущая пустоту внутри. Но даже здесь есть место
-          для нашей истории. Добавьте свою ошибку, и позвольте ей стать частью
-          этой виртуальной симфонии.
+          <span>{errors.data.error}</span>, ощущая пустоту внутри. Но даже здесь
+          есть место для нашей истории. Добавьте свою ошибку, и позвольте ей
+          стать частью этой виртуальной симфонии.
         </p>
         <p>
           И если заблудитесь, помните: нажмите кнопку "Попробовать еще раз",

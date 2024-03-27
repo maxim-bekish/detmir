@@ -2,8 +2,12 @@
 
 .header {
   background: rgba(242, 246, 250, 1);
+      width: 100%;
+    z-index: 1;
+    top: 0;
+    position: sticky;
   .container {
-    margin: 0 auto 24px auto;
+    margin: 0 auto;
     box-sizing: border-box;
     display: flex;
     flex-direction: row;

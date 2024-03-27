@@ -11,6 +11,7 @@ import { useGetBasketQuery } from "../../store/api/getBasket";
 import { ErrorCustom } from "../../pages/ErrorCustom/ErrorCustom";
 import { Loader } from "../Loader/Loader";
 import { useClickOutside } from "./useClickOutside";
+import { ErrorCustomType } from "../../types/card.types";
 
 export const Header: React.FC = () => {
   const [toggleBasket, setToggleBasket] = useState<boolean>(false);
@@ -26,7 +27,8 @@ export const Header: React.FC = () => {
 
   const { updateBasketInRedux } = useActions(); // add in basket
 
-  const { data, isSuccess, isLoading, isError } = useGetBasketQuery(null); // получение корзины с сервера
+  const { data, isSuccess, isLoading, isError, error } =
+    useGetBasketQuery(null); // получение корзины с сервера
 
   useEffect(() => {
     if (isSuccess) {
@@ -67,7 +69,10 @@ export const Header: React.FC = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, [windowWidth]);
-  if (isError) return <ErrorCustom />;
+  if (isError) {
+    const errorResponse = error as ErrorCustomType;
+    return <ErrorCustom errors={errorResponse} />;
+  }
   if (isLoading) return <Loader />;
   return (
     <header className={st.header}>
