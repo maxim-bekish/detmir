@@ -1,5 +1,6 @@
 import st from "./checkout.module.scss";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
 import { CheckoutButton } from "../CheckoutButton/CheckoutButton";
 import { useUpdateBasket } from "../../hooks/useUpdateBasket";
 import { AddRemoveInBasket } from "../addRemoveInBasket/AddRemoveInBasket";
@@ -35,18 +36,24 @@ export const Checkout: React.FC<{ productInBasket: ProductInBasket }> = ({
   };
 
   return (
-    <div className={st.addBasket}>
-      <div ref={divinest} className={st.inputWrap}>
-        <div className={st.addRemoveInBasket}>
-          <AddRemoveInBasket propsInBasket={productInBasket} />
+    <>
+      <div className={st.addBasket}>
+        <div ref={divinest} className={st.inputWrap}>
+          <div className={st.addRemoveInBasket}>
+            <AddRemoveInBasket propsInBasket={productInBasket} />
+          </div>
+          <div className={st.checkoutButton}>
+            <CheckoutButton />
+          </div>
         </div>
-        <div className={st.checkoutButton}>
-          <CheckoutButton />
-        </div>
+        <button
+          ref={inBasket}
+          className={st.handleBasket}
+          onClick={addInBasket}
+        >
+          Добавить в корзину
+        </button>
       </div>
-      <button ref={inBasket} className={st.handleBasket} onClick={addInBasket}>
-        Добавить в корзину
-      </button>
-    </div>
+    </>
   );
 };

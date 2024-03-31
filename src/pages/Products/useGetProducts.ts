@@ -6,7 +6,7 @@ export const useGetProducts = (inView: boolean) => {
   const [step, setStep] = useState(1);
   const { updateProductsInRedux } = useActions();
 
-  const { data, isLoading, isError } = useGetProductsQuery(step);
+  const { data, isLoading, isError, error } = useGetProductsQuery(step);
 
   useEffect(() => {
     if (inView && !isLoading && data) {
@@ -15,5 +15,5 @@ export const useGetProducts = (inView: boolean) => {
     }
   }, [inView, data]);
 
-  return { isLoading, isError };
+  return { isLoading, isError, error };
 };

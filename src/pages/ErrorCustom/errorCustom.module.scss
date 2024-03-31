@@ -1,7 +1,7 @@
 @import "./../../style/scss/allStyle.scss";
 
 .poeticErrorMessage {
-  font-weight: 100;
+  font-weight: $Font-Weight-100;
   color: #333;
   text-align: center;
   padding: 40px;
@@ -14,7 +14,7 @@
     border-radius: 5px;
     padding: 1px 4px;
     border: 1px solid $Gray;
-    font-weight: 300;
+    font-weight: $Font-Weight-400;
   }
   .content {
     margin-bottom: 40px;
@@ -39,11 +39,11 @@
 
     button,
     a {
-      font-family: "Nunito";
+      font-family: $Font-Nunito;
       text-decoration: none;
       background-color: $Brand;
       color: $White;
-      font-weight: 100;
+      font-weight: $Font-Weight-100;
       line-height: 20px;
       border: none;
       border-radius: 8px;

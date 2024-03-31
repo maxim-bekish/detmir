@@ -9,7 +9,7 @@ export const CheckoutButton: React.FC = () => {
   const [submitBasket] = usePostPlaceOrdersMutation();
   const { basket } = useAddBasket();
   const { updateBasketItems } = useUpdateBasket();
-  const { updateOrdersInRedux } = useActions();
+  const { updateOrdersInRedux, updateModalInRedux } = useActions();
   const post = () => {
     submitBasket({})
       .unwrap()
@@ -18,17 +18,34 @@ export const CheckoutButton: React.FC = () => {
           addOrReplaceBasket: false,
           addOrReplaceItem: false,
         });
-        updateOrdersInRedux({ data: [basket], meta: { count: 1, total: 1 } });
+        updateOrdersInRedux({ data: [basket], meta: { count: 0, total: 0 } });
+        updateModalInRedux({ modal: true, error: "ok" });
+        setTimeout(() => {
+          updateModalInRedux({ modal: false, error: "ok" });
+        }, 2000);
+      })
+      .catch((err: { data: { error: string }; status: number }) => {
+        updateModalInRedux({ modal: true, error: err.data.error });
+        setTimeout(() => {
+          updateModalInRedux({ modal: false, error: err.data.error });
+        }, 2000);
+        console.error(
+          `Ошибка! 
+          Сообщение ошибки: "${err.data.error}"
+          Код ошибки: ${err.status}`
+        );
       });
   };
 
   const { isValid } = useValidateBasket();
 
   return (
-    <div className={st.handleBasket}>
-      <button data-close-on-click={true} disabled={isValid} onClick={post}>
-        Оформить заказ
-      </button>
-    </div>
+    <>
+      <div className={st.handleBasket}>
+        <button data-close-on-click={true} disabled={isValid} onClick={post}>
+          Оформить заказ
+        </button>
+      </div>
+    </>
   );
 };

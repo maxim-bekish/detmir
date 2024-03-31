@@ -1,0 +1,21 @@
+@import "./../../style/scss/allStyle.scss";
+.burger {
+  display: none;
+}
+
+@media (max-width: $WidthMedia) {
+  .burger {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 20px;
+    height: 15px;
+    span {
+      background-color: $Brand;
+      width: 100%;
+      height: 2px;
+      display: block;
+    }
+  }
+}

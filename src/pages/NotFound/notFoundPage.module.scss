@@ -1,7 +1,7 @@
 @import "./../../style/scss/allStyle.scss"; // Подключаем ваши общие стили
 
 .notFoundPage {
-  font-weight: 100;
+  font-weight: $Font-Weight-100;
   color: #333;
   text-align: center;
   padding: 40px;

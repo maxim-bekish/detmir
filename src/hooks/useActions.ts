@@ -4,11 +4,15 @@ import { useDispatch } from "react-redux";
 import { actions as basket } from "../store/slices/basket.slice";
 import { actions as orders } from "../store/slices/orders.slice";
 import { actions as products } from "../store/slices/products.slice";
+import { actions as openModal } from "../store/slices/openModal.slice";
+import { actions as cardProducts } from "../store/slices/cardProducts.slice";
 
 const rootActions = {
   ...basket,
   ...orders,
   ...products,
+  ...openModal,
+  ...cardProducts,
 };
 
 export const useActions = () => {

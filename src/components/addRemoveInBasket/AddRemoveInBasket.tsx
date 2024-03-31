@@ -4,6 +4,7 @@ import st from "./addRemoveInBasket.module.scss";
 import { validateInput } from "./validateInput";
 import { useUpdateBasket } from "../../hooks/useUpdateBasket";
 import { ProductInBasket } from "../../types/card.types";
+import { debounce } from "lodash";
 
 export const AddRemoveInBasket: React.FC<{
   propsInBasket: ProductInBasket;
@@ -12,10 +13,8 @@ export const AddRemoveInBasket: React.FC<{
   const { updateBasketItems } = useUpdateBasket();
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
-
     // Валидация
     const error = validateInput(value);
-
     // Если нет ошибок, обновить state
     if (!error) {
       updateBasketItems([{ id: id, quantity: value }], {
@@ -25,29 +24,27 @@ export const AddRemoveInBasket: React.FC<{
     }
   };
 
+  const handleDecrement = debounce(() => {
+    updateBasketItems([{ id: id, quantity: -1 }], {
+      addOrReplaceBasket: false,
+      addOrReplaceItem: false,
+    });
+  }, 250);
+
+  const handleIncrement = debounce(() => {
+    updateBasketItems([{ id: id, quantity: +1 }], {
+      addOrReplaceBasket: false,
+      addOrReplaceItem: false,
+    });
+  }, 250);
   return (
     <div className={st.input}>
-      <button
-        onClick={() => {
-          updateBasketItems([{ id: id, quantity: -1 }], {
-            addOrReplaceBasket: false,
-            addOrReplaceItem: false,
-          });
-        }}
-      >
+      <button onClick={() => handleDecrement()}>
         <img src={minus} alt="" />
       </button>
       <input type="number" value={quantity} onChange={handleInputChange} />
 
-      <button
-        disabled={quantity >= 10}
-        onClick={() => {
-          updateBasketItems([{ id: id, quantity: 1 }], {
-            addOrReplaceBasket: false,
-            addOrReplaceItem: false,
-          });
-        }}
-      >
+      <button disabled={quantity >= 10} onClick={() => handleIncrement()}>
         <img src={plus} alt="" />
       </button>
     </div>

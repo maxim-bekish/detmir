@@ -1,3 +1,4 @@
+
 export interface ICard {
   quantity: number;
   createdAt: string;
@@ -24,4 +25,10 @@ export interface OrdersData {
 export interface ProductsData {
   data: ICards[];
   meta: { count: number; total: number };
+}
+export interface ErrorCustomType {
+  status: number;
+  data: {
+    error: string;
+  };
 }
