@@ -1,0 +1,31 @@
+@import "./../../style/scss/allStyle.scss";
+
+.header {
+  background: $BrandLight3;
+  width: 100%;
+  z-index: 1;
+  top: 0;
+  position: sticky;
+  .container {
+    margin: 0 auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1920px;
+    height: $HeightHeader;
+    padding: 12px 32px 0px 32px;
+    border-bottom: 1px solid $BrandLight2;
+  }
+}
+
+@media (max-width: $WidthMedia) {
+  .header {
+    .container {
+      align-items: center;
+      padding: 10px 10px 0px 10px;
+      margin: 0 auto 10px auto;
+    }
+  }
+}

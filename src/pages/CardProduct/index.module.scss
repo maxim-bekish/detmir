@@ -1,0 +1,128 @@
+@import "./../../style/scss/allStyle.scss";
+.wrapper {
+  max-width: 792px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: $Gap24;
+  .wrapperUp {
+    display: flex;
+    gap: $Gap24;
+    .image {
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+      max-width: calc(50% - $Gap24 / 2);
+      img {
+        width: 100%;
+      }
+    }
+    .info {
+      box-sizing: border-box;
+      max-width: calc(50% - $Gap24 / 2);
+      display: flex;
+      flex-direction: column;
+      gap: $Gap16;
+
+      .miniWrap {
+        display: flex;
+        flex-direction: column;
+        gap: $Gap8;
+      }
+      .title {
+        font-family: $Font-CirceRounded;
+        font-size: 1.75rem;
+        font-weight: $Font-Weight-700;
+        line-height: 32px;
+      }
+      .priceAndError {
+        display: flex;
+        justify-content: space-between;
+        gap: $Gap8;
+        .price {
+          white-space: nowrap;
+          font-family: $Font-CirceRounded;
+          font-size: 1.75rem;
+          font-weight: $Font-Weight-800;
+          line-height: 32px;
+        }
+        .error {
+          display: flex;
+          color: $Gray;
+          font-size: 0.75rem;
+          align-items: flex-end;
+        }
+      }
+      .return {
+        font-family: $Font-Nunito;
+        font-size: 1rem;
+        font-weight: $Font-Weight-700;
+        line-height: 20px;
+        a {
+          text-decoration: none;
+          color: $Black;
+          transition: $Animation200;
+          &:hover {
+            color: $Gray;
+            transition: $Animation100;
+          }
+        }
+        p {
+          font-weight: $Font-Weight-400;
+        }
+      }
+      .addInfo {
+        font-family: $Font-Nunito;
+        font-size: 0.75rem;
+        font-weight: $Font-Weight-400;
+        line-height: 16px;
+        color: $Gray;
+      }
+    }
+  }
+  .wrapperDown {
+    display: flex;
+    flex-direction: column;
+    gap: $Gap16;
+    font-family: $Font-Nunito;
+    font-size: 1rem;
+    font-weight: $Font-Weight-400;
+    line-height: 20px;
+    text-align: left;
+    h3 {
+      font-size: 1.25rem;
+      font-weight: $Font-Weight-700;
+      line-height: 24px;
+    }
+  }
+}
+.wrapperUp,
+.wrapperDown {
+  padding: 24px;
+  border-radius: $Radius16;
+  gap: $Gap12;
+  background-color: $White;
+}
+
+@media (max-width: $WidthMedia) {
+  .wrapper {
+    gap: $Gap12;
+    .wrapperUp {
+      gap: $Gap12;
+
+      padding: 12px;
+      flex-direction: column;
+      .image {
+        max-width: 100%;
+      }
+      .info {
+        gap: $Gap8;
+        max-width: 100%;
+      }
+    }
+    .wrapperDown {
+      padding: 12px;
+      // gap:$Gap8;
+    }
+  }
+}

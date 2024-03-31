@@ -37,14 +37,13 @@ export const Checkout: React.FC<{ productInBasket: ProductInBasket }> = ({
 
   return (
     <>
-
       <div className={st.addBasket}>
         <div ref={divinest} className={st.inputWrap}>
           <div className={st.addRemoveInBasket}>
             <AddRemoveInBasket propsInBasket={productInBasket} />
           </div>
           <div className={st.checkoutButton}>
-            <CheckoutButton  />
+            <CheckoutButton />
           </div>
         </div>
         <button

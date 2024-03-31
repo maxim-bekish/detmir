@@ -1,0 +1,12 @@
+@import "./../../style/scss/allStyle.scss";
+
+.header__logo {
+  height: 100%;
+  img {
+    width: 150px;
+    height: 24px;
+    @media (max-width: $WidthMedia) {
+      width: 100px;
+    }
+  }
+}

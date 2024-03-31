@@ -5,13 +5,11 @@ import { validateInput } from "./validateInput";
 import { useUpdateBasket } from "../../hooks/useUpdateBasket";
 import { ProductInBasket } from "../../types/card.types";
 import { debounce } from "lodash";
-import { useState } from "react";
 
 export const AddRemoveInBasket: React.FC<{
   propsInBasket: ProductInBasket;
 }> = ({ propsInBasket }) => {
   const { id, quantity } = propsInBasket;
-  const [inputValue, setInputValue] = useState(quantity);
   const { updateBasketItems } = useUpdateBasket();
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
@@ -31,14 +29,14 @@ export const AddRemoveInBasket: React.FC<{
       addOrReplaceBasket: false,
       addOrReplaceItem: false,
     });
-  }, 150);
+  }, 250);
 
   const handleIncrement = debounce(() => {
     updateBasketItems([{ id: id, quantity: +1 }], {
       addOrReplaceBasket: false,
       addOrReplaceItem: false,
     });
-  }, 150);
+  }, 250);
   return (
     <div className={st.input}>
       <button onClick={() => handleDecrement()}>

@@ -22,13 +22,13 @@ export const CheckoutButton: React.FC = () => {
         updateModalInRedux({ modal: true, error: "ok" });
         setTimeout(() => {
           updateModalInRedux({ modal: false, error: "ok" });
-        }, 4000);
+        }, 2000);
       })
       .catch((err: { data: { error: string }; status: number }) => {
         updateModalInRedux({ modal: true, error: err.data.error });
         setTimeout(() => {
           updateModalInRedux({ modal: false, error: err.data.error });
-        }, 4000);
+        }, 2000);
         console.error(
           `Ошибка! 
           Сообщение ошибки: "${err.data.error}"

@@ -1,0 +1,68 @@
+@import "./../../style/scss/allStyle.scss";
+.header__navigating {
+  ul {
+    box-sizing: border-box;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    column-gap: $Gap16;
+    li {
+      &:nth-child(3) {
+        display: none;
+      }
+      height: 100%;
+      border: 0;
+      color: $Black;
+      a {
+        display: block;
+        height: 100%;
+        color: inherit;
+        text-decoration: none;
+        font-family: $Font-Nunito;
+        font-size: 1rem;
+        line-height: 20px;
+        font-weight: $Font-Weight-700;
+      }
+    }
+  }
+}
+   
+
+@media (max-width: $WidthMedia) {
+  .header__navigating {
+    display: block;
+    top: 48px;
+    right: 0;
+    position: absolute;
+    z-index: 2;
+    width: 65%;
+
+    ul {
+      padding: 20px;
+      background-color: $BrandLight2;
+      gap: $Gap8;
+      border-radius: $Radius16 0px 0px $Radius16;
+      flex-direction: column;
+      justify-content: space-between;
+      li {
+        height: 100%;
+        transition: $Animation200;
+        :hover {
+          transition: $Animation100;
+          color: $Brand;
+        }
+        a {
+          height: auto;
+          font-size: 2.2rem;
+          line-height: 35px;
+        }
+      }
+      :nth-child(3) {
+        display: block !important;
+      }
+    }
+  }
+  .none {
+    display: none !important;
+  }
+}

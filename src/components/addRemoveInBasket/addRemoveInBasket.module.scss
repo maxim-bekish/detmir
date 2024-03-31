@@ -7,20 +7,14 @@
   overflow: hidden;
   flex-direction: row;
   max-width: 100%;
-
-  @media (max-width: 800px) {
-    height: 52px;
-    max-width: 100%;
-  }
-  @media (max-width: 480px) {
-    height: 36px;
- 
-  }
   box-sizing: border-box;
+  @media (max-width: $WidthMedia) {
+    height: 36px;
+  }
   input {
-    font-family: "Nunito";
+    font-family: $Font-Nunito;
     font-size: 1rem;
-    font-weight: 700;
+    font-weight: $Font-Weight-700;
     line-height: 20px;
     width: 100%;
     border: 0;
